@@ -1,0 +1,6 @@
+@GradeMasterAPI_HostAddress = http://localhost:5209
+
+GET {{GradeMasterAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
