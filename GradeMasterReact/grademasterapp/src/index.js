@@ -8,7 +8,7 @@ import Menu from './MenuComp/Menu';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <Menu></Menu>
+  <App></App>
 );
 
 // If you want to start measuring performance in your app, pass a function

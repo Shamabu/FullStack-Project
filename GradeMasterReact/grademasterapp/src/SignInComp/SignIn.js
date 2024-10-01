@@ -2,16 +2,18 @@
 import React, { useState } from 'react';
 import './SignIn.css';
 
-const SignIn = () => {
+const SignIn = ({onAddUser}) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [userType, setUserType] = useState('student');
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        onAddUser({email,password,userType});
         // Handle sign-in logic here
         console.log(`Email: ${email}, Password: ${password}, User Type: ${userType}`);
     };
+    
 
     return (
         <div className="sign-in-container">
