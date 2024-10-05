@@ -1,25 +1,28 @@
 import logo from './logo.svg';
 import React, { useState } from 'react';
-import SignIn from './SignInComp/SignIn';
-import { Container, Row } from 'react-bootstrap';
+import UserForm from './Forms/userForm';
+import UserList from './Forms/userList';
+import { Container, Row, Col } from 'react-bootstrap';
 
 const App = () => {
+    const [users, setUsers] = useState([]);
 
-    return(
+    const AddUser = (user) => {
+        console.log("callback to upper method:", user);
+        let usersUpdated = [...users, user];
+        setUsers(usersUpdated);
+    };
+
+    return (
         <Container>
-            <Row></Row>
+            <Row className="justify-content-md-center">
+                <Col>
+                    <UserForm onAddUser={AddUser} />
+                    <UserList users={users} />
+                </Col>
+            </Row>
         </Container>
     );
+};
 
-
-
-
-
-
-}
-const AddUser = (user) =>
-{
-
-
-
-}
+export default App;
