@@ -1,0 +1,20 @@
+﻿1)Add Nugets EF 
+   -Microsoft.EntityFrameworkCore
+   -Microsoft.EntityFrameworkCore.SqlServer
+   -Microsoft.EntityFrameworkCore.Tools
+   -Microsoft.EntityFrameworkCore.Design
+
+
+2)Add Models With all Db Properties + Navigtion Properties
+
+
+3)Create DbContext Class that inherit DbContext 
+   -Hold All DbSet<> Collection <---> DB Table
+   -Track Changes of the Objects
+   -ConnectionString
+
+4)Add DBContext 
+
+5)Generate 2 Commands
+   -Add-Migration InitialCreate
+   -Update-Database

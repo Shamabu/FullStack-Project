@@ -1,13 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import reportWebVitals from './reportWebVitals';
+import TeachersEditing from './Admin/TeachersEditing';
+import TeachersApi from './ApiCalls/TeachersApi';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <TeachersEditing></TeachersEditing>
   </React.StrictMode>
 );
 

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_TEACHERS_URL="https://localhost:7185/api/teachers"
+const API_TEACHERS_URL="https://localhost:7185/api/teacher"
 
 //API Methods
 class TeachersApi
@@ -22,7 +22,7 @@ class TeachersApi
         return axios.post(API_TEACHERS_URL,teacher);
     }
 
-    updateTeacher(teacher,id)
+    updateTeacher(id,teacher)
     {
         return axios.put(`${API_TEACHERS_URL}/${id}`,teacher)
 
