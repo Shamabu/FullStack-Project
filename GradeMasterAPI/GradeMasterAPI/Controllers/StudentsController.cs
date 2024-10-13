@@ -1,98 +1,110 @@
-﻿using GradeMasterAPI.DB;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using GradeMasterAPI.DB;
 using GradeMasterAPI.DB.DbModels;
-using Microsoft.AspNetCore.Mvc;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using GradeMasterAPI.APiModels;
 
 namespace GradeMasterAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class StudentsController : ControllerBase
+    public class StudentController : ControllerBase
     {
-        // GET: api/<StudentsController>
+        private readonly GradeMasterDbContext _context;
+
+        public StudentController(GradeMasterDbContext context)
+        {
+            _context = context;
+        }
+
+        // GET: api/Student
         [HttpGet]
-        public IActionResult Get()
+        public async Task<ActionResult<IEnumerable<Student>>> GetStudents()
         {
-            StudentsRepository studentsRepo = new StudentsRepository();
-            List<Student> students = studentsRepo.GetAllStudents();
-            return Ok(students);
+            return await _context.Students
+                                 .Include(s => s.Enrollments)
+                                 .Include(s => s.AssignmentSubmissions)
+                                 .Include(s => s.ExamSubmissions)
+                                 .Include(s => s.Attendances)
+                                 .Include(s => s.FinalGrades)
+                                 .ToListAsync();
         }
 
-        // GET api/Students/5
-
+        // GET: api/Student/5
         [HttpGet("{id}")]
-        public ActionResult<Student> GetDetails(int id)
+        public async Task<ActionResult<Student>> GetStudent(int id)
         {
-            StudentsRepository studentsRepo = new StudentsRepository();
-            Student student = studentsRepo.GetStudent(id);
-            if (student != null)
+            var student = await _context.Students
+                                         .Include(s => s.Enrollments)
+                                         .Include(s => s.AssignmentSubmissions)
+                                         .Include(s => s.ExamSubmissions)
+                                         .Include(s => s.Attendances)
+                                         .Include(s => s.FinalGrades)
+                                         .FirstOrDefaultAsync(s => s.Id == id);
+
+            if (student == null)
             {
-                return Ok(student);
+                return NotFound();
             }
-            else
-            {
-                return BadRequest("Student Not Found");
-            }
+
+            return student;
         }
 
-        // POST api/<StudentsController>
+        // POST: api/Student
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] Student studentInput)
+        public async Task<ActionResult<Student>> PostStudent(StudentsDTO studentDto)
         {
-            try
+            Student student = new Student()
             {
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest(ModelState);
-                }
+                Id = studentDto.Id,
+                FirstName = studentDto.FirstName,
+                LastName = studentDto.LastName,
+                DateBirth = studentDto.DateBirth,
+                Gender = studentDto.Gender,
+                PhoneNumber = studentDto.PhoneNumber,
+                Adress = studentDto.Adress,
+                Email = studentDto.Email,
+                EnrollmentDate = studentDto.EnrollmentDate
+                
+            };
+            _context.Students.Add(student);
+            await _context.SaveChangesAsync();
 
-                StudentsRepository studentRepo = new StudentsRepository();
-                string error = await studentRepo.InsertStudentAsync(studentInput);
-
-                if (string.IsNullOrEmpty(error))
-                {
-                    return Ok("Student inserted successfully.");
-                }
-                else
-                {
-                    return BadRequest(error);
-                }
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred: {ex.Message}");
-            }
+            return CreatedAtAction("GetStudent", new { id = student.Id }, student);
         }
 
-
-        // PUT api/<StudentsController>/5
+        // PUT: api/Student/5
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] Student studentInput)
+        public async Task<IActionResult> PutStudent(int id, Student student)
         {
-            StudentsRepository studentRepo = new StudentsRepository();
-            string error = studentRepo.UpdateStudent(id, studentInput);
-            if (error == string.Empty)
+            if (id != student.Id)
             {
-                return Ok("Updated");
+                return BadRequest();
             }
-            return Ok(error);
+
+            _context.Entry(student).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+
+            return NoContent();
         }
 
-        // DELETE api/<StudentsController>/5
+        // DELETE: api/Student/5
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> DeleteStudent(int id)
         {
-            StudentsRepository studentsRepo = new StudentsRepository();
-            string error = studentsRepo.DeleteStudent(id);
-            if (error != null)
+            var student = await _context.Students.FindAsync(id);
+            if (student == null)
             {
-                return Ok("Deleted!");
+                return NotFound();
             }
-            else
-            {
-                return BadRequest("Student Not Found");
-            }
+
+            _context.Students.Remove(student);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
         }
     }
 }

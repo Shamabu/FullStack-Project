@@ -13,7 +13,7 @@ namespace GradeMasterAPI.DB
         }
         public StudentsRepository()
         {
-            _connectionString = @" Data Source = (localdb)\MSSQLLocalDB;Initial Catalog = GradeMasterDb; Integrated Security = True; Connect Timeout = 30";
+            _connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=EFDb;Integrated Security=True;Connect Timeout=30;";
         }
         public List<Student> GetAllStudents()
         {

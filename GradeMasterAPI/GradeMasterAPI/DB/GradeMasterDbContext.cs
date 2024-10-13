@@ -18,7 +18,7 @@ namespace GradeMasterAPI.DB
         {
             base.OnModelCreating(modelBuilder);
         }
-        public DbSet<DbModels.Student> Students { get; set; }
+        public DbSet<GradeMasterAPI.DB.DbModels.Student> Students { get; set; }
         public DbSet<DbModels.Teacher> Teacher { get; set; }
         public DbSet<DbModels.Course> Course { get; set; }
         public DbSet<GradeMasterAPI.DB.DbModels.Exam> Exam { get; set; } = default!;
