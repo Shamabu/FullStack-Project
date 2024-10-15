@@ -16,31 +16,31 @@ function TeachersEditing() {
         phoneNumber: ''
     });
 
-    // Edit/create flag
+    // Edit / create
     const [editing, setEditing] = useState(false);
 
-    // Fetch teachers on component mount
+    // Fetch teachers when component mounts
     useEffect(() => {
         refreshTeachers();
     }, []);
 
-    const handleInputChange = (event) => {
-        const { name, value } = event.target;
-        setCurrentTeacher({ ...currentTeacher, [name]: value });
-    };
-
-    // Fetch all teachers
+    // Fetch all teachers from the API and update state
     const refreshTeachers = () => {
         TeachersApi.getTeachers().then(response => {
             setTeachers(response.data);
         });
     };
 
-    // Add new teacher
+    // Handle input change for form fields
+    const handleInputChange = event => {
+        const { name, value } = event.target;
+        setCurrentTeacher({ ...currentTeacher, [name]: value });
+    };
+
+    // Add a new teacher
     const addTeacher = () => {
-        TeachersApi.createTeacher(currentTeacher).then(response => {
+        TeachersApi.createTeacher(currentTeacher).then(() => {
             refreshTeachers();
-            // Reset current teacher
             setCurrentTeacher({
                 id: 0,
                 email: '',
@@ -52,11 +52,10 @@ function TeachersEditing() {
         });
     };
 
-    // Update teacher
+    // Update an existing teacher
     const updateTeacher = () => {
-        TeachersApi.updateTeacher(currentTeacher.id, currentTeacher).then(response => {
+        TeachersApi.updateTeacher(currentTeacher.id, currentTeacher).then(() => {
             refreshTeachers();
-            // Reset current teacher
             setCurrentTeacher({
                 id: 0,
                 email: '',
@@ -69,11 +68,17 @@ function TeachersEditing() {
         });
     };
 
-    // Delete teacher by ID
-    const deleteTeacher = (id) => {
+    // Delete a teacher by id
+    const deleteTeacher = id => {
         TeachersApi.deleteTeacher(id).then(() => {
             refreshTeachers();
         });
+    };
+
+    // Edit teacher by setting current teacher and switching to editing mode
+    const editTeacher = teacher => {
+        setCurrentTeacher(teacher);
+        setEditing(true);
     };
 
     return (
@@ -109,7 +114,7 @@ function TeachersEditing() {
                     <label>First Name</label>
                     <input
                         type="text"
-                        name="firstName"  
+                        name="firstName"
                         value={currentTeacher.firstName}
                         onChange={handleInputChange}
                         className="form-control"
@@ -119,7 +124,7 @@ function TeachersEditing() {
                     <label>Last Name</label>
                     <input
                         type="text"
-                        name="lastName"  
+                        name="lastName"
                         value={currentTeacher.lastName}
                         onChange={handleInputChange}
                         className="form-control"
@@ -135,7 +140,7 @@ function TeachersEditing() {
                         className="form-control"
                     />
                 </div>
-                <button type="submit" className="btn btn-primary m-3">
+                <button type="submit" className="btn btn-primary">
                     {editing ? 'Update' : 'Add'}
                 </button>
             </form>
@@ -150,7 +155,6 @@ function TeachersEditing() {
                     </tr>
                 </thead>
                 <tbody>
-                    {/* Map through teachers to create rows */}
                     {teachers.map(teacher => (
                         <tr key={teacher.id}>
                             <td>{teacher.email}</td>
@@ -159,18 +163,14 @@ function TeachersEditing() {
                             <td>{teacher.phoneNumber}</td>
                             <td>
                                 <button
-                                    onClick={() => {
-                                        setCurrentTeacher(teacher); // Set the selected teacher's data in currentTeacher state
-
-                                        setEditing(true);
-                                    }}
-                                    className="btn btn-warning m-1"
+                                    onClick={() => editTeacher(teacher)}
+                                    className="btn btn-warning"
                                 >
                                     Edit
                                 </button>
                                 <button
                                     onClick={() => deleteTeacher(teacher.id)}
-                                    className="btn btn-danger m-1"
+                                    className="btn btn-danger"
                                 >
                                     Delete
                                 </button>

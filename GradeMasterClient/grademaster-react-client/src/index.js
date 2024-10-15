@@ -4,12 +4,15 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import reportWebVitals from './reportWebVitals';
 import TeachersEditing from './Admin/TeachersEditing';
 import TeachersApi from './ApiCalls/TeachersApi';
+import Login from './Admin/Login';
+import CoursesEditing from './CoursesEditing'
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <TeachersEditing></TeachersEditing>
-  </React.StrictMode>
+     <Login></Login>
+    </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

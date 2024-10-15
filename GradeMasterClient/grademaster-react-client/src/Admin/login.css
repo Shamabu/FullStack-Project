@@ -1,0 +1,140 @@
+/* Reset and Basic Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Page Background */
+body {
+    background-color: #f2f2f2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Login Page Container */
+.login-page {
+    max-width: 400px;
+    width: 100%;
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: all 0.3s ease;
+    animation: slideIn 0.5s ease-out;
+}
+
+/* Animation for slide-in effect */
+@keyframes slideIn {
+    from {
+        transform: translateY(-100px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Title Styling */
+.login-page h2 {
+    font-size: 28px;
+    color: #4A90E2;
+    margin-bottom: 20px;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+}
+
+/* Error Message Styling */
+.error-message {
+    color: #D32F2F;
+    font-size: 14px;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #F8D7DA;
+    border-radius: 4px;
+    border: 1px solid #D32F2F;
+    text-align: left;
+}
+
+/* Form Styling */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Label Styling */
+label {
+    text-align: left;
+    font-size: 14px;
+    color: #333;
+    font-weight: bold;
+}
+
+/* Input Field Styling */
+input {
+    padding: 12px;
+    font-size: 16px;
+    color: #333;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    outline: none;
+    transition: border 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
+}
+
+/* Input Focus Effect */
+input:focus {
+    border: 1px solid #4A90E2;
+    box-shadow: 0 0 8px rgba(74, 144, 226, 0.3);
+}
+
+/* Button Styling */
+button {
+    padding: 12px;
+    background-color: #4A90E2;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    outline: none;
+}
+
+/* Button Hover Effect */
+button:hover {
+    background-color: #357ABD;
+    transform: scale(1.05);
+}
+
+/* Button Disabled State */
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* Responsive Design: Mobile Adjustments */
+@media screen and (max-width: 600px) {
+    .login-page {
+        padding: 30px;
+    }
+
+    .login-page h2 {
+        font-size: 24px;
+    }
+
+    input {
+        font-size: 14px;
+    }
+
+    button {
+        font-size: 14px;
+    }
+}
