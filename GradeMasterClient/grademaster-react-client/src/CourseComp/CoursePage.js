@@ -1,34 +1,26 @@
 import React, { useState, useEffect } from "react";
 import CoursesApi from '../ApiCalls/CourseApi';
 import TeachersApi from '../ApiCalls/TeachersApi';  // API for fetching teachers
-import Attendance from "../AttendanceComp/Attendance";  // Ensure path is correct
+import { useNavigate } from "react-router-dom";
 
 // Component for managing courses of the logged-in teacher
 function CoursePage({ teacher }) {
-    // State for all courses of the logged-in teacher
     const [courses, setCourses] = useState([]);
-
-    // State for all teachers to select from (for add/edit)
     const [teachers, setTeachers] = useState([]);
-
-    // State for the current course being added or edited
     const [currentCourse, setCurrentCourse] = useState({
         id: 0,
         courseName: '',
         courseDescription: '',
-        teacherId: teacher ? teacher.id : 0 // Use logged-in teacher's ID by default
+        teacherId: teacher ? teacher.id : 0
     });
-
-    // Edit / create mode
     const [editing, setEditing] = useState(false);
+    const navigate = useNavigate();
 
-    // Fetch courses and teachers when component mounts
     useEffect(() => {
         fetchCourses();
         fetchTeachers();
     }, [teacher]);
 
-    // Fetch all courses that belong to the logged-in teacher
     const fetchCourses = () => {
         CoursesApi.getCourses().then(response => {
             const teacherCourses = response.data.filter(course => course.teacherId === teacher.id);
@@ -36,68 +28,55 @@ function CoursePage({ teacher }) {
         });
     };
 
-    // Fetch all teachers (used for creating/editing courses)
     const fetchTeachers = () => {
         TeachersApi.getTeachers().then(response => {
             setTeachers(response.data);
         });
     };
 
-    // Handle input change for form fields
     const handleInputChange = event => {
         const { name, value } = event.target;
         setCurrentCourse({ ...currentCourse, [name]: value });
     };
 
-    // Add a new course
     const addCourse = () => {
         CoursesApi.createCourse(currentCourse).then(() => {
-            fetchCourses();  // Refresh the list of courses
-            resetForm();     // Reset the form
+            fetchCourses();
+            resetForm();
         });
     };
 
-    // Update an existing course
     const updateCourse = () => {
         CoursesApi.updateCourse(currentCourse.id, currentCourse).then(() => {
-            fetchCourses();  // Refresh the list of courses
-            resetForm();     // Reset the form
-            setEditing(false);  // Exit editing mode
+            fetchCourses();
+            resetForm();
+            setEditing(false);
         });
     };
 
-    // Delete a course by id
     const deleteCourse = id => {
         CoursesApi.deleteCourse(id).then(() => {
-            fetchCourses();  // Refresh the list of courses
+            fetchCourses();
         });
     };
 
-    // Edit course by setting current course and switching to editing mode
     const editCourse = course => {
         setCurrentCourse(course);
         setEditing(true);
     };
 
-    // Reset the form state after add/update
     const resetForm = () => {
         setCurrentCourse({
             id: 0,
             courseName: '',
             courseDescription: '',
-            teacherId: teacher ? teacher.id : 0  // Reset teacherId to logged-in teacher's ID
+            teacherId: teacher ? teacher.id : 0
         });
         setEditing(false);
     };
 
-    // Function to go to the Attendance page
-    const goToAttendancePage = () => {
-        if (!teacher) {
-            window.location.href = "/login"; // If no teacher, redirect to login page
-        } else {
-            // If teacher exists, navigate to the Attendance page
-            window.location.href = "./AttendanceComp/Attendance";  // Ensure path is correct
-        }
+    const goToDetailsPage = (courseName) => {
+        navigate("/detailscomp/details", { state: { courseName, teacherName: `${teacher.firstName} ${teacher.lastName}` } }); 
     };
 
     return (
@@ -139,7 +118,7 @@ function CoursePage({ teacher }) {
                         value={currentCourse.teacherId}
                         onChange={handleInputChange}
                         className="form-control"
-                        disabled // Teacher is fixed for logged-in teacher
+                        disabled
                     >
                         <option value="0">Select Teacher</option>
                         {teachers.map(teacher => (
@@ -194,11 +173,8 @@ function CoursePage({ teacher }) {
                                 >
                                     Delete
                                 </button>
-                                <button
-                                    onClick={goToAttendancePage}
-                                    className="btn btn-info ml-4"
-                                >
-                                    Class Attendance
+                                <button onClick={() => goToDetailsPage(course.courseName)} className="btn btn-info">
+                                    Class Info
                                 </button>
                             </td>
                         </tr>

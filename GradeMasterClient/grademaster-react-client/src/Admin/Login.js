@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import TeachersApi from '../ApiCalls/TeachersApi';
-import CoursePage from '../CourseComp/CoursePage';  // Import CoursePage
-
+import CoursePage from '../CourseComp/CoursePage';  
+import './login.css';
 function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
