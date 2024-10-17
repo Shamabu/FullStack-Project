@@ -1,226 +1,29 @@
-/* General body styling */
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f7f6;
-    color: #333;
-    margin: 0;
-    padding: 0;
+/* Ensure the details container takes the full height of the viewport */
+.details-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Full height of the viewport */
 }
 
-/* Navbar */
-.navbar {
-    background-color: #2c3e50;
-    border-bottom: 3px solid #34495e;
-    padding: 10px 20px;
-}
-
-.navbar a.navbar-brand {
-    color: #ecf0f1 !important;
-    font-size: 1.5rem;
-    font-weight: bold;
-    transition: color 0.3s ease-in-out;
-}
-
-.navbar a.navbar-brand:hover {
-    color: #3498db !important;
-}
-
-.navbar-nav .nav-item .nav-link {
-    color: #ecf0f1;
-    padding: 10px 15px;
-    font-size: 1rem;
-    transition: color 0.3s ease-in-out;
-}
-
-.navbar-nav .nav-item .nav-link:hover {
-    color: #3498db;
-    text-decoration: underline;
-}
-
-.navbar-collapse {
-    justify-content: flex-end; /* Align navbar items to the right */
-}
-
-@media (max-width: 768px) {
-    .navbar-nav {
-        text-align: center;
-    }
-
-    .navbar-collapse {
-        justify-content: center;
-    }
-}
-
-/* Course Page */
-.container {
-    padding: 30px;
-}
-
-h2 {
-    font-size: 2rem;
-    color: #2c3e50;
-    text-align: center;
-    margin-bottom: 20px;
-    font-weight: bold;
-    animation: fadeIn 1s ease-in-out;
-}
-
-h3 {
-    font-size: 1.5rem;
-    color: #16a085;
-    margin-bottom: 15px;
-}
-
-.alert-primary {
-    background-color: #218d55;
-    color: white;
-    border-radius: 8px;
+.container-fluid {
+    flex-grow: 1; /* Take up all available space */
     padding: 20px;
-    text-align: center;
-    font-size: 1.1rem;
 }
 
-.alert-primary p {
-    margin: 0;
-    font-size: 1.2rem;
-}
-
-/* Tab styling */
-.nav-tabs {
-    border-bottom: 3px solid #2c3e50;
-    margin-bottom: 15px;
-}
-
-.nav-tabs .nav-item .nav-link {
-    color: #2c3e50;
-    padding: 10px 20px;
-    border-radius: 50px;
-    font-weight: bold;
-    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
-}
-
-.nav-tabs .nav-item .nav-link.active {
-    background-color: #16a085;
-    color: #fff;
-}
-
-.nav-tabs .nav-item .nav-link:hover {
-    background-color: #34495e;
-    color: #fff;
-    cursor: pointer;
+.btn-primary.active {
+    background-color: #0056b3;  /* Darker blue for the active button */
+    border-color: #0056b3;
 }
 
 .tab-content {
-    border: 2px solid #16a085;
     padding: 20px;
-    border-radius: 8px;
-    background-color: #fff;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease-in-out;
-}
-
-.tab-pane {
-    animation: slideIn 0.5s ease-in-out;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
-@keyframes slideIn {
-    from {
-        transform: translateX(-100%);
-    }
-    to {
-        transform: translateX(0);
-    }
-}
-
-/* Button styling */
-.btn {
-    transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+    border: 1px solid #ddd;
     border-radius: 5px;
-    padding: 10px 20px;
-    font-size: 1rem;
-    font-weight: bold;
+    background-color: #f9f9f9;
+    margin-top: 20px;
+    flex-grow: 1; /* Ensure this content grows to fill remaining space */
 }
 
-.btn-primary {
-    background-color: #51585e;
-    border: none;
-    color: white;
-}
-
-.btn-primary:hover {
-    background-color: #2980b9;
-    transform: scale(1.1);
-}
-
-.btn-info {
-    background-color: #4bc2aa;
-    border: none;
-    color: white;
-}
-
-.btn-info:hover {
-    background-color: #1abc9c;
-    transform: scale(1.1);
-}
-
-.btn-danger {
-    background-color: #e74c3c;
-    border: none;
-    color: white;
-}
-
-.btn-danger:hover {
-    background-color: #c0392b;
-    transform: scale(1.1);
-}
-
-.btn-warning {
-    background-color: #f39c12;
-    border: none;
-    color: white;
-}
-
-.btn-warning:hover {
-    background-color: #e67e22;
-    transform: scale(1.1);
-}
-
-/* Custom Card and Layout */
-.card {
-    margin: 20px auto;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: box-shadow 0.3s ease-in-out;
-    max-width: 90%;
-}
-
-.card:hover {
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-}
-
-.card-body {
-    padding: 20px;
-    font-size: 1.2rem;
-    text-align: center;
-}
-
-.card-title {
-    font-size: 1.5rem;
-    color: #16a085;
-    font-weight: bold;
-}
-
-@media (max-width: 768px) {
-    .card {
-        width: 100%;
-    }
+.navbar {
+    margin-bottom: 20px; /* Space for the navbar */
 }

@@ -24,15 +24,7 @@ namespace GradeMasterAPI.Controllers
             _context = context;
             _csvLoader= loader;
         }
-        [HttpGet("sorted")]
-        public async Task<ActionResult<IEnumerable<Teacher>>> GetTeacherSorted(string sortby)
-        {
-            return await _context.Teacher.OrderBy(t => t.LastName).ToListAsync();
-            if(_csvLoader!=null)
-            {
-                _csvLoader.Test();
-            }
-        }
+
         // GET: api/Teacher
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Teacher>>> GetTeacher()

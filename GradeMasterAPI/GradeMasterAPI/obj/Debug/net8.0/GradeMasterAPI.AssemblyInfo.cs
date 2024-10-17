@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GradeMasterAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+51351304bf027299a43b11dc708566809714d0c2")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+44698b8cc31005803ab049295263179c38a624d2")]
 [assembly: System.Reflection.AssemblyProductAttribute("GradeMasterAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GradeMasterAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

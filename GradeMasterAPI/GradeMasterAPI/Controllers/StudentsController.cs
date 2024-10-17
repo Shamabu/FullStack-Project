@@ -24,57 +24,43 @@ namespace GradeMasterAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Student>>> GetStudents()
         {
-            return await _context.Students
-                                 .Include(s => s.Enrollments)
-                                 .Include(s => s.AssignmentSubmissions)
-                                 .Include(s => s.ExamSubmissions)
-                                 .Include(s => s.Attendances)
-                                 .Include(s => s.FinalGrades)
-                                 .ToListAsync();
+            return await _context.Students.ToListAsync();
         }
 
         // GET: api/Student/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Student>> GetStudent(int id)
         {
-            var student = await _context.Students
-                                         .Include(s => s.Enrollments)
-                                         .Include(s => s.AssignmentSubmissions)
-                                         .Include(s => s.ExamSubmissions)
-                                         .Include(s => s.Attendances)
-                                         .Include(s => s.FinalGrades)
-                                         .FirstOrDefaultAsync(s => s.Id == id);
+            var Student = await _context.Students.FindAsync(id);//SELECT WHERE
 
-            if (student == null)
+            if (Student == null)
             {
                 return NotFound();
             }
 
-            return student;
+            return Student;
         }
 
-        // POST: api/Student
+            // POST: api/Student
         [HttpPost]
-        public async Task<ActionResult<Student>> PostStudent(StudentsDTO studentDto)
-        {
-            Student student = new Student()
+            public async Task<ActionResult<Student>> PostTeacher(StudentsDTO studentDto)
             {
-                Id = studentDto.Id,
-                FirstName = studentDto.FirstName,
-                LastName = studentDto.LastName,
-                DateBirth = studentDto.DateBirth,
-                Gender = studentDto.Gender,
-                PhoneNumber = studentDto.PhoneNumber,
-                Adress = studentDto.Adress,
-                Email = studentDto.Email,
-                EnrollmentDate = studentDto.EnrollmentDate
-                
-            };
-            _context.Students.Add(student);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetStudent", new { id = student.Id }, student);
-        }
+                Student student = new Student()
+                {
+                    Id = studentDto.Id,
+                    FirstName = studentDto.FirstName,
+                    LastName = studentDto.LastName,
+                    DateBirth = studentDto.DateBirth,
+                    Gender = studentDto.Gender,
+                    PhoneNumber = studentDto.PhoneNumber,
+                    Adress = studentDto.Adress,
+                    Email = studentDto.Email,
+                    EnrollmentDate = studentDto.EnrollmentDate
+                };
+                _context.Students.Add(student);
+                await _context.SaveChangesAsync();
+                return CreatedAtAction("GetStudent", new { id = student.Id }, student);
+            }
 
         // PUT: api/Student/5
         [HttpPut("{id}")]
