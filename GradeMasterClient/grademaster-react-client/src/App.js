@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import Login from './Admin/Login';  // Import the Login component
 import CoursePage from './CourseComp/CoursePage';  // Import CoursePage component
 import Details from './DetailsComp/Details';
+import Participant from './DetailsComp/Participants';
 
 function App() {
   return (

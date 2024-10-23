@@ -75,9 +75,11 @@ function CoursePage({ teacher }) {
         setEditing(false);
     };
 
-    const goToDetailsPage = (courseName) => {
-        navigate("/detailscomp/details", { state: { courseName, teacherName: `${teacher.firstName} ${teacher.lastName}` } }); 
+    const goToDetailsPage = (courseName, courseId) => {
+        navigate("/detailscomp/details", { state: { courseName, courseId, teacherName: `${teacher.firstName} ${teacher.lastName}` } });
     };
+    
+
 
     return (
         <div className="container">
@@ -173,9 +175,10 @@ function CoursePage({ teacher }) {
                                 >
                                     Delete
                                 </button>
-                                <button onClick={() => goToDetailsPage(course.courseName)} className="btn btn-info">
+                                <button onClick={() => goToDetailsPage(course.courseName, course.id)} className="btn btn-info">
                                     Class Info
                                 </button>
+
                             </td>
                         </tr>
                     ))}

@@ -1,7 +1,20 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\DELL\\source\\repos\\GradeMaster\\GradeMasterAPI\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{C463E32C-3BA1-40ED-ABBC-39CC1DCCE0A2}|GradeMasterAPI\\GradeMasterAPI.csproj|c:\\users\\dell\\source\\repos\\grademaster\\grademasterapi\\grademasterapi\\apimodels\\studentsdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C463E32C-3BA1-40ED-ABBC-39CC1DCCE0A2}|GradeMasterAPI\\GradeMasterAPI.csproj|solutionrelative:grademasterapi\\apimodels\\studentsdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C463E32C-3BA1-40ED-ABBC-39CC1DCCE0A2}|GradeMasterAPI\\GradeMasterAPI.csproj|c:\\users\\dell\\source\\repos\\grademaster\\grademasterapi\\grademasterapi\\db\\dbmodels\\student.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C463E32C-3BA1-40ED-ABBC-39CC1DCCE0A2}|GradeMasterAPI\\GradeMasterAPI.csproj|solutionrelative:grademasterapi\\db\\dbmodels\\student.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C463E32C-3BA1-40ED-ABBC-39CC1DCCE0A2}|GradeMasterAPI\\GradeMasterAPI.csproj|c:\\users\\dell\\source\\repos\\grademaster\\grademasterapi\\grademasterapi\\controllers\\studentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C463E32C-3BA1-40ED-ABBC-39CC1DCCE0A2}|GradeMasterAPI\\GradeMasterAPI.csproj|solutionrelative:grademasterapi\\controllers\\studentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,7 +22,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -18,6 +31,45 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{fbcae063-e2c0-4ab1-a516-996ea3dafb72}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "StudentsDTO.cs",
+              "DocumentMoniker": "C:\\Users\\DELL\\source\\repos\\GradeMaster\\GradeMasterAPI\\GradeMasterAPI\\APiModels\\StudentsDTO.cs",
+              "RelativeDocumentMoniker": "GradeMasterAPI\\APiModels\\StudentsDTO.cs",
+              "ToolTip": "C:\\Users\\DELL\\source\\repos\\GradeMaster\\GradeMasterAPI\\GradeMasterAPI\\APiModels\\StudentsDTO.cs",
+              "RelativeToolTip": "GradeMasterAPI\\APiModels\\StudentsDTO.cs",
+              "ViewState": "AQIAAAkAAAAAAAAAAAA8wA8AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-23T17:41:03.724Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "StudentsController.cs",
+              "DocumentMoniker": "C:\\Users\\DELL\\source\\repos\\GradeMaster\\GradeMasterAPI\\GradeMasterAPI\\Controllers\\StudentsController.cs",
+              "RelativeDocumentMoniker": "GradeMasterAPI\\Controllers\\StudentsController.cs",
+              "ToolTip": "C:\\Users\\DELL\\source\\repos\\GradeMaster\\GradeMasterAPI\\GradeMasterAPI\\Controllers\\StudentsController.cs",
+              "RelativeToolTip": "GradeMasterAPI\\Controllers\\StudentsController.cs",
+              "ViewState": "AQIAAE0AAAAAAAAAAAAAAGAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-23T17:40:48.072Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Student.cs",
+              "DocumentMoniker": "C:\\Users\\DELL\\source\\repos\\GradeMaster\\GradeMasterAPI\\GradeMasterAPI\\DB\\DbModels\\Student.cs",
+              "RelativeDocumentMoniker": "GradeMasterAPI\\DB\\DbModels\\Student.cs",
+              "ToolTip": "C:\\Users\\DELL\\source\\repos\\GradeMaster\\GradeMasterAPI\\GradeMasterAPI\\DB\\DbModels\\Student.cs",
+              "RelativeToolTip": "GradeMasterAPI\\DB\\DbModels\\Student.cs",
+              "ViewState": "AQIAAAEAAAAAAAAAAAAAABQAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-23T17:40:28.25Z",
+              "EditorCaption": ""
             }
           ]
         }

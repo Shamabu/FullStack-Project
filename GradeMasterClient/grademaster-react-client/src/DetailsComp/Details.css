@@ -1,29 +1,23 @@
-/* Ensure the details container takes the full height of the viewport */
-.details-container {
+/* Details.css */
+
+.full-page {
+    height: 100vh; /* Full viewport height */
+    width: 100vw;  /* Full viewport width */
+    padding: 0;
+    margin: 0;
     display: flex;
     flex-direction: column;
-    min-height: 100vh; /* Full height of the viewport */
 }
 
-.container-fluid {
-    flex-grow: 1; /* Take up all available space */
-    padding: 20px;
+.content-area {
+    flex: 1; /* Take up remaining space */
+    padding: 20px; /* Optional padding */
 }
 
-.btn-primary.active {
-    background-color: #0056b3;  /* Darker blue for the active button */
-    border-color: #0056b3;
+.nav-tabs {
+    margin-top: 20px;
 }
 
 .tab-content {
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #f9f9f9;
     margin-top: 20px;
-    flex-grow: 1; /* Ensure this content grows to fill remaining space */
-}
-
-.navbar {
-    margin-bottom: 20px; /* Space for the navbar */
 }

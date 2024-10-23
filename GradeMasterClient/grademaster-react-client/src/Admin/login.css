@@ -1,140 +1,73 @@
-/* Reset and Basic Styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Arial', sans-serif;
+/* Container styling */
+.container {
+    max-width: 400px;  /* Limit the width of the login form */
+    margin: 50px auto;  /* Center the form vertically and horizontally */
+    padding: 20px;  /* Add padding for better spacing */
+    border-radius: 10px;  /* Rounded corners */
+    background-color: #f9f9f9;  /* Light background color */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);  /* Subtle shadow effect */
 }
 
-/* Page Background */
-body {
-    background-color: #f2f2f2;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+/* Title styling */
+h2 {
+    text-align: center;  /* Center the title */
+    color: #4a4a4a;  /* Darker text for better contrast */
+    font-family: 'Arial', sans-serif;  /* Use a clean font */
 }
 
-/* Login Page Container */
-.login-page {
-    max-width: 400px;
-    width: 100%;
-    background-color: #fff;
-    padding: 40px;
-    border-radius: 12px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    transition: all 0.3s ease;
-    animation: slideIn 0.5s ease-out;
+/* Form group styling */
+.form-group {
+    margin-bottom: 15px;  /* Spacing between form elements */
 }
 
-/* Animation for slide-in effect */
-@keyframes slideIn {
-    from {
-        transform: translateY(-100px);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
+/* Input styling */
+input[type="email"],
+input[type="password"] {
+    width: 100%;  /* Full width */
+    padding: 10px;  /* Padding for better touch targets */
+    border: 2px solid #007bff;  /* Blue border */
+    border-radius: 5px;  /* Rounded corners */
+    transition: border-color 0.3s;  /* Smooth transition for border color */
 }
 
-/* Title Styling */
-.login-page h2 {
-    font-size: 28px;
-    color: #4A90E2;
-    margin-bottom: 20px;
-    font-weight: bold;
-    letter-spacing: 1.5px;
+/* Input focus effect */
+input[type="email"]:focus,
+input[type="password"]:focus {
+    border-color: #0056b3;  /* Darker blue on focus */
+    outline: none;  /* Remove default outline */
 }
 
-/* Error Message Styling */
-.error-message {
-    color: #D32F2F;
-    font-size: 14px;
-    margin-bottom: 20px;
-    padding: 10px;
-    background-color: #F8D7DA;
-    border-radius: 4px;
-    border: 1px solid #D32F2F;
-    text-align: left;
+/* Button styling */
+.btn {
+    width: 100%;  /* Full width */
+    padding: 10px;  /* Padding for better touch targets */
+    background-color: #007bff;  /* Blue background */
+    color: white;  /* White text */
+    border: none;  /* No border */
+    border-radius: 5px;  /* Rounded corners */
+    font-size: 16px;  /* Larger font size */
+    cursor: pointer;  /* Pointer cursor on hover */
+    transition: background-color 0.3s, transform 0.2s;  /* Smooth transitions */
 }
 
-/* Form Styling */
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+/* Button hover effect */
+.btn:hover {
+    background-color: #0056b3;  /* Darker blue on hover */
+    transform: scale(1.05);  /* Slightly enlarge on hover */
 }
 
-/* Label Styling */
-label {
-    text-align: left;
-    font-size: 14px;
-    color: #333;
-    font-weight: bold;
+/* Alert styling */
+.alert {
+    margin-top: 10px;  /* Margin above alert */
+    padding: 10px;  /* Padding for alert content */
+    border-radius: 5px;  /* Rounded corners for alert */
+    background-color: #f8d7da;  /* Light red background */
+    color: #721c24;  /* Dark red text */
 }
 
-/* Input Field Styling */
-input {
-    padding: 12px;
-    font-size: 16px;
-    color: #333;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    outline: none;
-    transition: border 0.3s ease, box-shadow 0.3s ease;
-    width: 100%;
-}
-
-/* Input Focus Effect */
-input:focus {
-    border: 1px solid #4A90E2;
-    box-shadow: 0 0 8px rgba(74, 144, 226, 0.3);
-}
-
-/* Button Styling */
-button {
-    padding: 12px;
-    background-color: #4A90E2;
-    color: #fff;
-    font-size: 16px;
-    font-weight: bold;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    outline: none;
-}
-
-/* Button Hover Effect */
-button:hover {
-    background-color: #357ABD;
-    transform: scale(1.05);
-}
-
-/* Button Disabled State */
-button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-}
-
-/* Responsive Design: Mobile Adjustments */
-@media screen and (max-width: 600px) {
-    .login-page {
-        padding: 30px;
-    }
-
-    .login-page h2 {
-        font-size: 24px;
-    }
-
-    input {
-        font-size: 14px;
-    }
-
-    button {
-        font-size: 14px;
+/* Responsive styling */
+@media (max-width: 500px) {
+    .container {
+        width: 90%;  /* Full width on small screens */
     }
 }

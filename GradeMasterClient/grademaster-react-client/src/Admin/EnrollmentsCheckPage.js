@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import EnrollmentsApi from "../ApiCalls/EnrollmentApi";
+import StudentsApi from "../ApiCalls/StudentsApi"; // Add this line
+import './EnrollmentCheckPage.css'
 
 const EnrollmentsCheckPage = () => {
   const [enrollments, setEnrollments] = useState([]);
+  const [students, setStudents] = useState([]); // State for students
   const [newEnrollment, setNewEnrollment] = useState({
     studentId: "",
     courseId: "",
@@ -17,15 +20,21 @@ const EnrollmentsCheckPage = () => {
     enrollmentDate: "",
   });
 
-  // Fetch all enrollments on component mount
+  // Fetch all enrollments and students on component mount
   useEffect(() => {
-    EnrollmentsApi.getEnrollments()
-      .then((response) => {
-        setEnrollments(response.data);
-      })
-      .catch((error) => {
-        console.error("There was an error fetching enrollments!", error);
-      });
+    const fetchData = async () => {
+      try {
+        const enrollmentResponse = await EnrollmentsApi.getEnrollments();
+        setEnrollments(enrollmentResponse.data);
+        
+        const studentResponse = await StudentsApi.getStudents(); // Fetch students
+        setStudents(studentResponse.data);
+      } catch (error) {
+        console.error("There was an error fetching data!", error);
+      }
+    };
+
+    fetchData();
   }, []);
 
   // Create a new enrollment
@@ -33,17 +42,16 @@ const EnrollmentsCheckPage = () => {
     EnrollmentsApi.createEnrollment(newEnrollment)
       .then(() => {
         // Fetch updated enrollments
-        EnrollmentsApi.getEnrollments()
-          .then((response) => {
-            setEnrollments(response.data);
-            setNewEnrollment({
-              studentId: "",
-              courseId: "",
-              finalGrade: "",
-              enrollmentDate: "",
-            });
-          })
-          .catch((error) => console.error("Error fetching enrollments", error));
+        return EnrollmentsApi.getEnrollments();
+      })
+      .then((response) => {
+        setEnrollments(response.data);
+        setNewEnrollment({
+          studentId: "",
+          courseId: "",
+          finalGrade: "",
+          enrollmentDate: "",
+        });
       })
       .catch((error) => console.error("Error creating enrollment", error));
   };
@@ -59,19 +67,17 @@ const EnrollmentsCheckPage = () => {
   const updateEnrollment = () => {
     EnrollmentsApi.updateEnrollment(editEnrollmentId, editEnrollment)
       .then(() => {
-        // Fetch updated enrollments
-        EnrollmentsApi.getEnrollments()
-          .then((response) => {
-            setEnrollments(response.data);
-            setEditEnrollmentId(null);
-            setEditEnrollment({
-              studentId: "",
-              courseId: "",
-              finalGrade: "",
-              enrollmentDate: "",
-            });
-          })
-          .catch((error) => console.error("Error fetching enrollments", error));
+        return EnrollmentsApi.getEnrollments(); // Fetch updated enrollments
+      })
+      .then((response) => {
+        setEnrollments(response.data);
+        setEditEnrollmentId(null);
+        setEditEnrollment({
+          studentId: "",
+          courseId: "",
+          finalGrade: "",
+          enrollmentDate: "",
+        });
       })
       .catch((error) => console.error("Error updating enrollment", error));
   };
@@ -80,28 +86,31 @@ const EnrollmentsCheckPage = () => {
   const deleteEnrollment = (id) => {
     EnrollmentsApi.deleteEnrollment(id)
       .then(() => {
-        // Fetch updated enrollments
-        EnrollmentsApi.getEnrollments()
-          .then((response) => {
-            setEnrollments(response.data);
-          })
-          .catch((error) => console.error("Error fetching enrollments", error));
+        return EnrollmentsApi.getEnrollments(); // Fetch updated enrollments
+      })
+      .then((response) => {
+        setEnrollments(response.data);
       })
       .catch((error) => console.error("Error deleting enrollment", error));
   };
 
   return (
-    <div>
+    <div className="enrollment-check-page">
       <h1>Enrollments</h1>
 
-      <div>
+      <div className="enrollment-form">
         <h2>Create New Enrollment</h2>
-        <input
-          type="number"
-          placeholder="Student ID"
+        <select
           value={newEnrollment.studentId}
           onChange={(e) => setNewEnrollment({ ...newEnrollment, studentId: e.target.value })}
-        />
+        >
+          <option value="">Select Student</option>
+          {students.map((student) => (
+            <option key={student.id} value={student.id}>
+              {student.firstName} {student.lastName}
+            </option>
+          ))}
+        </select>
         <input
           type="number"
           placeholder="Course ID"
@@ -122,16 +131,21 @@ const EnrollmentsCheckPage = () => {
         <button onClick={createEnrollment}>Create Enrollment</button>
       </div>
 
-      <div>
+      <div className="enrollment-form">
         <h2>Edit Enrollment</h2>
         {editEnrollmentId && (
           <>
-            <input
-              type="number"
-              placeholder="Student ID"
+            <select
               value={editEnrollment.studentId}
               onChange={(e) => setEditEnrollment({ ...editEnrollment, studentId: e.target.value })}
-            />
+            >
+              <option value="">Select Student</option>
+              {students.map((student) => (
+                <option key={student.id} value={student.id}>
+                  {student.firstName} {student.lastName}
+                </option>
+              ))}
+            </select>
             <input
               type="number"
               placeholder="Course ID"
