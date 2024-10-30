@@ -3,11 +3,12 @@ import { useLocation } from 'react-router-dom';
 import Navbar from './Navbar';
 import './Details.css';
 import Participant from './Participants';
+import StudentAttendance from '../AttendanceComp/StudentAttendance';
 
 function Details() {
     const location = useLocation();
-    const { courseName, teacherName } = location.state || { courseName: 'No course selected', teacherName: 'No instructor selected' };
-    
+    const { courseName, teacherName, courseId } = location.state || { courseName: 'No course selected', teacherName: 'No instructor selected', courseId: null };
+
     const [activeTab, setActiveTab] = useState('course'); // Default tab is Course
 
     // Tab data
@@ -15,7 +16,7 @@ function Details() {
         { id: 'course', label: 'Course', content: <CourseDetails /> },
         { id: 'participants', label: 'Participants', content: <Participants /> },
         { id: 'grades', label: 'Grades', content: <Grades /> },
-        { id: 'Attendance', label: 'Attendance', content: <Attendance /> }
+        { id: 'attendance', label: 'Attendance', content: <Attendance courseId={courseId} /> } // Pass courseId here
     ];
 
     return (
@@ -82,7 +83,7 @@ const CourseDetails = () => (
 
 const Participants = () => (
     <div>
-        <Participant></Participant>
+        <Participant />
     </div>
 );
 
@@ -93,10 +94,9 @@ const Grades = () => (
     </div>
 );
 
-const Attendance = () => (
+const Attendance = ({ courseId }) => ( // Accept courseId as a prop
     <div>
-        Attendance
-        
+        <StudentAttendance courseId={courseId} />
     </div>
 );
 

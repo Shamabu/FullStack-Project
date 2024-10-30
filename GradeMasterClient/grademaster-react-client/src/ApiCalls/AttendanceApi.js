@@ -27,6 +27,12 @@ class AttendanceApi {
     deleteAttendance(id) {
         return axios.delete(`${API_ATTENDANCE_URL}/${id}`);
     }
+
+    getAttendancesByCourse(courseId) {
+        return axios.get(`${API_ATTENDANCE_URL}/course/${courseId}`); // Adjust the URL based on your API design
+    }
+    
+  
 }
 
 export default new AttendanceApi();

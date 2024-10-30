@@ -14,7 +14,7 @@
         public ICollection<Enrollment> Enrollments { get; set; } 
         public ICollection<AssignmentSubmission> AssignmentSubmissions { get; set; }
         public ICollection<ExamSubmission> ExamSubmissions { get; set; }
-        public ICollection<Attendance> Attendances { get; set; }
+        public ICollection<Attendance> Attendances { get; set; } = new List<Attendance>();
         public ICollection<Grade> FinalGrades {  get; set; }
     }
 }

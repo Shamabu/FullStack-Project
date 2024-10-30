@@ -77,6 +77,23 @@ namespace GradeMasterAPI.Controllers
             return NoContent();
         }
 
+        [HttpGet("course/{courseId}")]
+        public async Task<ActionResult<IEnumerable<Student>>> GetStudentsByCourseId(int courseId)
+        {
+            // Assuming there is an Enrollment or a relationship that links Students to Courses
+            var students = await _context.Enrollment
+                                         .Where(e => e.CourseId == courseId)
+                                         .Select(e => e.Student)  // Assuming Enrollment has a navigation property 'Student'
+                                         .ToListAsync();
+
+            if (students == null || students.Count == 0)
+            {
+                return NotFound($"No students found for course with ID {courseId}.");
+            }
+
+            return Ok(students);
+        }
+
         // DELETE: api/Student/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteStudent(int id)

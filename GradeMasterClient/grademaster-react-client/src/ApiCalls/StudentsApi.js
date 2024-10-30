@@ -13,6 +13,10 @@ class StudentsApi {
     return axios.get(`${API_STUDENTS_URL}/${id}`);
   }
 
+  getStudentsByCourseId(courseId){
+    return axios.get(`${API_STUDENTS_URL}/${courseId}`);
+  }
+
   // Create a new student
   createStudent(student) {
     return axios.post(API_STUDENTS_URL, student);
@@ -27,6 +31,10 @@ class StudentsApi {
   deleteStudent(id) {
     return axios.delete(`${API_STUDENTS_URL}/${id}`);
   }
+  getStudentsByCourse(courseId) {
+    return axios.get(`https://localhost:7185/api/students/course/${courseId}`);
+
+}
 }
 
 export default new StudentsApi();

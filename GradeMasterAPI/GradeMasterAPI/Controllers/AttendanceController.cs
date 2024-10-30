@@ -112,6 +112,22 @@ namespace GradeMasterAPI.Controllers
 
             return NoContent();
         }
+        // GET: api/Attendance/student/{studentId}
+        [HttpGet("student/{studentId}")]
+        public async Task<ActionResult<IEnumerable<Attendance>>> GetAttendanceByStudentId(int studentId)
+        {
+            var attendanceRecords = await _context.Attendance
+                .Where(a => a.StudentId == studentId)
+                .Include(a => a.Course) // Include Course details if you need them
+                .ToListAsync();
+
+            if (attendanceRecords == null || !attendanceRecords.Any())
+            {
+                return NotFound();
+            }
+
+            return attendanceRecords;
+        }
 
         private bool AttendanceExists(int id)
         {
