@@ -1,0 +1,129 @@
+/* Ensures the full page width is utilized */
+.page-container {
+    display: flex;
+    flex-direction: row; /* Sidebar and main content side-by-side */
+    min-height: 100vh; /* Full viewport height */
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Sidebar styling */
+.sidebar {
+    width: 250px;
+    background-color: #f8f9fa;
+    padding: 20px;
+    box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar h2 {
+    color: #333;
+}
+
+.sidebar nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar nav ul li {
+    margin-bottom: 10px;
+}
+
+.sidebar nav ul li a,
+.sidebar nav ul li button {
+    text-decoration: none;
+    color: #007bff;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 16px;
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+/* Main content area styling */
+.main-content {
+    flex: 1; /* Fills the remaining space */
+    padding: 20px;
+    background-color: #ffffff;
+    box-sizing: border-box;
+}
+
+h2, h3 {
+    color: #4a90e2;
+    margin-bottom: 20px;
+}
+
+/* Form and button styling */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-top: 5px;
+}
+
+.btn {
+    padding: 10px 20px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.btn-primary {
+    background-color: #4a90e2;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.btn-primary:hover {
+    background-color: #357abf;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+
+.course-list {
+    margin-top: 20px;
+}
+
+/* Course card styling */
+.course-card {
+    margin-bottom: 20px;
+}
+
+.card {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+.card-text {
+    color: #666;
+    margin-top: 5px;
+    font-size: 15px;
+}

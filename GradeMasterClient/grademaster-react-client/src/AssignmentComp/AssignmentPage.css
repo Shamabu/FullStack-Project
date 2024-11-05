@@ -1,0 +1,94 @@
+/* Center the entire assignments page component */
+.assignments-page {
+    width: 100%;
+    max-width: 800px; /* Adjusts to smaller screens while maintaining readability */
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+h2, h3 {
+    color: #4a90e2;
+    margin-bottom: 15px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.course-selection, .add-assignment-section, .assignments-section {
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 20px;
+}
+
+/* Styling for dropdown selection */
+.course-selection select {
+    padding: 8px;
+    font-size: 16px;
+    width: 100%; /* Full width for better visual balance */
+    margin-top: 5px;
+}
+
+/* Center the assignment list and cards */
+.assignments-section {
+    margin-top: 30px;
+    width: 100%;
+    max-width: 600px;
+}
+
+.assignments-list {
+    list-style: none;
+    padding: 0;
+}
+
+.assignment-card {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+/* Make the form width responsive and centered */
+.assignment-form {
+    width: 100%;
+    max-width: 600px;
+}
+
+.assignment-form .form-group {
+    margin-bottom: 15px;
+}
+
+.assignment-form input,
+.assignment-form textarea,
+.assignment-form select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-top: 5px;
+}
+
+/* Button styling */
+.submit-button {
+    padding: 10px 15px;
+    background-color: #4a90e2;
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+    max-width: 200px;
+    margin-top: 15px;
+    align-self: center;
+}
+
+.submit-button:hover {
+    background-color: #357abf;
+}

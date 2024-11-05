@@ -10,6 +10,7 @@ import EnrollmentsCheckPage from './Admin/EnrollmentsCheckPage';
 import StudentPage from './Admin/StudentPage';
 import StudentAttendance from './AttendanceComp/StudentAttendance';
 import Attendance from './AttendanceComp/Attendance';
+import AssignmentCheckPage from './AssignmentCheckPage';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

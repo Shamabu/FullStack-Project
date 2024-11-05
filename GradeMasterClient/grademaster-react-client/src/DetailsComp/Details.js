@@ -7,11 +7,14 @@ import StudentAttendance from '../AttendanceComp/StudentAttendance';
 
 function Details() {
     const location = useLocation();
-    const { courseName, teacherName, courseId } = location.state || { courseName: 'No course selected', teacherName: 'No instructor selected', courseId: null };
-
+    const { courseName, teacherName, courseId } = location.state || { 
+        courseName: 'No course selected', 
+        teacherName: 'No instructor selected', 
+        courseId: null 
+    };
     const [activeTab, setActiveTab] = useState('course'); // Default tab is Course
 
-    // Tab data
+    // List of tabs with content components
     const tabList = [
         { id: 'course', label: 'Course', content: <CourseDetails /> },
         { id: 'participants', label: 'Participants', content: <Participants /> },
@@ -27,7 +30,6 @@ function Details() {
 
                 {/* General Information Section */}
                 <div>
-                    <h3>General Information</h3>
                     <div className="alert alert-primary">
                         <p>
                             <strong>Course name:</strong> {courseName}<br />
@@ -94,9 +96,10 @@ const Grades = () => (
     </div>
 );
 
-const Attendance = ({ courseId }) => ( // Accept courseId as a prop
+const Attendance = ({ courseId, courseName }) => (
     <div>
-        <StudentAttendance courseId={courseId} />
+        {/* Passing courseId and courseName as props to StudentAttendance */}
+        <StudentAttendance courseId={courseId} courseName={courseName} />
     </div>
 );
 

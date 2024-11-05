@@ -1,0 +1,30 @@
+.student-attendance-record {
+    padding: 20px;
+    background-color: #f9f9f9; /* Light background for contrast */
+    border-radius: 5px; /* Slightly rounded corners */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    max-width: 800px; /* Set a max width for the component */
+    margin: auto; /* Center the component on the page */
+}
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 20px; /* Spacing below the title */
+}
+
+ul {
+    list-style-type: none; /* Remove default bullet points */
+    padding: 0; /* Remove padding */
+}
+
+.attendance-record-item {
+    background-color: #fff; /* White background for items */
+    padding: 10px; /* Padding around each item */
+    margin-bottom: 10px; /* Space between items */
+    border: 1px solid #ddd; /* Light border for each record */
+    border-radius: 4px; /* Slightly rounded corners */
+}
+
+.attendance-record-item div {
+    margin-bottom: 5px; /* Space between record fields */
+}

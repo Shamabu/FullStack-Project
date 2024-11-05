@@ -1,202 +1,72 @@
-import React, { useState, useEffect } from 'react';
-import AttendanceApi from '../ApiCalls/AttendanceApi';  // Adjust the path accordingly
+// AttendancePage.js
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
-function AttendanceCoursePage({ courseId }) {
-    const [attendances, setAttendances] = useState([]); // State to hold attendance data
-    const [students, setStudents] = useState([]); // State to hold students data
-    const [newAttendance, setNewAttendance] = useState({
-        roomNumber: '',
-        start: '',
-        duration: '',
-        status: '',
-        notes: '',
-        studentId: '',
-        courseId: ''
-    });
+const AttendanceCoursePage = () => {
+  const { courseId } = useParams();  // Retrieve courseId from route parameters
+  const [students, setStudents] = useState([]);
+  const [selectedStudentId, setSelectedStudentId] = useState('');
+  const [attendanceRecords, setAttendanceRecords] = useState([]);
 
-    // Fetch attendance records and students when the component mounts
-    useEffect(() => {
-        // Fetch attendance records
-        AttendanceApi.getAttendancesByCourse(courseId) // Implement this API call in your AttendanceApi
-            .then((response) => {
-                setAttendances(response.data);
-            })
-            .catch((error) => {
-                console.error('There was an error fetching the attendances!', error);
-            });
-
-        // Fetch students enrolled in the course
-        AttendanceApi.getStudentsByCourse(courseId) // Implement this API call in your AttendanceApi
-            .then((response) => {
-                setStudents(response.data); // Ensure response.data is an array
-            })
-            .catch((error) => {
-                console.error('There was an error fetching the students!', error);
-            });
-    }, [courseId]);
-
-    // Function to handle form input changes
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setNewAttendance((prevState) => ({
-            ...prevState,
-            [name]: value
-        }));
+  useEffect(() => {
+    const fetchEnrolledStudents = async () => {
+      try {
+        const response = await axios.get(`https://localhost:7185/api/students/course/${courseId}`);
+        setStudents(response.data);
+      } catch (error) {
+        console.error('Error fetching students:', error);
+      }
     };
 
-    // Function to handle form submission
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        AttendanceApi.createAttendance(newAttendance)
-            .then(() => {
-                alert('Attendance added successfully!');
-                setNewAttendance({
-                    roomNumber: '',
-                    start: '',
-                    duration: '',
-                    status: '',
-                    notes: '',
-                    studentId: '',
-                    courseId: ''
-                });
-                // Refresh the attendance list
-                return AttendanceApi.getAttendancesByCourse(courseId);
-            })
-            .then((response) => {
-                setAttendances(response.data); // Update the attendance list
-            })
-            .catch((error) => {
-                console.error('There was an error adding the attendance!', error);
-            });
-    };
+    if (courseId) {
+      fetchEnrolledStudents();
+    }
+  }, [courseId]);
 
-    return (
-        <div className="container">
-            <h2>Attendance Records</h2>
+  const handleStudentChange = async (event) => {
+    const studentId = event.target.value;
+    setSelectedStudentId(studentId);
 
-            {/* Attendance Form */}
-            <div className="mb-4">
-                <h4>Add New Attendance</h4>
-                <form onSubmit={handleSubmit}>
-                    {/* Form inputs for attendance data */}
-                    <div className="form-group">
-                        <input
-                            type="text"
-                            className="form-control"
-                            name="roomNumber"
-                            placeholder="Room Number"
-                            value={newAttendance.roomNumber}
-                            onChange={handleInputChange}
-                            required
-                        />
-                    </div>
-                    <div className="form-group">
-                        <input
-                            type="datetime-local"
-                            className="form-control"
-                            name="start"
-                            placeholder="Start Time"
-                            value={newAttendance.start}
-                            onChange={handleInputChange}
-                            required
-                        />
-                    </div>
-                    <div className="form-group">
-                        <input
-                            type="number"
-                            className="form-control"
-                            name="duration"
-                            placeholder="Duration (in minutes)"
-                            value={newAttendance.duration}
-                            onChange={handleInputChange}
-                            required
-                        />
-                    </div>
-                    <div className="form-group">
-                        <input
-                            type="text"
-                            className="form-control"
-                            name="status"
-                            placeholder="Status (e.g. Present, Absent)"
-                            value={newAttendance.status}
-                            onChange={handleInputChange}
-                            required
-                        />
-                    </div>
-                    <div className="form-group">
-                        <input
-                            type="text"
-                            className="form-control"
-                            name="notes"
-                            placeholder="Notes"
-                            value={newAttendance.notes}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <select
-                            name="studentId"
-                            className="form-control"
-                            onChange={handleInputChange}
-                            required
-                        >
-                            <option value="">Select a Student</option>
-                            {Array.isArray(students) && students.map((student) => (
-                                <option key={student.id} value={student.id}>{student.name}</option>
-                            ))}
-                        </select>
-                    </div>
-                    <div className="form-group">
-                        <input
-                            type="number"
-                            className="form-control"
-                            name="courseId"
-                            placeholder="Course ID"
-                            value={newAttendance.courseId}
-                            onChange={handleInputChange}
-                            required
-                        />
-                    </div>
-                    <button type="submit" className="btn btn-primary">Add Attendance</button>
-                </form>
-            </div>
+    if (studentId) {
+      try {
+        const response = await axios.get(`https://localhost:7185/api/attendance/student/${studentId}`);
+        setAttendanceRecords(response.data || []);
+      } catch (error) {
+        console.error('Error fetching attendance records:', error);
+      }
+    } else {
+      setAttendanceRecords([]);
+    }
+  };
 
-            {/* Display Attendance Records */}
-            <h4>Attendance List</h4>
-            {attendances.length === 0 ? (
-                <p>No attendance records available.</p>
-            ) : (
-                <table className="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Room Number</th>
-                            <th>Start</th>
-                            <th>Duration</th>
-                            <th>Status</th>
-                            <th>Notes</th>
-                            <th>Student ID</th>
-                            <th>Course ID</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {attendances.map((attendance) => (
-                            <tr key={attendance.id}>
-                                <td>{attendance.id}</td>
-                                <td>{attendance.roomNumber}</td>
-                                <td>{new Date(attendance.start).toLocaleString()}</td>
-                                <td>{attendance.duration} minutes</td>
-                                <td>{attendance.status}</td>
-                                <td>{attendance.notes}</td>
-                                <td>{attendance.studentId}</td>
-                                <td>{attendance.courseId}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            )}
+  return (
+    <div>
+      <h1>Attendance for Course {courseId}</h1>
+      <label htmlFor="student-select">Select Student:</label>
+      <select id="student-select" value={selectedStudentId} onChange={handleStudentChange}>
+        <option value="">--Please choose a student--</option>
+        {students.map(student => (
+          <option key={student.id} value={student.id}>
+            {student.firstName} {student.lastName}
+          </option>
+        ))}
+      </select>
+
+      {attendanceRecords.length > 0 && (
+        <div>
+          <h2>Attendance Records for {students.find(student => student.id === selectedStudentId)?.firstName} {students.find(student => student.id === selectedStudentId)?.lastName}</h2>
+          <ul>
+            {attendanceRecords.map(record => (
+              <li key={record.id}>
+                Room: {record.roomNumber}, Date: {new Date(record.start).toLocaleDateString()}, Status: {record.status}, Notes: {record.notes}
+              </li>
+            ))}
+          </ul>
         </div>
-    );
-}
+      )}
+    </div>
+  );
+};
 
 export default AttendanceCoursePage;

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_ATTENDANCE_URL = "https://localhost:7185/api/attendance";  // URL to your Attendance API
+const API_ATTENDANCE_URL = "https://localhost:7185/api/attendance"; // URL to your Attendance API
 
 class AttendanceApi {
     // Fetch all attendance records
@@ -28,11 +28,15 @@ class AttendanceApi {
         return axios.delete(`${API_ATTENDANCE_URL}/${id}`);
     }
 
+    // Fetch attendance records by course ID
     getAttendancesByCourse(courseId) {
-        return axios.get(`${API_ATTENDANCE_URL}/course/${courseId}`); // Adjust the URL based on your API design
+        return axios.get(`${API_ATTENDANCE_URL}/course/${courseId}`);
     }
-    
-  
+
+    // Fetch attendance records for a specific student in a specific course
+    getAttendancesByStudentAndCourse(studentId, courseId) {
+        return axios.get(`${API_ATTENDANCE_URL}/student/${studentId}/course/${courseId}`);
+    }
 }
 
 export default new AttendanceApi();

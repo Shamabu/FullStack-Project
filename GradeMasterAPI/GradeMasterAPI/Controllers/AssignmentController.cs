@@ -8,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 using GradeMasterAPI.DB;
 using GradeMasterAPI.DB.DbModels;
 using GradeMasterAPI.APiModels;
-using Microsoft.VisualBasic;
 
 namespace GradeMasterAPI.Controllers
 {
@@ -45,14 +44,22 @@ namespace GradeMasterAPI.Controllers
         }
 
         // PUT: api/Assignment/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAssignment(int id, Assignment assignment)
+        public async Task<IActionResult> PutAssignment(int id, [FromBody] AssignmentDTO assignmentDto)
         {
-            if (id != assignment.Id)
+            if (id != assignmentDto.Id)
             {
                 return BadRequest();
             }
+
+            Assignment assignment = new Assignment()
+            {
+                Id = assignmentDto.Id,
+                CourseId = assignmentDto.CourseId,
+                Title = assignmentDto.Title,
+                Description = assignmentDto.Description, // Ensure this is a string
+                DueDate = assignmentDto.DueDate
+            };
 
             _context.Entry(assignment).State = EntityState.Modified;
 
@@ -76,13 +83,11 @@ namespace GradeMasterAPI.Controllers
         }
 
         // POST: api/Assignment
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Assignment>> PostAssignment(AssignmentDTO assignmentDto)
         {
             Assignment assignment = new Assignment()
-            { 
-                Id = assignmentDto.Id,
+            {
                 CourseId = assignmentDto.CourseId,
                 Title = assignmentDto.Title,
                 Description = assignmentDto.Description,
@@ -113,6 +118,22 @@ namespace GradeMasterAPI.Controllers
         private bool AssignmentExists(int id)
         {
             return _context.Assignment.Any(e => e.Id == id);
+        }
+
+        // GET: api/Assignment/teacher/{teacherId}
+        [HttpGet("teacher/{teacherId}")]
+        public async Task<ActionResult<IEnumerable<Assignment>>> GetAssignmentsByTeacher(int teacherId)
+        {
+            var assignments = await _context.Assignment
+                .Where(a => a.Course.TeacherId == teacherId) // Assuming Course has TeacherId property
+                .ToListAsync();
+
+            if (assignments == null || !assignments.Any())
+            {
+                return NotFound();
+            }
+
+            return Ok(assignments);
         }
     }
 }
