@@ -15,16 +15,8 @@
       "RelativeMoniker": "D:0:0:{C463E32C-3BA1-40ED-ABBC-39CC1DCCE0A2}|GradeMasterAPI\\GradeMasterAPI.csproj|solutionrelative:grademasterapi\\controllers\\assignmentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C463E32C-3BA1-40ED-ABBC-39CC1DCCE0A2}|GradeMasterAPI\\GradeMasterAPI.csproj|c:\\users\\dell\\source\\repos\\grademaster\\grademasterapi\\grademasterapi\\db\\dbmodels\\assignmentsubmission.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C463E32C-3BA1-40ED-ABBC-39CC1DCCE0A2}|GradeMasterAPI\\GradeMasterAPI.csproj|solutionrelative:grademasterapi\\db\\dbmodels\\assignmentsubmission.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{C463E32C-3BA1-40ED-ABBC-39CC1DCCE0A2}|GradeMasterAPI\\GradeMasterAPI.csproj|c:\\users\\dell\\source\\repos\\grademaster\\grademasterapi\\grademasterapi\\apimodels\\examsubmissiondto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C463E32C-3BA1-40ED-ABBC-39CC1DCCE0A2}|GradeMasterAPI\\GradeMasterAPI.csproj|solutionrelative:grademasterapi\\apimodels\\examsubmissiondto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C463E32C-3BA1-40ED-ABBC-39CC1DCCE0A2}|GradeMasterAPI\\GradeMasterAPI.csproj|c:\\users\\dell\\source\\repos\\grademaster\\grademasterapi\\grademasterapi\\apimodels\\examdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C463E32C-3BA1-40ED-ABBC-39CC1DCCE0A2}|GradeMasterAPI\\GradeMasterAPI.csproj|solutionrelative:grademasterapi\\apimodels\\examdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C463E32C-3BA1-40ED-ABBC-39CC1DCCE0A2}|GradeMasterAPI\\GradeMasterAPI.csproj|c:\\users\\dell\\source\\repos\\grademaster\\grademasterapi\\grademasterapi\\controllers\\assignmentsubmissioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -87,30 +79,6 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "ExamDTO.cs",
-              "DocumentMoniker": "C:\\Users\\DELL\\source\\repos\\GradeMaster\\GradeMasterAPI\\GradeMasterAPI\\APiModels\\ExamDTO.cs",
-              "RelativeDocumentMoniker": "GradeMasterAPI\\APiModels\\ExamDTO.cs",
-              "ToolTip": "C:\\Users\\DELL\\source\\repos\\GradeMaster\\GradeMasterAPI\\GradeMasterAPI\\APiModels\\ExamDTO.cs",
-              "RelativeToolTip": "GradeMasterAPI\\APiModels\\ExamDTO.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-02T16:09:29.572Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "AssignmentSubmission.cs",
-              "DocumentMoniker": "C:\\Users\\DELL\\source\\repos\\GradeMaster\\GradeMasterAPI\\GradeMasterAPI\\DB\\DbModels\\AssignmentSubmission.cs",
-              "RelativeDocumentMoniker": "GradeMasterAPI\\DB\\DbModels\\AssignmentSubmission.cs",
-              "ToolTip": "C:\\Users\\DELL\\source\\repos\\GradeMaster\\GradeMasterAPI\\GradeMasterAPI\\DB\\DbModels\\AssignmentSubmission.cs",
-              "RelativeToolTip": "GradeMasterAPI\\DB\\DbModels\\AssignmentSubmission.cs",
-              "ViewState": "AQIAAAQAAAAAAAAAAAAzwBEAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-02T16:08:52.412Z"
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 1,
               "Title": "Assignment.cs",
               "DocumentMoniker": "C:\\Users\\DELL\\source\\repos\\GradeMaster\\GradeMasterAPI\\GradeMasterAPI\\DB\\DbModels\\Assignment.cs",
@@ -135,7 +103,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 3,
               "Title": "ExamSubmissionDTO.cs",
               "DocumentMoniker": "C:\\Users\\DELL\\source\\repos\\GradeMaster\\GradeMasterAPI\\GradeMasterAPI\\APiModels\\ExamSubmissionDTO.cs",
               "RelativeDocumentMoniker": "GradeMasterAPI\\APiModels\\ExamSubmissionDTO.cs",
@@ -147,7 +115,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 4,
               "Title": "AssignmentSubmissionController.cs",
               "DocumentMoniker": "C:\\Users\\DELL\\source\\repos\\GradeMaster\\GradeMasterAPI\\GradeMasterAPI\\Controllers\\AssignmentSubmissionController.cs",
               "RelativeDocumentMoniker": "GradeMasterAPI\\Controllers\\AssignmentSubmissionController.cs",
@@ -159,7 +127,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 5,
               "Title": "AssignmentSubmissionDTO.cs",
               "DocumentMoniker": "C:\\Users\\DELL\\source\\repos\\GradeMaster\\GradeMasterAPI\\GradeMasterAPI\\APiModels\\AssignmentSubmissionDTO.cs",
               "RelativeDocumentMoniker": "GradeMasterAPI\\APiModels\\AssignmentSubmissionDTO.cs",
@@ -171,7 +139,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 7,
               "Title": "AttendanceDTO.cs",
               "DocumentMoniker": "C:\\Users\\DELL\\source\\repos\\GradeMaster\\GradeMasterAPI\\GradeMasterAPI\\APiModels\\AttendanceDTO.cs",
               "RelativeDocumentMoniker": "GradeMasterAPI\\APiModels\\AttendanceDTO.cs",
@@ -183,7 +151,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 8,
               "Title": "Attendance.cs",
               "DocumentMoniker": "C:\\Users\\DELL\\source\\repos\\GradeMaster\\GradeMasterAPI\\GradeMasterAPI\\DB\\DbModels\\Attendance.cs",
               "RelativeDocumentMoniker": "GradeMasterAPI\\DB\\DbModels\\Attendance.cs",
@@ -195,7 +163,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 10,
               "Title": "StudentsDTO.cs",
               "DocumentMoniker": "C:\\Users\\DELL\\source\\repos\\GradeMaster\\GradeMasterAPI\\GradeMasterAPI\\APiModels\\StudentsDTO.cs",
               "RelativeDocumentMoniker": "GradeMasterAPI\\APiModels\\StudentsDTO.cs",
@@ -207,7 +175,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 6,
               "Title": "StudentsController.cs",
               "DocumentMoniker": "C:\\Users\\DELL\\source\\repos\\GradeMaster\\GradeMasterAPI\\GradeMasterAPI\\Controllers\\StudentsController.cs",
               "RelativeDocumentMoniker": "GradeMasterAPI\\Controllers\\StudentsController.cs",
@@ -219,7 +187,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 9,
               "Title": "Student.cs",
               "DocumentMoniker": "C:\\Users\\DELL\\source\\repos\\GradeMaster\\GradeMasterAPI\\GradeMasterAPI\\DB\\DbModels\\Student.cs",
               "RelativeDocumentMoniker": "GradeMasterAPI\\DB\\DbModels\\Student.cs",

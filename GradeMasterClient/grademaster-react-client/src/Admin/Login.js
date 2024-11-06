@@ -1,34 +1,39 @@
 import React, { useState } from "react";
 import TeachersApi from '../ApiCalls/TeachersApi';
-import CoursePage from '../CourseComp/CoursePage';  
+import { useNavigate } from 'react-router-dom';
 import './login.css';
+
 function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [loggedInTeacher, setLoggedInTeacher] = useState(null);  // Store logged-in teacher details
+    const [loading, setLoading] = useState(false);  // New loading state
+    const navigate = useNavigate();
 
-    const handleLogin = (event) => {
+    const handleLogin = async (event) => {
         event.preventDefault();
-
-        // Clear previous error before new login attempt
         setError('');
+        setLoading(true);  // Set loading state
 
-        // Attempt to find the teacher based on email and password
-        TeachersApi.getTeachers().then(response => {
+        try {
+            const response = await TeachersApi.getTeachers();
             const teacher = response.data.find(t => t.email === email && t.password === password);
             
             if (teacher) {
-                // If login is successful, store the teacher's details and set loggedIn state to true
-                setLoggedInTeacher(teacher);  
                 setIsLoggedIn(true);
+                setLoading(false);  // End loading state
+                setEmail(''); // Reset form fields
+                setPassword('');
+                navigate('/dashboard', { state: { teacher } });  // Redirect on successful login
             } else {
                 setError("Invalid credentials, please try again.");
+                setLoading(false);  // End loading state
             }
-        }).catch(() => {
+        } catch (err) {
             setError("Failed to log in. Please try again later.");
-        });
+            setLoading(false);  // End loading state
+        }
     };
 
     return (
@@ -57,16 +62,14 @@ function Login() {
                                 required
                             />
                         </div>
-                        <button type="submit" className="btn btn-primary">Login</button>
+                        <button type="submit" className="btn btn-primary" disabled={loading}>
+                            {loading ? "Logging in..." : "Login"}
+                        </button>
                     </form>
                     {error && <div className="alert alert-danger mt-2">{error}</div>}
                 </div>
             ) : (
-                <div>
-                    <h2>Welcome, {loggedInTeacher.firstName}!</h2>
-                    {/* Render the CoursePage component only if the teacher is logged in */}
-                    <CoursePage teacher={loggedInTeacher} setLoggedInTeacher={setLoggedInTeacher} />
-                </div>
+                <div>Redirecting...</div>  // Optionally you can remove this as navigation is handled immediately
             )}
         </div>
     );

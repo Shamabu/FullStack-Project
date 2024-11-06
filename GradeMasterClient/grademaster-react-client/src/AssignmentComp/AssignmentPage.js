@@ -15,9 +15,11 @@ const AssignmentsPage = () => {
     const [assignment, setAssignment] = useState({
         title: '',
         description: '',
-        dueDate: '', // Add dueDate to the assignment state
+        dueDate: '',
         courseId: 0
     });
+    const [isEditing, setIsEditing] = useState(false);
+    const [editingAssignmentId, setEditingAssignmentId] = useState(null);
 
     useEffect(() => {
         if (teacherId) {
@@ -55,35 +57,52 @@ const AssignmentsPage = () => {
         setAssignment({ ...assignment, [name]: value });
     };
 
-    const handleAddAssignment = async (event) => {
+    const handleAddOrUpdateAssignment = async (event) => {
         event.preventDefault();
         try {
-            const createdAssignment = await AssignmentApi.createAssignment(assignment);
-            console.log('Assignment created:', createdAssignment);
+            if (isEditing) {
+                // Update existing assignment
+                await AssignmentApi.updateAssignment(editingAssignmentId, assignment);
+                setIsEditing(false);
+                setEditingAssignmentId(null);
+            } else {
+                // Create new assignment
+                await AssignmentApi.createAssignment(assignment);
+            }
             fetchAssignments(selectedCourseId);
             resetForm();
         } catch (error) {
-            console.error('Failed to create assignment:', error.response ? error.response.data : error.message);
+            console.error('Failed to save assignment:', error.response ? error.response.data : error.message);
         }
+    };
+
+    const handleEditAssignment = (assignmentToEdit) => {
+        setAssignment(assignmentToEdit);
+        setIsEditing(true);
+        setEditingAssignmentId(assignmentToEdit.id);
     };
 
     const handleDeleteAssignment = async (assignmentId) => {
         try {
             await AssignmentApi.deleteAssignment(assignmentId);
-            fetchAssignments(selectedCourseId); // Refresh assignments after deletion
+            fetchAssignments(selectedCourseId);
         } catch (error) {
             console.error('Failed to delete assignment:', error.response ? error.response.data : error.message);
         }
+
     };
 
     const resetForm = () => {
         setAssignment({ title: '', description: '', dueDate: '', courseId: selectedCourseId });
+        setIsEditing(false);
+        setEditingAssignmentId(null);
     };
 
     return (
         <div className="assignments-page">
+
             <h2>Assignments Management</h2>
-            
+
             <div className="course-selection">
                 <label htmlFor="courseDropdown">Select a Course:</label>
                 <select id="courseDropdown" onChange={handleCourseSelection} value={selectedCourseId || ""}>
@@ -106,6 +125,7 @@ const AssignmentsPage = () => {
                                     <h4>{assignment.title}</h4>
                                     <p><strong>Description:</strong> {assignment.description}</p>
                                     <p><strong>Due Date:</strong> {new Date(assignment.dueDate).toLocaleDateString()}</p>
+                                    <button onClick={() => handleEditAssignment(assignment)} className="edit-button">Edit</button>
                                     <button onClick={() => handleDeleteAssignment(assignment.id)} className="delete-button">Delete</button>
                                 </li>
                             ))}
@@ -118,8 +138,8 @@ const AssignmentsPage = () => {
 
             {selectedCourseId && (
                 <div className="add-assignment-section">
-                    <h3>Add New Assignment</h3>
-                    <form onSubmit={handleAddAssignment} className="assignment-form">
+                    <h3>{isEditing ? 'Edit Assignment' : 'Add New Assignment'}</h3>
+                    <form onSubmit={handleAddOrUpdateAssignment} className="assignment-form">
                         <div className="form-group">
                             <label>Title</label>
                             <input
@@ -149,11 +169,15 @@ const AssignmentsPage = () => {
                                 required
                             />
                         </div>
-                        <button type="submit" className="submit-button">Add Assignment</button>
+                        <button type="submit" className="submit-button">{isEditing ? 'Update Assignment' : 'Add Assignment'}</button>
+                        {isEditing && (
+                            <button type="button" onClick={resetForm} className="cancel-button">Cancel Edit</button>
+                        )}
                     </form>
                 </div>
             )}
         </div>
+        
     );
 };
 

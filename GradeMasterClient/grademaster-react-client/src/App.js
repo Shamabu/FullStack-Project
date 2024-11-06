@@ -9,6 +9,7 @@ import AttendanceCoursePage from './DetailsComp/AttendanceCoursePage';
 import StudentAttendance from './AttendanceComp/StudentAttendance';
 import StudentAttendanceRecord from './AttendanceComp/StudentAttendanceRecord';
 import AssignmentsPage from './AssignmentComp/AssignmentPage';
+import DashboardPage from './DashboardComp/DashboardPage';
 
 function App() {
   return (
@@ -21,8 +22,11 @@ function App() {
       <Route path="/course/:courseId" element={<Details />} />
       <Route path="/attendance/:courseId" element={<AttendanceCoursePage />} />
       <Route path="/student-attendance/:studentId/:courseId" element={<StudentAttendanceRecord />} />
-      <Route path="/course" element={<CoursePage />} />
+      <Route path="/coursepage" element={<CoursePage />} />
       <Route path="/assignments" element={<AssignmentsPage />} />
+      <Route path="/" element={<CoursePage />} />
+      <Route path="/dashboard" element={<DashboardPage />} />
+
 
     </Routes>
   );
