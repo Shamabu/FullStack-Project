@@ -20,6 +20,17 @@ const StudentAttendanceRecord = () => {
         fetchAttendanceRecords();
     }, [studentId, courseId]);
 
+    // Handle delete attendance record
+    const handleDeleteRecord = async (recordId) => {
+        try {
+            await axios.delete(`https://localhost:7185/api/attendance/${recordId}`);
+            // Update the state to remove the deleted record
+            setAttendanceRecords((prevRecords) => prevRecords.filter((record) => record.id !== recordId));
+        } catch (error) {
+            console.error('Error deleting attendance record:', error);
+        }
+    };
+
     return (
         <div className="student-attendance-record">
             <h2>Attendance Records for Student ID: {studentId} in Course ID: {courseId}</h2>
@@ -27,13 +38,19 @@ const StudentAttendanceRecord = () => {
                 <p>No attendance records found for this student in this course.</p>
             ) : (
                 <ul>
-                    {attendanceRecords.map(record => (
+                    {attendanceRecords.map((record) => (
                         <li key={record.id} className="attendance-record-item">
                             <div>Room: {record.roomNumber}</div>
                             <div>Date: {new Date(record.start).toLocaleString()}</div>
                             <div>Duration: {record.duration} minutes</div>
                             <div>Status: {record.status}</div>
                             <div>Notes: {record.notes}</div>
+                            <button
+                                onClick={() => handleDeleteRecord(record.id)}
+                                className="delete-button"
+                            >
+                                Delete
+                            </button>
                         </li>
                     ))}
                 </ul>

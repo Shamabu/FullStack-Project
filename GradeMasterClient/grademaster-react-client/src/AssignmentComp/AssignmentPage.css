@@ -1,94 +1,139 @@
-/* Center the entire assignments page component */
+/* AssignmentPage.css */
+
 .assignments-page {
-    width: 100%;
-    max-width: 800px; /* Adjusts to smaller screens while maintaining readability */
-    margin: 0 auto;
+    background-color: #f0f8ff;
     padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    border-radius: 10px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
     font-family: Arial, sans-serif;
-    color: #333;
 }
 
-h2, h3 {
-    color: #4a90e2;
-    margin-bottom: 15px;
-    font-weight: bold;
+h2 {
     text-align: center;
-}
-
-.course-selection, .add-assignment-section, .assignments-section {
-    width: 100%;
-    max-width: 600px;
+    color: #333;
+    font-size: 2rem;
     margin-bottom: 20px;
 }
 
-/* Styling for dropdown selection */
+.course-selection {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.course-selection label {
+    font-weight: bold;
+    color: #555;
+}
+
 .course-selection select {
     padding: 8px;
-    font-size: 16px;
-    width: 100%; /* Full width for better visual balance */
-    margin-top: 5px;
+    font-size: 1rem;
+    border-radius: 5px;
+    margin-left: 10px;
+    border: 1px solid #ccc;
 }
 
-/* Center the assignment list and cards */
 .assignments-section {
-    margin-top: 30px;
-    width: 100%;
-    max-width: 600px;
-}
-
-.assignments-list {
-    list-style: none;
-    padding: 0;
+    background-color: #ffffff;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 20px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .assignment-card {
-    background-color: #f9f9f9;
+    background-color: #ffffff;
     padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+    border-radius: 10px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
     margin-bottom: 10px;
+    transition: transform 0.3s ease;
 }
 
-/* Make the form width responsive and centered */
-.assignment-form {
-    width: 100%;
-    max-width: 600px;
+.assignment-card:hover {
+    transform: scale(1.02);
+}
+
+.assignment-card h4 {
+    color: #333;
+    font-size: 1.3rem;
+    margin: 0;
+}
+
+.assignment-card p {
+    color: #666;
+    margin: 5px 0;
+}
+
+.no-assignments {
+    color: #999;
+    font-style: italic;
+    text-align: center;
+    padding: 10px;
+}
+
+/* Buttons */
+button {
+    padding: 8px 12px;
+    margin: 5px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border: none;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+.edit-button {
+    background-color: #ffb74d;
+}
+
+.delete-button {
+    background-color: #e57373;
+}
+
+.view-submissions-button {
+    background-color: #64b5f6;
+}
+
+.submit-button {
+    background-color: #4caf50;
+    color: #fff;
+}
+
+.cancel-button {
+    background-color: #f44336;
+    color: #fff;
+}
+
+/* Add/Edit Form */
+.add-assignment-section {
+    margin-top: 30px;
+    padding: 15px;
+    border-radius: 10px;
+    background-color: #f9f9ff;
 }
 
 .assignment-form .form-group {
     margin-bottom: 15px;
 }
 
+.assignment-form label {
+    display: block;
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
 .assignment-form input,
 .assignment-form textarea,
 .assignment-form select {
     width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
+    padding: 8px;
     border-radius: 5px;
-    font-size: 16px;
-    margin-top: 5px;
-}
-
-/* Button styling */
-.submit-button {
-    padding: 10px 15px;
-    background-color: #4a90e2;
-    color: #fff;
-    font-weight: bold;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    width: 100%;
-    max-width: 200px;
-    margin-top: 15px;
-    align-self: center;
-}
-
-.submit-button:hover {
-    background-color: #357abf;
+    border: 1px solid #ccc;
 }

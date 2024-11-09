@@ -1,12 +1,12 @@
-// src/Assignments/AssignmentsPage.js
 import React, { useEffect, useState } from 'react';
 import CoursesApi from '../ApiCalls/CourseApi';
 import AssignmentApi from '../ApiCalls/AssignmentApi';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import './AssignmentPage.css';
 
 const AssignmentsPage = () => {
     const location = useLocation();
+    const navigate = useNavigate();
     const { teacherId } = location.state || { teacherId: null };
 
     const [courses, setCourses] = useState([]);
@@ -61,12 +61,10 @@ const AssignmentsPage = () => {
         event.preventDefault();
         try {
             if (isEditing) {
-                // Update existing assignment
                 await AssignmentApi.updateAssignment(editingAssignmentId, assignment);
                 setIsEditing(false);
                 setEditingAssignmentId(null);
             } else {
-                // Create new assignment
                 await AssignmentApi.createAssignment(assignment);
             }
             fetchAssignments(selectedCourseId);
@@ -89,7 +87,6 @@ const AssignmentsPage = () => {
         } catch (error) {
             console.error('Failed to delete assignment:', error.response ? error.response.data : error.message);
         }
-
     };
 
     const resetForm = () => {
@@ -98,9 +95,12 @@ const AssignmentsPage = () => {
         setEditingAssignmentId(null);
     };
 
+    const handleViewSubmissions = (assignmentId) => {
+        navigate('/assignments/submissions', { state: { assignmentId } });
+    };
+
     return (
         <div className="assignments-page">
-
             <h2>Assignments Management</h2>
 
             <div className="course-selection">
@@ -125,8 +125,15 @@ const AssignmentsPage = () => {
                                     <h4>{assignment.title}</h4>
                                     <p><strong>Description:</strong> {assignment.description}</p>
                                     <p><strong>Due Date:</strong> {new Date(assignment.dueDate).toLocaleDateString()}</p>
-                                    <button onClick={() => handleEditAssignment(assignment)} className="edit-button">Edit</button>
-                                    <button onClick={() => handleDeleteAssignment(assignment.id)} className="delete-button">Delete</button>
+                                    <button onClick={() => handleEditAssignment(assignment)} className="edit-button">
+                                        ✏️ Edit
+                                    </button>
+                                    <button onClick={() => handleDeleteAssignment(assignment.id)} className="delete-button">
+                                        🗑️ Delete
+                                    </button>
+                                    <button onClick={() => handleViewSubmissions(assignment.id)} className="view-submissions-button">
+                                        👀 View Submissions
+                                    </button>
                                 </li>
                             ))}
                         </ul>
@@ -177,7 +184,6 @@ const AssignmentsPage = () => {
                 </div>
             )}
         </div>
-        
     );
 };
 

@@ -21,6 +21,23 @@ namespace GradeMasterAPI.Controllers
         {
             _context = context;
         }
+        // GET: api/course/teacher/{teacherId}
+        [HttpGet("teacher/{teacherId}")]
+        public async Task<ActionResult<IEnumerable<Course>>> GetCoursesByTeacher(int teacherId)
+        {
+            var courses = await _context.Course
+                .Where(course => course.TeacherId == teacherId)
+                .ToListAsync();
+
+            if (!courses.Any())
+            {
+                return NotFound("No courses found for this teacher.");
+            }
+
+            return Ok(courses);
+        }
+
+
 
         // GET: api/Course
         [HttpGet]
@@ -112,5 +129,6 @@ namespace GradeMasterAPI.Controllers
         {
             return _context.Course.Any(e => e.Id == id);
         }
+
     }
 }

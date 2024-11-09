@@ -5,7 +5,7 @@ import './CoursePage.css';
 
 function CoursePage() {
     const location = useLocation();
-    const { teacher } = location.state || {};  // Getting teacher data from location state
+    const { teacher } = location.state || {};  
     const [courses, setCourses] = useState([]);
     const [currentCourse, setCurrentCourse] = useState({
         id: 0,
@@ -14,7 +14,7 @@ function CoursePage() {
         teacherId: teacher ? teacher.id : 0
     });
     const [editing, setEditing] = useState(false);
-    const [loading, setLoading] = useState(true);  // Loading state for courses
+    const [loading, setLoading] = useState(true);  
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -83,13 +83,12 @@ function CoursePage() {
             <div className="main-content">
                 <div>
                     <h2>Courses for {teacher.firstName} {teacher.lastName}</h2>
-
-                    {/* Add/Edit Course Form */}
                     <form
                         onSubmit={event => {
                             event.preventDefault();
                             editing ? updateCourse() : addCourse();
                         }}
+                        className="course-form"
                     >
                         <div className="form-group">
                             <label>Course Name</label>
@@ -114,28 +113,13 @@ function CoursePage() {
                                 required
                             />
                         </div>
-                        <div className="form-group">
-                            <label>Teacher</label>
-                            <select
-                                name="teacherId"
-                                value={currentCourse.teacherId}
-                                onChange={handleInputChange}
-                                className="form-control"
-                                disabled
-                            >
-                                <option value="0">Select Teacher</option>
-                                <option value={teacher.id}>
-                                    {teacher.firstName} {teacher.lastName}
-                                </option>
-                            </select>
-                        </div>
-                        <button type="submit" className="btn btn-primary">
+                        <button type="submit" className={`btn ${editing ? 'btn-update' : 'btn-add'}`}>
                             {editing ? 'Update Course' : 'Add Course'}
                         </button>
                         {editing && (
                             <button
                                 type="button"
-                                className="btn btn-secondary ml-2"
+                                className="btn btn-cancel"
                                 onClick={resetForm}
                             >
                                 Cancel
@@ -143,36 +127,30 @@ function CoursePage() {
                         )}
                     </form>
 
-                    {/* Display the list of courses */}
-                    <div className="course-list mt-4">
+                    <div className="course-list">
                         {loading ? (
                             <p>Loading courses...</p>
                         ) : courses.length === 0 ? (
                             <p>No courses found.</p>
                         ) : (
-                            <div className="row">
+                            <div className="course-card-grid">
                                 {courses.map(course => (
-                                    <div key={course.id} className="course-card col-md-4">
-                                        <div className="card">
-                                            <div className="card-body">
-                                                <h5 className="card-title">{course.courseName}</h5>
-                                                <p className="card-text">{course.courseDescription}</p>
-                                                <p className="card-text"><strong>Instructor:</strong> {teacher.firstName} {teacher.lastName}</p>
-                                                <div className="btn-group">
-                                                    <button
-                                                        onClick={() => deleteCourse(course.id)}
-                                                        className="btn btn-danger me-2"
-                                                    >
-                                                        Delete
-                                                    </button>
-                                                    <button
-                                                        onClick={() => goToDetailsPage(course.courseName, course.id)}
-                                                        className="btn btn-info"
-                                                    >
-                                                        Class Info
-                                                    </button>
-                                                </div>
-                                            </div>
+                                    <div key={course.id} className="course-card">
+                                        <h5>{course.courseName}</h5>
+                                        <p>{course.courseDescription}</p>
+                                        <div className="card-buttons">
+                                            <button
+                                                onClick={() => deleteCourse(course.id)}
+                                                className="btn btn-delete"
+                                            >
+                                                🗑️ Delete
+                                            </button>
+                                            <button
+                                                onClick={() => goToDetailsPage(course.courseName, course.id)}
+                                                className="btn btn-info"
+                                            >
+                                                📘 Details
+                                            </button>
                                         </div>
                                     </div>
                                 ))}

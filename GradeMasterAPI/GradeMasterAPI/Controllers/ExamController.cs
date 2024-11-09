@@ -116,5 +116,40 @@ namespace GradeMasterAPI.Controllers
         {
             return _context.Exam.Any(e => e.Id == id);
         }
+
+        // GET: api/Exam/teacher/{teacherId}
+        [HttpGet("teacher/{teacherId}")]
+        public async Task<ActionResult<IEnumerable<Exam>>> GetExamsByTeacher(int teacherId)
+        {
+            var exams = await _context.Exam
+                .Where(exam => exam.Course.TeacherId == teacherId)
+                .ToListAsync();
+
+            if (!exams.Any())
+            {
+                return NotFound("No exams found for this teacher.");
+            }
+
+            return Ok(exams);
+        }
+        // GET: api/Exam/course/{courseId}
+        [HttpGet("course/{courseId}")]
+        public async Task<ActionResult<IEnumerable<Exam>>> GetExamsByCourse(int courseId)
+        {
+            var exams = await _context.Exam
+                .Where(exam => exam.CourseId == courseId)
+                .ToListAsync();
+
+            if (!exams.Any())
+            {
+                return NotFound("No exams found for this course.");
+            }
+
+            return Ok(exams);
+        }
+
+
+
+
     }
 }

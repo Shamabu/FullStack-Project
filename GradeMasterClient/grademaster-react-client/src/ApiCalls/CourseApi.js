@@ -23,6 +23,11 @@ class CoursesApi {
     deleteCourse(id) {
         return axios.delete(`${API_COURSES_URL}/${id}`);
     }
+
+    getCoursesByTeacher(teacherId) {
+        return axios.get(`${API_COURSES_URL}/teacher/${teacherId}`);
+    }
+   
 }
 
 export default new CoursesApi();

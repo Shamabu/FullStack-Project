@@ -43,6 +43,22 @@ namespace GradeMasterAPI.Controllers
             return assignmentSubmission;
         }
 
+        // GET: api/AssignmentSubmission/assignment/5
+        [HttpGet("assignment/{assignmentId}")]
+        public async Task<ActionResult<IEnumerable<AssignmentSubmission>>> GetSubmissionsByAssignmentId(int assignmentId)
+        {
+            var submissions = await _context.AssignmentSubmission
+                .Where(submission => submission.AssignmentId == assignmentId)
+                .ToListAsync();
+
+            if (submissions == null || !submissions.Any())
+            {
+                return NotFound();
+            }
+
+            return Ok(submissions);
+        }
+
         // PUT: api/AssignmentSubmission/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
@@ -115,6 +131,21 @@ namespace GradeMasterAPI.Controllers
         private bool AssignmentSubmissionExists(int id)
         {
             return _context.AssignmentSubmission.Any(e => e.Id == id);
+        }
+        // DELETE: api/AssignmentSubmission/all
+        [HttpDelete("all")]
+        public async Task<IActionResult> DeleteAllSubmissions()
+        {
+            var submissions = await _context.AssignmentSubmission.ToListAsync();
+            if (!submissions.Any())
+            {
+                return NotFound("No submissions found to delete.");
+            }
+
+            _context.AssignmentSubmission.RemoveRange(submissions);
+            await _context.SaveChangesAsync();
+
+            return Ok("All submissions have been deleted.");
         }
     }
 }

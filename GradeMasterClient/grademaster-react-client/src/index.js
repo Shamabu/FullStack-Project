@@ -11,6 +11,10 @@ import StudentPage from './Admin/StudentPage';
 import StudentAttendance from './AttendanceComp/StudentAttendance';
 import Attendance from './AttendanceComp/Attendance';
 import AssignmentCheckPage from './AssignmentCheckPage';
+import AdminAssignmentSubmissionPage from './AssignmentSubmissionComp/AssignmentSubmissionPage';
+import ExamSubmissionAdmin from './ExamComp/ExamSubmissionAdmin';
+
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

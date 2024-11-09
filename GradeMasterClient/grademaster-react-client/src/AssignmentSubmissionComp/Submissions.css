@@ -1,0 +1,39 @@
+/* src/Submissions/Submissions.css */
+
+.submissions-page {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.submissions-page h2 {
+    text-align: center;
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.submissions-list {
+    list-style: none;
+    padding: 0;
+}
+
+.submission-card {
+    background-color: #f9f9f9;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.submission-card h4 {
+    margin: 0 0 10px 0;
+    color: #007bff;
+}
+
+.submission-card p {
+    margin: 5px 0;
+    color: #555;
+}

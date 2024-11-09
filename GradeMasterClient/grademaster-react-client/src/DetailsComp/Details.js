@@ -4,6 +4,7 @@ import Navbar from './Navbar';
 import './Details.css';
 import Participant from './Participants';
 import StudentAttendance from '../AttendanceComp/StudentAttendance';
+import { FaChalkboardTeacher, FaClipboardList, FaGraduationCap, FaBook } from 'react-icons/fa';
 
 function Details() {
     const location = useLocation();
@@ -14,23 +15,23 @@ function Details() {
     };
     const [activeTab, setActiveTab] = useState('course'); // Default tab is Course
 
-    // List of tabs with content components
+    // List of tabs with content components and icons
     const tabList = [
-        { id: 'course', label: 'Course', content: <CourseDetails /> },
-        { id: 'participants', label: 'Participants', content: <Participants /> },
-        { id: 'grades', label: 'Grades', content: <Grades /> },
-        { id: 'attendance', label: 'Attendance', content: <Attendance courseId={courseId} /> } // Pass courseId here
+        { id: 'course', label: 'Course', icon: <FaBook />, content: <CourseDetails /> },
+        { id: 'participants', label: 'Participants', icon: <FaChalkboardTeacher />, content: <Participants /> },
+        { id: 'grades', label: 'Grades', icon: <FaClipboardList />, content: <Grades /> },
+        { id: 'attendance', label: 'Attendance', icon: <FaGraduationCap />, content: <Attendance courseId={courseId} /> }
     ];
 
     return (
-        <div className="full-page">
+        <div className="details-page full-page">
             <Navbar />
             <div className="content-area">
                 <h2>Course Management</h2>
 
                 {/* General Information Section */}
-                <div>
-                    <div className="alert alert-primary">
+                <div className="course-info">
+                    <div className="alert alert-primary course-info-box">
                         <p>
                             <strong>Course name:</strong> {courseName}<br />
                             <strong>Instructor:</strong> {teacherName}
@@ -40,7 +41,7 @@ function Details() {
 
                 {/* Tabs Section */}
                 <div>
-                    <ul className="nav nav-tabs" role="tablist">
+                    <ul className="nav nav-tabs tab-navigation" role="tablist">
                         {tabList.map(tab => (
                             <li className="nav-item" key={tab.id}>
                                 <a
@@ -51,7 +52,7 @@ function Details() {
                                         setActiveTab(tab.id);
                                     }}
                                 >
-                                    {tab.label}
+                                    {tab.icon} {tab.label}
                                 </a>
                             </li>
                         ))}
@@ -96,10 +97,9 @@ const Grades = () => (
     </div>
 );
 
-const Attendance = ({ courseId, courseName }) => (
+const Attendance = ({ courseId }) => (
     <div>
-        {/* Passing courseId and courseName as props to StudentAttendance */}
-        <StudentAttendance courseId={courseId} courseName={courseName} />
+        <StudentAttendance courseId={courseId} />
     </div>
 );
 

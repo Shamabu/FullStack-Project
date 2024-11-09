@@ -46,6 +46,22 @@ const AssignmentApi = {
         }
     },
 
+    // Fetch all assignments (for admin use)
+    getAllAssignments: async () => {
+        try 
+        {
+            const response = await axios.get(API_URL);
+            return response.data;
+        } 
+        catch (error) 
+        {
+            console.error('Error fetching all assignments:', error);  
+            throw error;
+            
+        }
+        
+    },
+
     // Delete an assignment
     deleteAssignment: async (id) => {
         try {

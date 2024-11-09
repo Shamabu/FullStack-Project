@@ -10,6 +10,8 @@ import StudentAttendance from './AttendanceComp/StudentAttendance';
 import StudentAttendanceRecord from './AttendanceComp/StudentAttendanceRecord';
 import AssignmentsPage from './AssignmentComp/AssignmentPage';
 import DashboardPage from './DashboardComp/DashboardPage';
+import Submissions from './AssignmentSubmissionComp/Submissions';
+import ExamPage from './ExamComp/ExamPage';
 
 function App() {
   return (
@@ -26,6 +28,10 @@ function App() {
       <Route path="/assignments" element={<AssignmentsPage />} />
       <Route path="/" element={<CoursePage />} />
       <Route path="/dashboard" element={<DashboardPage />} />
+      <Route path="/assignments/submissions" element={<Submissions />} />
+      <Route path="/exams" element={<ExamPage />} />
+
+
 
 
     </Routes>
