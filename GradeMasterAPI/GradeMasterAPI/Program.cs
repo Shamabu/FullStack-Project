@@ -1,4 +1,3 @@
-
 using GradeMasterAPI.DB;
 using GradeMasterAPI.Servieces;
 using Microsoft.EntityFrameworkCore;
@@ -12,57 +11,53 @@ namespace GradeMasterAPI
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-
             builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
+            // Configure Swagger for OpenAPI documentation
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            //Register Global DB Service With EF
+            // Register Global DB Service with EF
             builder.Services.AddDbContext<GradeMasterDbContext>(options =>
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=GradeMasterEFDb;Integrated Security=True;Connect Timeout=30;"));
             });
 
-            //TODO ADD Other Services Here .. 
+            // Add other services here
             builder.Services.AddSingleton<ICsvLoader, CsvLoader>();
 
-            //who can enter this api have to be from and header'origin'methid , openedapi
+            // Configure CORS policy for open API
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("openapi",
                     builder =>
                     {
                         builder.AllowAnyOrigin()
-                        .AllowAnyMethod()
-                        .AllowAnyHeader();
+                               .AllowAnyMethod()
+                               .AllowAnyHeader();
                     });
             });
 
-
-
-
             var app = builder.Build();
+
+            // Ensure the database is initialized and ready
             using (var scope = app.Services.CreateScope())
             {
                 try
                 {
-                    //Get Registered GradeMasterDbContext Service
+                    // Get registered GradeMasterDbContext service
                     var services = scope.ServiceProvider;
                     var context = services.GetRequiredService<GradeMasterDbContext>();
-                    //Initialize DB
+                    // Initialize DB
                     DbInitializer.Initialize(context);
                 }
                 catch (Exception ex)
                 {
-
-
+                    // Log the error if DB initialization fails
+                    var logger = app.Services.GetRequiredService<ILogger<Program>>();
+                    logger.LogError(ex, "An error occurred while initializing the DB.");
                 }
             }
-
-
-
-
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
@@ -71,15 +66,16 @@ namespace GradeMasterAPI
                 app.UseSwaggerUI();
             }
 
+            // Enable HTTPS redirection and CORS policy
             app.UseHttpsRedirection();
-
             app.UseCors("openapi");
 
             app.UseAuthorization();
 
-
+            // Map controller routes
             app.MapControllers();
 
+            // Run the app
             app.Run();
         }
     }

@@ -3,6 +3,7 @@ import axios from 'axios';
 const API_URL = "https://localhost:7185/api/ExamSubmission";
 
 class ExamSubmissionApi {
+    
     // Fetch all submissions for a specific exam
     getSubmissionsByExamId(examId) {
         return axios.get(`${API_URL}/exam/${examId}`);
@@ -19,14 +20,14 @@ class ExamSubmissionApi {
     }
 
     // Update an existing exam submission by its ID
-    updateSubmission(id, submissionData) {
-        return axios.put(`${API_URL}/${id}`, submissionData);
+    updateSubmission(submissionId, updatedSubmission) {
+        return axios.put(`${API_URL}/${submissionId}`, updatedSubmission); 
     }
-
     // Delete an exam submission by its ID
     deleteSubmission(id) {
         return axios.delete(`${API_URL}/${id}`);
     }
+    
 }
 
 export default new ExamSubmissionApi();

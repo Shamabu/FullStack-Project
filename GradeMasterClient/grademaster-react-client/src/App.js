@@ -12,6 +12,7 @@ import AssignmentsPage from './AssignmentComp/AssignmentPage';
 import DashboardPage from './DashboardComp/DashboardPage';
 import Submissions from './AssignmentSubmissionComp/Submissions';
 import ExamPage from './ExamComp/ExamPage';
+import ExamSubmissionsPage from './ExamSubmissionsComp/ExamSubmissionsPage';
 
 function App() {
   return (
@@ -30,6 +31,8 @@ function App() {
       <Route path="/dashboard" element={<DashboardPage />} />
       <Route path="/assignments/submissions" element={<Submissions />} />
       <Route path="/exams" element={<ExamPage />} />
+      <Route path="/exam-submissions" element={<ExamSubmissionsPage />} />
+
 
 
 

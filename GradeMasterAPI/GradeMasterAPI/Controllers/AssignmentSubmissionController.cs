@@ -24,128 +24,190 @@ namespace GradeMasterAPI.Controllers
 
         // GET: api/AssignmentSubmission
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<AssignmentSubmission>>> GetAssignmentSubmission()
+        public async Task<ActionResult<IEnumerable<AssignmentSubmission>>> GetAssignmentSubmissions()
         {
-            return await _context.AssignmentSubmission.ToListAsync();
+            try
+            {
+                var submissions = await _context.AssignmentSubmission.ToListAsync();
+                if (submissions == null || !submissions.Any())
+                {
+                    return NotFound("No submissions found.");
+                }
+                return Ok(submissions);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
         }
+
 
         // GET: api/AssignmentSubmission/5
         [HttpGet("{id}")]
         public async Task<ActionResult<AssignmentSubmission>> GetAssignmentSubmission(int id)
         {
-            var assignmentSubmission = await _context.AssignmentSubmission.FindAsync(id);
-
-            if (assignmentSubmission == null)
+            try
             {
-                return NotFound();
-            }
+                var assignmentSubmission = await _context.AssignmentSubmission.FindAsync(id);
 
-            return assignmentSubmission;
+                if (assignmentSubmission == null)
+                {
+                    return NotFound($"Submission with ID {id} not found.");
+                }
+
+                return Ok(assignmentSubmission);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
         }
 
         // GET: api/AssignmentSubmission/assignment/5
         [HttpGet("assignment/{assignmentId}")]
         public async Task<ActionResult<IEnumerable<AssignmentSubmission>>> GetSubmissionsByAssignmentId(int assignmentId)
         {
-            var submissions = await _context.AssignmentSubmission
-                .Where(submission => submission.AssignmentId == assignmentId)
-                .ToListAsync();
-
-            if (submissions == null || !submissions.Any())
+            try
             {
-                return NotFound();
-            }
+                var submissions = await _context.AssignmentSubmission
+                    .Where(submission => submission.AssignmentId == assignmentId)
+                    .ToListAsync();
 
-            return Ok(submissions);
+                if (submissions == null || !submissions.Any())
+                {
+                    return NotFound("No submissions found for this assignment.");
+                }
+
+                return Ok(submissions);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
         }
 
-        // PUT: api/AssignmentSubmission/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutAssignmentSubmission(int id, AssignmentSubmission assignmentSubmission)
-        {
-            if (id != assignmentSubmission.Id)
-            {
-                return BadRequest();
-            }
 
-            _context.Entry(assignmentSubmission).State = EntityState.Modified;
+        // PUT: api/AssignmentSubmission/5
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateAssignmentSubmission(int id, [FromBody] AssignmentSubmissionDTO updatedSubmissionDto)
+        {
+            if (updatedSubmissionDto == null)
+            {
+                return BadRequest("Invalid submission data.");
+            }
 
             try
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!AssignmentSubmissionExists(id))
+                var existingSubmission = await _context.AssignmentSubmission.FindAsync(id);
+                if (existingSubmission == null)
                 {
-                    return NotFound();
+                    return NotFound($"Submission with ID {id} not found.");
                 }
-                else
-                {
-                    throw;
-                }
-            }
 
-            return NoContent();
+                // Only update the fields that are provided in the request body
+                existingSubmission.Grade = updatedSubmissionDto.Grade;
+                existingSubmission.Feedback = updatedSubmissionDto.Feedback;
+
+                // Mark the entry as modified
+                _context.Entry(existingSubmission).State = EntityState.Modified;
+
+                // Save changes to the database
+                await _context.SaveChangesAsync();
+
+                return NoContent(); // Successfully updated
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                return StatusCode(500, $"Concurrency error: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
         }
 
         // POST: api/AssignmentSubmission
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<AssignmentSubmission>> PostAssignmentSubmission(AssignmentSubmissionDTO assignmentSubmissionDto)
+        public async Task<ActionResult<AssignmentSubmission>> CreateAssignmentSubmission([FromBody] AssignmentSubmissionDTO assignmentSubmissionDto)
         {
-            AssignmentSubmission assignmentSubmission = new AssignmentSubmission()
-            { 
-                Id = assignmentSubmissionDto.Id,
+            if (assignmentSubmissionDto == null)
+            {
+                return BadRequest("Invalid data.");
+            }
+
+            var assignmentSubmission = new AssignmentSubmission()
+            {
                 FilePath = assignmentSubmissionDto.FilePath,
                 AssignmentId = assignmentSubmissionDto.AssignmentId,
                 StudentId = assignmentSubmissionDto.StudentId,
                 SubmittionDate = assignmentSubmissionDto.SubmittionDate,
                 Feedback = assignmentSubmissionDto.Feedback,
                 Grade = assignmentSubmissionDto.Grade
-
             };
-            _context.AssignmentSubmission.Add(assignmentSubmission);
-            await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetAssignmentSubmission", new { id = assignmentSubmission.Id }, assignmentSubmission);
+            try
+            {
+                _context.AssignmentSubmission.Add(assignmentSubmission);
+                await _context.SaveChangesAsync();
+
+                return CreatedAtAction(nameof(GetAssignmentSubmission), new { id = assignmentSubmission.Id }, assignmentSubmission);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
         }
 
         // DELETE: api/AssignmentSubmission/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAssignmentSubmission(int id)
         {
-            var assignmentSubmission = await _context.AssignmentSubmission.FindAsync(id);
-            if (assignmentSubmission == null)
+            try
             {
-                return NotFound();
+                var assignmentSubmission = await _context.AssignmentSubmission.FindAsync(id);
+                if (assignmentSubmission == null)
+                {
+                    return NotFound($"Submission with ID {id} not found.");
+                }
+
+                _context.AssignmentSubmission.Remove(assignmentSubmission);
+                await _context.SaveChangesAsync();
+
+                return NoContent(); // Successfully deleted
             }
-
-            _context.AssignmentSubmission.Remove(assignmentSubmission);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
         }
 
-        private bool AssignmentSubmissionExists(int id)
-        {
-            return _context.AssignmentSubmission.Any(e => e.Id == id);
-        }
         // DELETE: api/AssignmentSubmission/all
         [HttpDelete("all")]
         public async Task<IActionResult> DeleteAllSubmissions()
         {
-            var submissions = await _context.AssignmentSubmission.ToListAsync();
-            if (!submissions.Any())
+            try
             {
-                return NotFound("No submissions found to delete.");
+                var submissions = await _context.AssignmentSubmission.ToListAsync();
+                if (!submissions.Any())
+                {
+                    return NotFound("No submissions found to delete.");
+                }
+
+                _context.AssignmentSubmission.RemoveRange(submissions);
+                await _context.SaveChangesAsync();
+
+                return Ok("All submissions have been deleted.");
             }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
 
-            _context.AssignmentSubmission.RemoveRange(submissions);
-            await _context.SaveChangesAsync();
-
-            return Ok("All submissions have been deleted.");
+        // Helper method to check if submission exists
+        private bool AssignmentSubmissionExists(int id)
+        {
+            return _context.AssignmentSubmission.Any(e => e.Id == id);
         }
     }
 }

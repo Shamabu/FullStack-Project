@@ -1,0 +1,61 @@
+/* General styles for Exam Submissions Page */
+.exam-submissions-page {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.exam-submissions-page h1 {
+    text-align: center;
+    color: #333;
+}
+
+/* Submissions list styles */
+.exam-submissions-page ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.exam-submissions-page li {
+    background-color: #f9f9f9;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.exam-submissions-page li strong {
+    font-size: 18px;
+    color: #333;
+}
+
+.exam-submissions-page p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #666;
+}
+
+/* Button styles for delete or action */
+.exam-submissions-page .delete-button {
+    background-color: #f44336;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.exam-submissions-page .delete-button:hover {
+    background-color: #e53935;
+}
+
+.exam-submissions-page .loading {
+    text-align: center;
+    font-size: 18px;
+    color: #333;
+}

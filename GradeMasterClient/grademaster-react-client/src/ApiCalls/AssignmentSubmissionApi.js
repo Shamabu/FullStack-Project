@@ -22,20 +22,25 @@ class AssignmentSubmissionApi {
   createSubmission(submission) {
     return axios.post(API_URL, submission);
   }
-
-  // Update an existing assignment submission by its ID
-  updateSubmission(id, submission) {
-    return axios.put(`${API_URL}/${id}`, submission);
-  }
-
+  
   // Delete an assignment submission by ID
   deleteSubmission(id) {
     return axios.delete(`${API_URL}/${id}`);
   }
-  
+
+  // Fetch submissions for a specific assignment
   getSubmissionsByAssignmentId(assignmentId) {
     return axios.get(`${API_URL}/assignment/${assignmentId}`);
+  }
+
+  updateSubmission(id, updatedSubmission) {
+    return axios.put(`${API_URL}/${id}`, updatedSubmission, {
+        headers: {
+            'Content-Type': 'application/json',  // Ensure this header is set
+        }
+    });
 }
+
 }
 
 export default new AssignmentSubmissionApi();

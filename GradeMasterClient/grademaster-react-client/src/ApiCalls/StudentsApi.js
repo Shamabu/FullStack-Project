@@ -3,18 +3,19 @@ import axios from "axios";
 const API_STUDENTS_URL = "https://localhost:7185/api/student";
 
 class StudentsApi {
-  // Get all students
+  // Fetch all students
   getStudents() {
     return axios.get(API_STUDENTS_URL);
   }
 
-  // Get a specific student by ID
-  getStudent(id) {
+  // Fetch a specific student by ID
+  getStudentById(id) {
     return axios.get(`${API_STUDENTS_URL}/${id}`);
   }
 
-  getStudentsByCourseId(courseId){
-    return axios.get(`${API_STUDENTS_URL}/${courseId}`);
+  // Fetch students by course ID
+  getStudentsByCourseId(courseId) {
+    return axios.get(`${API_STUDENTS_URL}/course/${courseId}`);
   }
 
   // Create a new student
@@ -31,10 +32,6 @@ class StudentsApi {
   deleteStudent(id) {
     return axios.delete(`${API_STUDENTS_URL}/${id}`);
   }
-  getStudentsByCourse(courseId) {
-    return axios.get(`https://localhost:7185/api/students/course/${courseId}`);
-
-}
 }
 
 export default new StudentsApi();

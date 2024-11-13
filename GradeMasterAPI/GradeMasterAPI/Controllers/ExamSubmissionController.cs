@@ -44,13 +44,33 @@ namespace GradeMasterAPI.Controllers
         }
 
         // PUT: api/ExamSubmission/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutExamSubmission(int id, ExamSubmission examSubmission)
+        public async Task<IActionResult> PutExamSubmission(int id, ExamSubmissionDTO examSubmissionDto)
         {
-            if (id != examSubmission.Id)
+            if (id != examSubmissionDto.Id)
             {
-                return BadRequest();
+                return BadRequest("ID mismatch.");
+            }
+
+            var examSubmission = await _context.ExamSubmission.FindAsync(id);
+            if (examSubmission == null)
+            {
+                return NotFound($"Exam submission with ID {id} not found.");
+            }
+
+            // Validate required fields and proceed with the update
+            examSubmission.Grade = examSubmissionDto.Grade;
+            examSubmission.Feedback = examSubmissionDto.Feedback;
+
+            // Optional: Update ExamFilePath and SubmittionDate if needed
+            if (!string.IsNullOrEmpty(examSubmissionDto.ExamFilePath))
+            {
+                examSubmission.ExamFilePath = examSubmissionDto.ExamFilePath;
+            }
+
+            if (examSubmissionDto.SubmittionDate != default(DateTime))
+            {
+                examSubmission.SubmittionDate = examSubmissionDto.SubmittionDate;
             }
 
             _context.Entry(examSubmission).State = EntityState.Modified;
@@ -71,17 +91,26 @@ namespace GradeMasterAPI.Controllers
                 }
             }
 
-            return NoContent();
+            return NoContent(); // Return NoContent when the update is successful
         }
 
         // POST: api/ExamSubmission
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<ExamSubmission>> PostExamSubmission(ExamSubmissionDTO examSubmissionDto)
         {
+            // Validation for required fields
+            if (string.IsNullOrEmpty(examSubmissionDto.ExamFilePath))
+            {
+                return BadRequest("The ExamFilePath field is required.");
+            }
+
+            if (examSubmissionDto.SubmittionDate == default(DateTime))
+            {
+                return BadRequest("The SubmittionDate field is required.");
+            }
+
             ExamSubmission examSubmission = new ExamSubmission()
             {
-                Id = examSubmissionDto.Id,
                 ExamFilePath = examSubmissionDto.ExamFilePath,
                 ExamId = examSubmissionDto.ExamId,
                 StudentId = examSubmissionDto.StudentId,
@@ -112,9 +141,33 @@ namespace GradeMasterAPI.Controllers
             return NoContent();
         }
 
+        // Helper method to check if exam submission exists
         private bool ExamSubmissionExists(int id)
         {
             return _context.ExamSubmission.Any(e => e.Id == id);
+        }
+
+        // GET: api/ExamSubmission/exam/5
+        [HttpGet("exam/{examId}")]
+        public async Task<ActionResult<IEnumerable<ExamSubmission>>> GetSubmissionsByExamId(int examId)
+        {
+            try
+            {
+                var submissions = await _context.ExamSubmission
+                    .Where(submission => submission.ExamId == examId)
+                    .ToListAsync();
+
+                if (submissions == null || !submissions.Any())
+                {
+                    return NotFound("No submissions found for this exam.");
+                }
+
+                return Ok(submissions);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
         }
     }
 }

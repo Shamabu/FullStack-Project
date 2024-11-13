@@ -28,10 +28,10 @@ class ExamApi {
         return axios.delete(`${API_URL}/${id}`);
     }
 
-    getExams(courseId) {
+    // Fetch exams for a specific course
+    getExamsByCourse(courseId) {
         return axios.get(`${API_URL}/course/${courseId}`);
     }
-    
 }
 
 export default new ExamApi();

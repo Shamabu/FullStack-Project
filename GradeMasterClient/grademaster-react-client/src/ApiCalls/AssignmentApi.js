@@ -6,13 +6,13 @@ const API_URL = 'https://localhost:7185/api/assignment';
 const AssignmentApi = {
     // Get assignments by teacher ID
     getAssignmentsByTeacher: async (teacherId) => {
-        console.log(`Fetching assignments for teacher ID: ${teacherId}`); // Log the teacher ID
+        console.log(`Fetching assignments for teacher ID: ${teacherId}`);
         try {
             const response = await axios.get(`${API_URL}/teacher/${teacherId}`);
-            return response.data; // Return data directly
+            return response.data;
         } catch (error) {
             console.error('Error fetching assignments by teacher:', error.response ? error.response.data : error.message);
-            throw error; // Re-throw to handle it in the component
+            throw error;
         }
     },
 
@@ -21,13 +21,13 @@ const AssignmentApi = {
         try {
             const response = await axios.post(API_URL, assignment, {
                 headers: {
-                    'Content-Type': 'application/json' // Ensure you set the correct header
+                    'Content-Type': 'application/json'
                 }
             });
-            return response.data; // Return the created assignment
+            return response.data;
         } catch (error) {
             console.error('Error creating assignment:', error.response ? error.response.data : error.message);
-            throw error; // Re-throw to handle it in the component
+            throw error;
         }
     },
 
@@ -36,40 +36,45 @@ const AssignmentApi = {
         try {
             const response = await axios.put(`${API_URL}/${id}`, assignment, {
                 headers: {
-                    'Content-Type': 'application/json' // Ensure you set the correct header
+                    'Content-Type': 'application/json'
                 }
             });
-            return response.data; // Return updated assignment
+            return response.data;
         } catch (error) {
             console.error('Error updating assignment:', error.response ? error.response.data : error.message);
-            throw error; // Re-throw to handle it in the component
+            throw error;
         }
     },
 
-    // Fetch all assignments (for admin use)
+    // Fetch all assignments
     getAllAssignments: async () => {
-        try 
-        {
+        try {
             const response = await axios.get(API_URL);
             return response.data;
-        } 
-        catch (error) 
-        {
-            console.error('Error fetching all assignments:', error);  
+        } catch (error) {
+            console.error('Error fetching all assignments:', error);
             throw error;
-            
         }
-        
     },
 
     // Delete an assignment
     deleteAssignment: async (id) => {
         try {
             const response = await axios.delete(`${API_URL}/${id}`);
-            return response.data; // Return success message, if needed
+            return response.data;
         } catch (error) {
             console.error('Error deleting assignment:', error.response ? error.response.data : error.message);
-            throw error; // Re-throw to handle it in the component
+            throw error;
+        }
+    },
+
+    // Get a single assignment by its ID
+    getAssignmentById: async (id) => {
+        try {
+            return await axios.get(`https://localhost:7185/api/assignment/${id}`);
+        } catch (error) {
+            console.error('Error fetching assignment by ID:', error.response ? error.response.data : error.message);
+            throw error;
         }
     }
 };

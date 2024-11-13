@@ -13,14 +13,14 @@ import Attendance from './AttendanceComp/Attendance';
 import AssignmentCheckPage from './AssignmentCheckPage';
 import AdminAssignmentSubmissionPage from './AssignmentSubmissionComp/AssignmentSubmissionPage';
 import ExamSubmissionAdmin from './ExamComp/ExamSubmissionAdmin';
-
-
+import AllSubmissionsPage from './AllSubmissionsPage';
+import AdminExamSubmissionPage from './ExamSubmissionsComp/AdminExamSubmissionPage';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-    <App />
+    <App/>
     
     </BrowserRouter>
   </React.StrictMode>

@@ -20,7 +20,6 @@ const ExamPage = () => {
     });
     const [isLoading, setIsLoading] = useState(false);
 
-    // Fetch courses taught by the teacher
     const fetchCourses = async () => {
         try {
             console.log(`Fetching courses for teacher ID: ${teacherId}`);
@@ -34,7 +33,6 @@ const ExamPage = () => {
         }
     };
 
-    // Fetch exams associated with the teacher's courses
     const fetchExams = async () => {
         try {
             console.log(`Fetching exams for teacher ID: ${teacherId}`);
@@ -51,7 +49,7 @@ const ExamPage = () => {
             fetchExams();
         } else {
             console.error("No teacher ID found; redirecting to dashboard.");
-            navigate('/dashboard'); // Redirect if teacherId is missing
+            navigate('/dashboard'); 
         }
     }, [teacherId]);
 
@@ -73,7 +71,7 @@ const ExamPage = () => {
             setIsLoading(true);
             await ExamApi.createExam(newExam);
             setNewExam({ examName: '', examDate: '', duration: 0, roomNumber: '', courseId: '' });
-            fetchExams(); // Refresh exams list after adding
+            fetchExams(); 
         } catch (error) {
             console.error("Error adding exam:", error.response?.data || error.message);
         } finally {
@@ -84,10 +82,14 @@ const ExamPage = () => {
     const handleDeleteExam = async (examId) => {
         try {
             await ExamApi.deleteExam(examId);
-            fetchExams(); // Refresh exams list after deletion
+            fetchExams(); 
         } catch (error) {
             console.error("Error deleting exam:", error.response?.data || error.message);
         }
+    };
+
+    const handleViewSubmissions = (examId) => {
+        navigate('/exam-submissions', { state: { examId } });
     };
 
     return (
@@ -132,6 +134,7 @@ const ExamPage = () => {
                             <li key={exam.id}>
                                 <strong>{exam.examName}</strong> - {exam.examDate}
                                 <p>Room: {exam.roomNumber} | Duration: {exam.duration} mins | Course ID: {exam.courseId}</p>
+                                <button onClick={() => handleViewSubmissions(exam.id)} className="view-submissions-button">View Submissions</button>
                                 <button onClick={() => handleDeleteExam(exam.id)} className="delete-button">Delete</button>
                             </li>
                         ))}

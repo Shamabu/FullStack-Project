@@ -1,24 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import AssignmentSubmissionApi from '../ApiCalls/AssignmentSubmissionApi';
-import AssignmentApi from '../ApiCalls/AssignmentApi';
+import ExamSubmissionApi from '../ApiCalls/ExamSubmissionApi';
+import ExamApi from '../ApiCalls/ExamApi';
 import EnrollmentApi from '../ApiCalls/EnrollmentApi';
 import CourseApi from '../ApiCalls/CourseApi';
-import './AdminAssignmentSubmissionPage.css';
+import './AdminExamSubmissionPage.css';
 
-const AdminAssignmentSubmissionPage = () => {
+const AdminExamSubmissionPage = () => {
     const [studentId, setStudentId] = useState('');
-    const [filePath, setFilePath] = useState('');
     const [courseId, setCourseId] = useState('');
-    const [assignmentId, setAssignmentId] = useState('');
-    const [submissionDate, setSubmissionDate] = useState(new Date().toISOString().split('T')[0]); // Initialize with current date
+    const [examId, setExamId] = useState('');
+    const [submissionDate, setSubmissionDate] = useState(new Date().toISOString().split('T')[0]);
+    const [filePath, setFilePath] = useState('');
+    const [feedback, setFeedback] = useState('');
     const [responseMessage, setResponseMessage] = useState('');
     const [courses, setCourses] = useState([]);
-    const [assignments, setAssignments] = useState([]);
+    const [exams, setExams] = useState([]);
     const [loading, setLoading] = useState(false);
-
-    // Set default feedback and grade
-    const feedback = 'loading'; // Automatically set feedback to 'loading'
-    const grade = 0;            // Automatically set grade to 0
 
     // Fetch courses for a specific student based on enrollments
     const fetchCoursesForStudent = async () => {
@@ -36,7 +33,6 @@ const AdminAssignmentSubmissionPage = () => {
 
             const coursesWithNames = await Promise.all(courseDetailsPromises);
             setCourses(coursesWithNames);
-
         } catch (error) {
             console.error('Error fetching courses for student:', error);
         } finally {
@@ -44,63 +40,66 @@ const AdminAssignmentSubmissionPage = () => {
         }
     };
 
-    // Fetch assignments for the selected course
-    const fetchAssignmentsForCourse = async () => {
+    // Fetch exams for the selected course
+    const fetchExamsForCourse = async () => {
         if (!courseId) return;
+
         try {
-            const allAssignments = await AssignmentApi.getAllAssignments();
-            const filteredAssignments = allAssignments.filter(assignment => assignment.courseId === parseInt(courseId));
-            setAssignments(filteredAssignments);
+            const response = await ExamApi.getExamsByCourse(courseId);
+            setExams(response.data);
         } catch (error) {
-            console.error('Error fetching assignments for course:', error);
+            console.error('Error fetching exams for course:', error);
         }
     };
 
     useEffect(() => {
         setCourses([]);
-        setAssignments([]);
+        setExams([]);
         if (studentId) fetchCoursesForStudent();
     }, [studentId]);
 
     useEffect(() => {
-        setAssignments([]);
-        if (courseId) fetchAssignmentsForCourse();
+        setExams([]);
+        if (courseId) fetchExamsForCourse();
     }, [courseId]);
 
-    // Handle form submission
+    // Handle form submission for adding a new exam submission
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        // Ensure filePath is non-empty
-        const filePathValue = filePath || '/path/to/file'; // Provide a default if empty
+        // Validate filePath and other fields
+        if (!filePath) {
+            alert("Please provide the exam file path.");
+            return;
+        }
 
-        // Sanitize the submissionDate to ensure it's valid and in the correct format
+        // Ensure the date is valid
         const validSubmissionDate = isValidDate(submissionDate) ? submissionDate : new Date().toISOString().split('T')[0];
 
         const submissionData = {
             studentId: parseInt(studentId),
-            filePath: filePathValue,
-            assignmentId: parseInt(assignmentId),
+            ExamFilePath: filePath,
+            examId: parseInt(examId),
             submissionDate: validSubmissionDate,
-            feedback: feedback, // Automatically set to 'loading'
-            grade: grade        // Automatically set to 0
+            Feedback: feedback,
         };
 
         console.log("Submission Data:", submissionData); // Verify the data structure
 
         try {
-            await AssignmentSubmissionApi.createSubmission(submissionData);
-            setResponseMessage('Assignment submitted successfully!');
+            await ExamSubmissionApi.createSubmission(submissionData);
+            setResponseMessage('Exam submission added successfully!');
             // Reset form fields
             setStudentId('');
             setCourseId('');
+            setExamId('');
             setFilePath('');
-            setAssignmentId('');
-            setSubmissionDate(new Date().toISOString().split('T')[0]);  // Reset to today's date
+            setFeedback('');
+            setSubmissionDate(new Date().toISOString().split('T')[0]); // Reset to today's date
             setCourses([]);
-            setAssignments([]);
+            setExams([]);
         } catch (error) {
-            setResponseMessage('Failed to submit the assignment.');
+            setResponseMessage('Failed to submit the exam.');
             console.error('Submission error:', error.response?.data.errors || error.message);
         }
     };
@@ -112,8 +111,8 @@ const AdminAssignmentSubmissionPage = () => {
     };
 
     return (
-        <div className="assignment-submission-container">
-            <h1>Submit Assignment for Student</h1>
+        <div className="exam-submission-container">
+            <h1>Submit Exam for Student</h1>
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label>Student ID</label>
@@ -123,7 +122,7 @@ const AdminAssignmentSubmissionPage = () => {
                         onChange={(e) => {
                             setStudentId(e.target.value);
                             setCourses([]);
-                            setAssignments([]);
+                            setExams([]);
                             setCourseId('');
                         }}
                         onBlur={fetchCoursesForStudent}
@@ -149,25 +148,25 @@ const AdminAssignmentSubmissionPage = () => {
                     </div>
                 )}
 
-                {assignments.length > 0 && (
+                {exams.length > 0 && (
                     <div className="form-group">
-                        <label>Assignment</label>
+                        <label>Exam</label>
                         <select
-                            value={assignmentId}
-                            onChange={(e) => setAssignmentId(e.target.value)}
+                            value={examId}
+                            onChange={(e) => setExamId(e.target.value)}
                             required
                         >
-                            <option value="">Select Assignment</option>
-                            {assignments.map(assignment => (
-                                <option key={assignment.id} value={assignment.id}>
-                                    {assignment.title}
+                            <option value="">Select Exam</option>
+                            {exams.map(exam => (
+                                <option key={exam.id} value={exam.id}>
+                                    {exam.examName}
                                 </option>
                             ))}
                         </select>
                     </div>
                 )}
 
-                {courseId && assignmentId && (
+                {courseId && examId && (
                     <>
                         <div className="form-group">
                             <label>File Path</label>
@@ -175,6 +174,15 @@ const AdminAssignmentSubmissionPage = () => {
                                 type="text"
                                 value={filePath}
                                 onChange={(e) => setFilePath(e.target.value)}
+                                required
+                            />
+                        </div>
+
+                        <div className="form-group">
+                            <label>Feedback</label>
+                            <textarea
+                                value={feedback}
+                                onChange={(e) => setFeedback(e.target.value)}
                                 required
                             />
                         </div>
@@ -189,15 +197,15 @@ const AdminAssignmentSubmissionPage = () => {
                             />
                         </div>
 
-                        <button type="submit" className="btn btn-primary">Submit Assignment</button>
+                        <button type="submit" className="btn btn-primary">Submit Exam</button>
                     </>
                 )}
             </form>
 
-            {loading && <p>Loading courses and assignments...</p>}
+            {loading && <p>Loading courses and exams...</p>}
             {responseMessage && <p className="response-message">{responseMessage}</p>}
         </div>
     );
 };
 
-export default AdminAssignmentSubmissionPage;
+export default AdminExamSubmissionPage;
