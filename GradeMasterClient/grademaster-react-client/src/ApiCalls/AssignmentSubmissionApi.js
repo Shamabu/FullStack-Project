@@ -39,7 +39,12 @@ class AssignmentSubmissionApi {
             'Content-Type': 'application/json',  // Ensure this header is set
         }
     });
+    
 }
+getSubmissionsByStudentAndCourse(studentId, courseId) {
+  return axios.get(`${API_URL}/student/${studentId}/course/${courseId}`);
+}
+
 
 }
 

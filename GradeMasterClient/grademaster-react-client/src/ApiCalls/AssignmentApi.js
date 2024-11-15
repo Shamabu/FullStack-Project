@@ -4,6 +4,11 @@ import axios from 'axios';
 const API_URL = 'https://localhost:7185/api/assignment';
 
 const AssignmentApi = {
+    // Add this method in AssignmentSubmissionApi.js
+getSubmissionsByStudentAndCourse(studentId, courseId) {
+    return axios.get(`${API_URL}/student/${studentId}/course/${courseId}`);
+},
+
     // Get assignments by teacher ID
     getAssignmentsByTeacher: async (teacherId) => {
         console.log(`Fetching assignments for teacher ID: ${teacherId}`);
@@ -77,6 +82,7 @@ const AssignmentApi = {
             throw error;
         }
     }
+    
 };
 
 export default AssignmentApi;

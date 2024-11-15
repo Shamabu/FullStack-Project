@@ -1,28 +1,28 @@
+// DashboardPage.js
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import './DashboardPage.css'; // Add your styles here
-import { FaChalkboardTeacher, FaClipboardList, FaGraduationCap, FaBook } from 'react-icons/fa'; // Add some Moodle-like icons
+import './DashboardPage.css';
+import { FaChalkboardTeacher, FaClipboardList, FaGraduationCap, FaBook } from 'react-icons/fa';
 
 function DashboardPage() {
     const location = useLocation();
-    const { teacher } = location.state || {};  // Get teacher data from location state
+    const { teacher } = location.state || {}; // Get teacher data from location state
     const navigate = useNavigate();
 
-    // This function handles navigation based on the tab selected
     const handleTabChange = (tab) => {
         if (tab === 'courses') {
-            navigate('/courses', { state: { teacher } });  // Navigate to Courses page with teacher info
+            navigate('/courses', { state: { teacher } });
         } else if (tab === 'assignments') {
-            navigate('/assignments', { state: { teacherId: teacher?.id } });  // Navigate to Assignments page
+            navigate('/assignments', { state: { teacherId: teacher?.id } });
         } else if (tab === 'exams') {
-            navigate('/exams', { state: { teacherId: teacher?.id } });  // Navigate to Exams page
+            navigate('/exams', { state: { teacherId: teacher?.id } });
         } else if (tab === 'grades') {
-            navigate('/grades', { state: { teacherId: teacher?.id } });  // Navigate to Grades page
+            navigate('/grades', { state: { teacher } }); // Navigate to Grades page with teacher data
         }
     };
 
     if (!teacher) {
-        return <div>Loading...</div>;  // Handle case when teacher data is not loaded yet
+        return <div>Loading...</div>;
     }
 
     return (

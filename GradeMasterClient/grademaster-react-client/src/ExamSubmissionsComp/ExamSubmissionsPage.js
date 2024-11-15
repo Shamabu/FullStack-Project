@@ -37,35 +37,37 @@ const ExamSubmissionsPage = () => {
 
     // Update the submission
     const handleUpdateSubmission = async (submissionId) => {
-        console.log("Submitting ID:", submissionId);
+        console.log("Submission ID:", submissionId);  // Log submissionId to verify it's correct
         
-        // Ensure grade is a number and handle the submittionDate in ISO format
+        // Ensure grade is a number and set the current date in ISO format for submission date
         const updatedSubmission = {
-            grade: parseInt(editGrade, 10),  // Ensure grade is a number
+            id: submissionId,  // Include the submission ID if required by the backend
+            grade: parseInt(editGrade, 10),  // Ensure grade is an integer
             feedback: editFeedback,
-            examFilePath: submissions.find(submission => submission.id === submissionId).examFilePath,  // Use the existing file path
-            submittionDate: new Date().toISOString(),  // Make sure the date is correctly formatted
+            examFilePath: submissions.find(submission => submission.id === submissionId).examFilePath,  // Use existing file path
+            submittionDate: new Date().toISOString(),  // Format date correctly
         };
-    
-        console.log("Updated Submission Data: ", updatedSubmission); // Log to verify the data
+        
+        console.log("Updated Submission Data:", updatedSubmission);  // Log updatedSubmission for verification
     
         try {
-            // Send data to the backend
+            // Send updated data to the backend
             await ExamSubmissionApi.updateSubmission(submissionId, updatedSubmission);
             
-            // Update state with new grade and feedback
+            // Update local state with new grade and feedback
             setSubmissions(submissions.map(submission =>
                 submission.id === submissionId
                     ? { ...submission, grade: editGrade, feedback: editFeedback }
                     : submission
             ));
-    
+            
             // Close the edit form after update
             setEditSubmissionId(null);
         } catch (error) {
-            console.error('Error updating exam submission:', error);
+            console.error('Error updating exam submission:', error);  // Log any errors for further analysis
         }
     };
+    
     
     // Delete the submission
     const handleDeleteSubmission = async (submissionId) => {

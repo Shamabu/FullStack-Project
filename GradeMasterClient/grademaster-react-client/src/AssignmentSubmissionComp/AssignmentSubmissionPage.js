@@ -122,8 +122,8 @@ const AdminAssignmentSubmissionPage = () => {
                         value={studentId}
                         onChange={(e) => {
                             setStudentId(e.target.value);
-                            setCourses([]);
-                            setAssignments([]);
+                            setCourses([]); // Reset courses when student ID changes
+                            setAssignments([]);   // Reset assignments
                             setCourseId('');
                         }}
                         onBlur={fetchCoursesForStudent}
@@ -160,7 +160,7 @@ const AdminAssignmentSubmissionPage = () => {
                             <option value="">Select Assignment</option>
                             {assignments.map(assignment => (
                                 <option key={assignment.id} value={assignment.id}>
-                                    {assignment.title}
+                                    {assignment.title} - Due Date: {assignment.dueDate ? new Date(assignment.dueDate).toLocaleDateString() : 'No Due Date'}
                                 </option>
                             ))}
                         </select>

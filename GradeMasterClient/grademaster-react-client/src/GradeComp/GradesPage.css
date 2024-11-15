@@ -1,0 +1,109 @@
+/* General container styles */
+.grades-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    color: #333;
+    background-color: #f9f9f9;
+}
+
+/* Header styling */
+.grades-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #444;
+}
+
+/* Course card styles */
+.course-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin: 20px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+}
+
+.course-card h3 {
+    margin-top: 0;
+    font-size: 1.5em;
+    color: #007bff;
+    text-align: center;
+}
+
+/* Table styling */
+.grades-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.grades-table th, 
+.grades-table td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+.grades-table th {
+    background-color: #007bff;
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
+}
+
+.grades-table td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.grades-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* Button styles */
+button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    margin: 5px;
+}
+
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+button:hover:not(:disabled) {
+    background-color: #0056b3;
+    color: #fff;
+}
+
+/* Save button */
+button {
+    background-color: #007bff;
+    color: #fff;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .grades-table th, 
+    .grades-table td {
+        font-size: 0.85em;
+        padding: 8px;
+    }
+
+    .course-card {
+        padding: 10px;
+    }
+
+    .grades-container h2 {
+        font-size: 1.2em;
+    }
+}

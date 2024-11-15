@@ -4,6 +4,7 @@ import Navbar from './Navbar';
 import './Details.css';
 import Participant from './Participants';
 import StudentAttendance from '../AttendanceComp/StudentAttendance';
+import CourseGrades from './CourseGrades'; // Updated import
 import { FaChalkboardTeacher, FaClipboardList, FaGraduationCap, FaBook } from 'react-icons/fa';
 
 function Details() {
@@ -15,11 +16,10 @@ function Details() {
     };
     const [activeTab, setActiveTab] = useState('course'); // Default tab is Course
 
-    // List of tabs with content components and icons
     const tabList = [
         { id: 'course', label: 'Course', icon: <FaBook />, content: <CourseDetails /> },
         { id: 'participants', label: 'Participants', icon: <FaChalkboardTeacher />, content: <Participants /> },
-        { id: 'grades', label: 'Grades', icon: <FaClipboardList />, content: <Grades /> },
+        { id: 'grades', label: 'Grades', icon: <FaClipboardList />, content: <Grades courseId={courseId} /> },
         { id: 'attendance', label: 'Attendance', icon: <FaGraduationCap />, content: <Attendance courseId={courseId} /> }
     ];
 
@@ -75,8 +75,6 @@ function Details() {
     );
 }
 
-// Sub-components for each tab content
-
 const CourseDetails = () => (
     <div>
         <h4>Course Details</h4>
@@ -90,10 +88,9 @@ const Participants = () => (
     </div>
 );
 
-const Grades = () => (
+const Grades = ({ courseId }) => (
     <div>
-        <h4>Grades</h4>
-        <p>Grade management functionality for the course will be implemented here. You can include input forms to add or edit grades, and a table to display current grades.</p>
+        <CourseGrades courseId={courseId} /> {/* Updated component */}
     </div>
 );
 

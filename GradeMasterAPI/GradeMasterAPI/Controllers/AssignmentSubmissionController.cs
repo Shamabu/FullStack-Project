@@ -209,5 +209,45 @@ namespace GradeMasterAPI.Controllers
         {
             return _context.AssignmentSubmission.Any(e => e.Id == id);
         }
+        // GET: api/AssignmentSubmission/course/5
+        [HttpGet("course/{courseId}")]
+        public async Task<ActionResult<IEnumerable<AssignmentSubmission>>> GetSubmissionsByCourseId(int courseId)
+        {
+            try
+            {
+                var submissions = await _context.AssignmentSubmission
+                    .Include(submission => submission.Assignment) // Include the Assignment to access CourseId
+                    .Where(submission => submission.Assignment.CourseId == courseId)
+                    .ToListAsync();
+
+                if (submissions == null || !submissions.Any())
+                {
+                    return NotFound($"No submissions found for course with ID {courseId}.");
+                }
+
+                return Ok(submissions);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+        [HttpGet("student/{studentId}/course/{courseId}")]
+        public async Task<ActionResult<IEnumerable<AssignmentSubmission>>> GetSubmissionsByStudentAndCourse(int studentId, int courseId)
+        {
+            var submissions = await _context.AssignmentSubmission
+                .Where(sub => sub.StudentId == studentId && sub.Assignment.CourseId == courseId)
+                .ToListAsync();
+
+            if (!submissions.Any())
+            {
+                return NotFound();
+            }
+
+            return Ok(submissions);
+        }
+
+
     }
 }

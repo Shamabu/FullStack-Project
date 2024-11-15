@@ -11,7 +11,7 @@ const AdminExamSubmissionPage = () => {
     const [examId, setExamId] = useState('');
     const [submissionDate, setSubmissionDate] = useState(new Date().toISOString().split('T')[0]);
     const [filePath, setFilePath] = useState('');
-    const [feedback, setFeedback] = useState('');
+    const [feedback, setFeedback] = useState('loading'); // Set default feedback
     const [responseMessage, setResponseMessage] = useState('');
     const [courses, setCourses] = useState([]);
     const [exams, setExams] = useState([]);
@@ -66,26 +66,20 @@ const AdminExamSubmissionPage = () => {
     // Handle form submission for adding a new exam submission
     const handleSubmit = async (event) => {
         event.preventDefault();
-
-        // Validate filePath and other fields
-        if (!filePath) {
-            alert("Please provide the exam file path.");
-            return;
-        }
-
-        // Ensure the date is valid
+    
+        // Set a valid date format and correct field name
         const validSubmissionDate = isValidDate(submissionDate) ? submissionDate : new Date().toISOString().split('T')[0];
-
+    
         const submissionData = {
             studentId: parseInt(studentId),
-            ExamFilePath: filePath,
+            examFilePath: filePath || '/default/path/to/file',
             examId: parseInt(examId),
-            submissionDate: validSubmissionDate,
-            Feedback: feedback,
+            SubmittionDate: validSubmissionDate,  // Adjusted to match backend spelling
+            feedback: feedback || "loading",
         };
-
-        console.log("Submission Data:", submissionData); // Verify the data structure
-
+    
+        console.log("Submission Data:", submissionData); // Log payload to verify structure
+    
         try {
             await ExamSubmissionApi.createSubmission(submissionData);
             setResponseMessage('Exam submission added successfully!');
@@ -94,8 +88,8 @@ const AdminExamSubmissionPage = () => {
             setCourseId('');
             setExamId('');
             setFilePath('');
-            setFeedback('');
-            setSubmissionDate(new Date().toISOString().split('T')[0]); // Reset to today's date
+            setFeedback('loading');
+            setSubmissionDate(new Date().toISOString().split('T')[0]);
             setCourses([]);
             setExams([]);
         } catch (error) {
@@ -103,8 +97,7 @@ const AdminExamSubmissionPage = () => {
             console.error('Submission error:', error.response?.data.errors || error.message);
         }
     };
-
-    // Function to check if the date is valid
+    
     const isValidDate = (date) => {
         const parsedDate = new Date(date);
         return parsedDate instanceof Date && !isNaN(parsedDate);
@@ -174,15 +167,6 @@ const AdminExamSubmissionPage = () => {
                                 type="text"
                                 value={filePath}
                                 onChange={(e) => setFilePath(e.target.value)}
-                                required
-                            />
-                        </div>
-
-                        <div className="form-group">
-                            <label>Feedback</label>
-                            <textarea
-                                value={feedback}
-                                onChange={(e) => setFeedback(e.target.value)}
                                 required
                             />
                         </div>

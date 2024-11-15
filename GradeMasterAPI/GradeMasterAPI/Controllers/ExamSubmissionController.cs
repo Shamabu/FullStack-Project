@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using GradeMasterAPI.DB;
@@ -29,7 +28,7 @@ namespace GradeMasterAPI.Controllers
             return await _context.ExamSubmission.ToListAsync();
         }
 
-        // GET: api/ExamSubmission/5
+        // GET: api/ExamSubmission/{id}
         [HttpGet("{id}")]
         public async Task<ActionResult<ExamSubmission>> GetExamSubmission(int id)
         {
@@ -37,13 +36,36 @@ namespace GradeMasterAPI.Controllers
 
             if (examSubmission == null)
             {
-                return NotFound();
+                return NotFound($"Exam submission with ID {id} not found.");
             }
 
-            return examSubmission;
+            return Ok(examSubmission);
         }
 
-        // PUT: api/ExamSubmission/5
+        // GET: api/ExamSubmission/exam/{examId}
+        [HttpGet("exam/{examId}")]
+        public async Task<ActionResult<IEnumerable<ExamSubmission>>> GetSubmissionsByExamId(int examId)
+        {
+            try
+            {
+                var submissions = await _context.ExamSubmission
+                    .Where(submission => submission.ExamId == examId)
+                    .ToListAsync();
+
+                if (submissions == null || !submissions.Any())
+                {
+                    return NotFound($"No submissions found for exam with ID {examId}.");
+                }
+
+                return Ok(submissions);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+        // PUT: api/ExamSubmission/{id}
         [HttpPut("{id}")]
         public async Task<IActionResult> PutExamSubmission(int id, ExamSubmissionDTO examSubmissionDto)
         {
@@ -58,11 +80,10 @@ namespace GradeMasterAPI.Controllers
                 return NotFound($"Exam submission with ID {id} not found.");
             }
 
-            // Validate required fields and proceed with the update
+            // Update fields
             examSubmission.Grade = examSubmissionDto.Grade;
             examSubmission.Feedback = examSubmissionDto.Feedback;
 
-            // Optional: Update ExamFilePath and SubmittionDate if needed
             if (!string.IsNullOrEmpty(examSubmissionDto.ExamFilePath))
             {
                 examSubmission.ExamFilePath = examSubmissionDto.ExamFilePath;
@@ -91,14 +112,13 @@ namespace GradeMasterAPI.Controllers
                 }
             }
 
-            return NoContent(); // Return NoContent when the update is successful
+            return NoContent();
         }
 
         // POST: api/ExamSubmission
         [HttpPost]
         public async Task<ActionResult<ExamSubmission>> PostExamSubmission(ExamSubmissionDTO examSubmissionDto)
         {
-            // Validation for required fields
             if (string.IsNullOrEmpty(examSubmissionDto.ExamFilePath))
             {
                 return BadRequest("The ExamFilePath field is required.");
@@ -109,14 +129,14 @@ namespace GradeMasterAPI.Controllers
                 return BadRequest("The SubmittionDate field is required.");
             }
 
-            ExamSubmission examSubmission = new ExamSubmission()
+            var examSubmission = new ExamSubmission
             {
                 ExamFilePath = examSubmissionDto.ExamFilePath,
                 ExamId = examSubmissionDto.ExamId,
                 StudentId = examSubmissionDto.StudentId,
                 SubmittionDate = examSubmissionDto.SubmittionDate,
                 Feedback = examSubmissionDto.Feedback,
-                Grade = examSubmissionDto.Grade,
+                Grade = examSubmissionDto.Grade
             };
 
             _context.ExamSubmission.Add(examSubmission);
@@ -125,14 +145,14 @@ namespace GradeMasterAPI.Controllers
             return CreatedAtAction("GetExamSubmission", new { id = examSubmission.Id }, examSubmission);
         }
 
-        // DELETE: api/ExamSubmission/5
+        // DELETE: api/ExamSubmission/{id}
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteExamSubmission(int id)
         {
             var examSubmission = await _context.ExamSubmission.FindAsync(id);
             if (examSubmission == null)
             {
-                return NotFound();
+                return NotFound($"Exam submission with ID {id} not found.");
             }
 
             _context.ExamSubmission.Remove(examSubmission);
@@ -141,33 +161,26 @@ namespace GradeMasterAPI.Controllers
             return NoContent();
         }
 
-        // Helper method to check if exam submission exists
+        // Helper method to check if an exam submission exists
         private bool ExamSubmissionExists(int id)
         {
             return _context.ExamSubmission.Any(e => e.Id == id);
         }
 
-        // GET: api/ExamSubmission/exam/5
-        [HttpGet("exam/{examId}")]
-        public async Task<ActionResult<IEnumerable<ExamSubmission>>> GetSubmissionsByExamId(int examId)
+        [HttpGet("course/{courseId}")]
+        public async Task<ActionResult<IEnumerable<ExamSubmission>>> GetSubmissionsByCourseId(int courseId)
         {
-            try
-            {
-                var submissions = await _context.ExamSubmission
-                    .Where(submission => submission.ExamId == examId)
-                    .ToListAsync();
+            var submissions = await _context.ExamSubmission
+                .Where(sub => sub.Exam.CourseId == courseId)
+                .ToListAsync();
 
-                if (submissions == null || !submissions.Any())
-                {
-                    return NotFound("No submissions found for this exam.");
-                }
-
-                return Ok(submissions);
-            }
-            catch (Exception ex)
+            if (!submissions.Any())
             {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
+                return NotFound();
             }
+
+            return Ok(submissions);
         }
+
     }
 }
