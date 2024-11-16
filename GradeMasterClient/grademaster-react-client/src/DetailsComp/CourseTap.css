@@ -1,42 +1,74 @@
+/* Overall Page */
 .course-details-page {
     margin: 20px;
     font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* Course Header */
 .course-header {
     background-color: #f4f4f4;
-    padding: 10px;
+    padding: 15px;
     border-bottom: 2px solid #ccc;
+    border-radius: 8px 8px 0 0;
+    font-weight: bold;
+    color: #333;
 }
 
+/* Course Description */
 .course-description {
     margin-top: 20px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    color: #333;
 }
 
+/* Assignments Section */
 .course-assignments {
     margin-top: 20px;
-}
-
-.loading-message {
-    color: #007bff;
-}
-
-.error-message {
-    color: #ff4d4d;
-}
-
-.no-assignments-message {
-    color: #666;
 }
 
 .assignments-list {
     list-style: none;
     padding: 0;
+    margin: 0;
 }
 
 .assignment-item {
     background-color: #f9f9f9;
     padding: 10px;
     border: 1px solid #ddd;
+    border-radius: 8px;
     margin-bottom: 10px;
+    transition: box-shadow 0.2s ease;
+}
+
+.assignment-item:hover {
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Loading Message */
+.loading-message {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #007bff;
+}
+
+/* Error Message */
+.error-message {
+    text-align: center;
+    font-size: 1.1rem;
+    color: #ff4d4d;
+}
+
+/* No Assignments Message */
+.no-assignments-message {
+    text-align: center;
+    font-size: 1rem;
+    color: #666;
 }

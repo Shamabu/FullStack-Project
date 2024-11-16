@@ -35,14 +35,6 @@ function App() {
       <Route path="/exams" element={<ExamPage />} />
       <Route path="/exam-submissions" element={<ExamSubmissionsPage />} />
       <Route path="/grades" element={<GradesPage />} /> 
-      <Route path="/course-details" element={<CourseTap />} />
-
-
-
-
-
-
-
     </Routes>
   );
 }
