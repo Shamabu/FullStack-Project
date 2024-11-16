@@ -135,6 +135,12 @@ namespace GradeMasterAPI.Controllers
                 return BadRequest("Invalid data.");
             }
 
+            // Validate submission date
+            if (assignmentSubmissionDto.SubmittionDate == DateTime.MinValue)
+            {
+                assignmentSubmissionDto.SubmittionDate = DateTime.UtcNow; // Set default to current UTC date
+            }
+
             var assignmentSubmission = new AssignmentSubmission()
             {
                 FilePath = assignmentSubmissionDto.FilePath,
@@ -157,6 +163,7 @@ namespace GradeMasterAPI.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+
 
         // DELETE: api/AssignmentSubmission/5
         [HttpDelete("{id}")]

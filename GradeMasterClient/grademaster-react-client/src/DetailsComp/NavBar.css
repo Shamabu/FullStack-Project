@@ -1,44 +1,51 @@
-/* Navbar */
-.navbar {
-    background-color: #05192c; /* Darker color for better contrast */
-    border-bottom: 4px solid #34495e; /* Slightly thicker border for emphasis */
-    padding: 10px 20px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Added shadow for depth */
+/* Navbar Container */
+.custom-navbar {
+  background-color: #f5f5dc; /* Soft beige background */
+  padding: 10px 20px;
+  border-bottom: 2px solid #dfe4c8; /* Light green border */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  position: sticky; /* Make navbar sticky */
+  top: 0; /* Stick to the top of the viewport */
+  z-index: 1000; /* Ensure it stays above other elements */
 }
 
-.navbar a.navbar-brand {
-    color: #3f7380 !important;
-    font-size: 1.6rem;
-    font-weight: bold;
-    transition: color 0.3s ease-in-out;
+/* Navbar Brand */
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #4a634c; /* Dark green */
+  text-decoration: none;
+  transition: color 0.3s;
 }
 
-.navbar a.navbar-brand:hover {
-    color: #3498db !important;
+.navbar-brand:hover {
+  color: #6b816b; /* Slightly muted green-gray */
 }
 
-.navbar-nav .nav-item .nav-link {
-    color: #74cce3;
-    padding: 10px 15px;
-    font-size: 1rem;
-    transition: color 0.3s ease-in-out;
+/* Navbar Links */
+.navbar-nav {
+  margin-left: auto; /* Align navigation items to the right */
+  display: flex;
+  gap: 15px; /* Space between tabs */
 }
 
-.navbar-nav .nav-item .nav-link:hover {
-    color: #3498db;
-    text-decoration: underline;
+.navbar-nav .nav-link {
+  font-size: 1rem;
+  color: #4a634c; /* Dark green */
+  margin: 0 5px;
+  text-decoration: none;
+  transition: color 0.3s, background-color 0.3s;
+  padding: 10px 15px;
+  border-radius: 5px;
 }
 
-.navbar-collapse {
-    justify-content: flex-end; /* Align navbar items to the right */
+.navbar-nav .nav-link:hover {
+  color: #6b816b; /* Muted green-gray on hover */
+  background-color: #e0f2d6; /* Soft light green background on hover */
 }
 
-@media (max-width: 768px) {
-    .navbar-nav {
-        text-align: center;
-    }
-
-    .navbar-collapse {
-        justify-content: center;
-    }
+.navbar-nav .nav-link.active {
+  font-weight: bold;
+  color: #6b816b; /* Muted green-gray for active link */
+  border-bottom: 2px solid #b5dbb2; /* Highlight with soft green border */
 }

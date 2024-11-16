@@ -4,12 +4,12 @@ import axios from 'axios';
 const API_URL = 'https://localhost:7185/api/assignment';
 
 const AssignmentApi = {
-    // Add this method in AssignmentSubmissionApi.js
-getSubmissionsByStudentAndCourse(studentId, courseId) {
-    return axios.get(`${API_URL}/student/${studentId}/course/${courseId}`);
-},
+    // Fetch assignments by student and course
+    getSubmissionsByStudentAndCourse: (studentId, courseId) => {
+        return axios.get(`${API_URL}/student/${studentId}/course/${courseId}`);
+    },
 
-    // Get assignments by teacher ID
+    // Fetch assignments by teacher ID
     getAssignmentsByTeacher: async (teacherId) => {
         console.log(`Fetching assignments for teacher ID: ${teacherId}`);
         try {
@@ -17,6 +17,18 @@ getSubmissionsByStudentAndCourse(studentId, courseId) {
             return response.data;
         } catch (error) {
             console.error('Error fetching assignments by teacher:', error.response ? error.response.data : error.message);
+            throw error;
+        }
+    },
+
+    // Fetch assignments by course ID
+    getAssignmentsByCourseId: async (courseId) => {
+        console.log(`Fetching assignments for course ID: ${courseId}`);
+        try {
+            const response = await axios.get(`${API_URL}/course/${courseId}`);
+            return response.data;
+        } catch (error) {
+            console.error('Error fetching assignments by course ID:', error.response ? error.response.data : error.message);
             throw error;
         }
     },
@@ -76,13 +88,13 @@ getSubmissionsByStudentAndCourse(studentId, courseId) {
     // Get a single assignment by its ID
     getAssignmentById: async (id) => {
         try {
-            return await axios.get(`https://localhost:7185/api/assignment/${id}`);
+            const response = await axios.get(`${API_URL}/${id}`);
+            return response.data;
         } catch (error) {
             console.error('Error fetching assignment by ID:', error.response ? error.response.data : error.message);
             throw error;
         }
     }
-    
 };
 
 export default AssignmentApi;

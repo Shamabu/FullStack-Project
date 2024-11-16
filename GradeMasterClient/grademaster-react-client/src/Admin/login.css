@@ -1,73 +1,114 @@
-/* Container styling */
+/* General Styling */
 .container {
-    max-width: 400px;  /* Limit the width of the login form */
-    margin: 50px auto;  /* Center the form vertically and horizontally */
-    padding: 20px;  /* Add padding for better spacing */
-    border-radius: 10px;  /* Rounded corners */
-    background-color: #f9f9f9;  /* Light background color */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);  /* Subtle shadow effect */
+    font-family: "Arial", sans-serif;
+    background-color: #f5f5dc; /* Soft beige background */
+    color: #333; /* Neutral text color */
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
 }
 
-/* Title styling */
-h2 {
-    text-align: center;  /* Center the title */
-    color: #4a4a4a;  /* Darker text for better contrast */
-    font-family: 'Arial', sans-serif;  /* Use a clean font */
+/* Background Decoration */
+.background-decor {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.1; /* Subtle background effect */
+    z-index: -1;
 }
 
-/* Form group styling */
+.background-decor img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Login Box */
+.login-box {
+    background-color: #fff; /* Clean white background */
+    padding: 30px 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.login-header {
+    font-size: 2rem;
+    color: #4a634c; /* Dark green */
+    margin-bottom: 10px;
+}
+
+.login-subtext {
+    font-size: 1rem;
+    color: #6b816b; /* Muted green-gray */
+    margin-bottom: 20px;
+}
+
+/* Form Fields */
 .form-group {
-    margin-bottom: 15px;  /* Spacing between form elements */
+    margin-bottom: 20px;
+    text-align: left;
 }
 
-/* Input styling */
-input[type="email"],
-input[type="password"] {
-    width: 100%;  /* Full width */
-    padding: 10px;  /* Padding for better touch targets */
-    border: 2px solid #007bff;  /* Blue border */
-    border-radius: 5px;  /* Rounded corners */
-    transition: border-color 0.3s;  /* Smooth transition for border color */
+label {
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #4a634c; /* Dark green */
 }
 
-/* Input focus effect */
-input[type="email"]:focus,
-input[type="password"]:focus {
-    border-color: #0056b3;  /* Darker blue on focus */
-    outline: none;  /* Remove default outline */
+input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #dcdcdc; /* Light border */
+    border-radius: 5px;
+    background-color: #f9f9f2; /* Light beige background */
 }
 
-/* Button styling */
-.btn {
-    width: 100%;  /* Full width */
-    padding: 10px;  /* Padding for better touch targets */
-    background-color: #007bff;  /* Blue background */
-    color: white;  /* White text */
-    border: none;  /* No border */
-    border-radius: 5px;  /* Rounded corners */
-    font-size: 16px;  /* Larger font size */
-    cursor: pointer;  /* Pointer cursor on hover */
-    transition: background-color 0.3s, transform 0.2s;  /* Smooth transitions */
+input:focus {
+    outline: none;
+    border-color: #b6d7a8; /* Soft green focus */
+    background-color: #ffffff; /* Cleaner white focus */
 }
 
-/* Button hover effect */
-.btn:hover {
-    background-color: #0056b3;  /* Darker blue on hover */
-    transform: scale(1.05);  /* Slightly enlarge on hover */
+/* Buttons */
+.btn-primary {
+    background-color: #c6e8c3 !important; /* Light green */
+    color: #4a634c !important; /* Dark green text */
+    border: none !important;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    width: 100%;
+    text-align: center;
+    text-decoration: none; /* Remove text underline */
 }
 
-/* Alert styling */
-.alert {
-    margin-top: 10px;  /* Margin above alert */
-    padding: 10px;  /* Padding for alert content */
-    border-radius: 5px;  /* Rounded corners for alert */
-    background-color: #f8d7da;  /* Light red background */
-    color: #721c24;  /* Dark red text */
+.btn-primary:hover {
+    background-color: #b5dbb2 !important; /* Slightly darker green */
+    color: #354a35 !important; /* Darker text for contrast */
 }
 
-/* Responsive styling */
-@media (max-width: 500px) {
-    .container {
-        width: 90%;  /* Full width on small screens */
-    }
+.btn-primary:disabled {
+    background-color: #e0e0e0 !important; /* Disabled gray */
+    color: #888 !important;
+    cursor: not-allowed !important;
+}
+
+/* Error Message */
+.alert-danger {
+    margin-top: 15px;
+    background-color: #f8d7da; /* Soft red background */
+    color: #842029; /* Muted red text */
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 0.9rem;
 }

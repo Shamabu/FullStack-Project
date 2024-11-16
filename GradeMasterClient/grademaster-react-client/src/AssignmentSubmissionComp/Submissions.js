@@ -13,7 +13,6 @@ const Submissions = () => {
     const [editedFeedback, setEditedFeedback] = useState('');
     const [currentFilePath, setCurrentFilePath] = useState(''); // Track current file path
 
-    // Fetch all submissions for the selected assignment
     useEffect(() => {
         if (assignmentId) {
             fetchSubmissions();
@@ -22,20 +21,16 @@ const Submissions = () => {
 
     const fetchSubmissions = async () => {
         if (!assignmentId) return;
-
+    
         try {
             const response = await AssignmentSubmissionApi.getSubmissionsByAssignmentId(assignmentId);
-            if (response.data.length === 0) {
-                console.log("No submissions found for this assignment.");
-                setSubmissions([]);  // Set empty data if no submissions
-            } else {
-                setSubmissions(response.data);  // Set the submissions data if found
-            }
+            console.log("Submissions fetched:", response.data); // Debugging output
+            setSubmissions(response.data);
         } catch (error) {
             console.error('Error fetching submissions:', error);
-            setSubmissions([]);  // Handle error by setting empty data
         }
     };
+    
 
     const handleEditSubmission = (submission) => {
         setIsEditing(true);
@@ -47,33 +42,21 @@ const Submissions = () => {
 
     const handleUpdateSubmission = async (event) => {
         event.preventDefault();
-    
-        // Validate inputs
-        if (!editedGrade || isNaN(editedGrade) || !editedFeedback) {
-            alert('Please provide a valid grade and feedback.');
-            return;
-        }
-    
-        // Prepare updated submission data
+
         const updatedSubmission = {
             grade: editedGrade,
             feedback: editedFeedback,
-            filePath: currentFilePath,  // Include current file path
+            filePath: currentFilePath, // Include current file path
         };
-    
+
         try {
-            // Send the updated data to the API
             await AssignmentSubmissionApi.updateSubmission(editingSubmissionId, updatedSubmission);
-            
-            // Clear the form and reset state
             setIsEditing(false);
             setEditingSubmissionId(null);
             setEditedGrade('');
             setEditedFeedback('');
-            setCurrentFilePath('');  // Reset file path after update
-    
-            // Re-fetch submissions to update the list
-            fetchSubmissions(); 
+            setCurrentFilePath(''); // Reset file path after update
+            fetchSubmissions();
         } catch (error) {
             console.error('Failed to update submission:', error.response ? error.response.data : error.message);
         }
@@ -84,23 +67,16 @@ const Submissions = () => {
         setEditingSubmissionId(null);
         setEditedGrade('');
         setEditedFeedback('');
-        setCurrentFilePath('');  // Reset file path
+        setCurrentFilePath(''); // Reset file path
     };
 
     const handleDeleteSubmission = async (submissionId) => {
         try {
             await AssignmentSubmissionApi.deleteSubmission(submissionId);
-            // Re-fetch submissions after deletion
             fetchSubmissions();
         } catch (error) {
             console.error('Failed to delete submission:', error.response ? error.response.data : error.message);
         }
-    };
-
-    // Function to check if the date is valid
-    const isValidDate = (date) => {
-        const parsedDate = new Date(date);
-        return parsedDate instanceof Date && !isNaN(parsedDate);
     };
 
     return (
@@ -133,7 +109,7 @@ const Submissions = () => {
                             <input
                                 type="text"
                                 value={currentFilePath}
-                                onChange={(e) => setCurrentFilePath(e.target.value)}  // Handle file path change
+                                onChange={(e) => setCurrentFilePath(e.target.value)} // Handle file path change
                                 required
                             />
                         </div>
@@ -149,10 +125,12 @@ const Submissions = () => {
                                 <li key={submission.id} className="submission-card">
                                     <h4>Student ID: {submission.studentId}</h4>
                                     <p><strong>File Path:</strong> {submission.filePath}</p>
-
-                                    {/* Format the submission date correctly */}
-                                    <p><strong>Submission Date:</strong> {isValidDate(submission.submissionDate) ? new Date(submission.submissionDate).toLocaleDateString() : 'Invalid Date'}</p>
-
+                                    <p>
+                                        <strong>Submission Date:</strong> 
+                                        {submission.submittionDate
+                                        ? new Date(submission.submittionDate).toLocaleDateString()
+                                        : 'Submission date not available'}
+                                    </p>
                                     <p><strong>Grade:</strong> {submission.grade}</p>
                                     <p><strong>Feedback:</strong> {submission.feedback}</p>
                                     <button onClick={() => handleEditSubmission(submission)} className="edit-button">

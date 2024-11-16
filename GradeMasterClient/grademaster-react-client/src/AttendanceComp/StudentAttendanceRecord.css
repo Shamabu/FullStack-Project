@@ -1,44 +1,81 @@
+/* General Page Styling */
 .student-attendance-record {
+    font-family: "Arial", sans-serif;
+    background-color: #f5f5dc; /* Soft beige background */
+    color: #333; /* Neutral text color */
+    min-height: 100vh; /* Full page height */
+    display: flex;
+    flex-direction: column;
     padding: 20px;
-    background-color: #f9f9f9; /* Light background for contrast */
-    border-radius: 5px; /* Slightly rounded corners */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-    max-width: 800px; /* Set a max width for the component */
-    margin: auto; /* Center the component on the page */
 }
 
-h2 {
-    font-size: 24px;
-    margin-bottom: 20px; /* Spacing below the title */
+.student-attendance-record h2 {
+    text-align: center;
+    color: #4a634c; /* Dark green */
+    margin-bottom: 20px;
+    font-size: 1.8rem;
 }
 
+/* Attendance List Styling */
 ul {
-    list-style-type: none; /* Remove default bullet points */
-    padding: 0; /* Remove padding */
+    list-style-type: none;
+    padding: 0;
 }
 
 .attendance-record-item {
-    background-color: #fff; /* White background for items */
-    padding: 10px; /* Padding around each item */
-    margin-bottom: 10px; /* Space between items */
-    border: 1px solid #ddd; /* Light border for each record */
-    border-radius: 4px; /* Slightly rounded corners */
+    background-color: #fff; /* Clean white background */
+    border: 1px solid #dcdcdc; /* Light gray border */
+    border-radius: 8px;
+    margin-bottom: 15px;
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.attendance-record-item:hover {
+    transform: scale(1.01);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .attendance-record-item div {
-    margin-bottom: 5px; /* Space between record fields */
+    margin-bottom: 5px;
+    font-size: 1rem;
+    color: #4a634c; /* Dark green for text */
 }
+
+.attendance-record-item div:last-child {
+    margin-bottom: 0; /* Remove margin for the last item */
+}
+
+/* Delete Button Styling */
 .delete-button {
-    background-color: #ff4d4f;
-    color: white;
+    background-color: #fbe4d6; /* Soft peach */
+    color: #a04040; /* Muted red */
     border: none;
-    border-radius: 4px;
-    padding: 5px 10px;
+    border-radius: 5px;
+    padding: 8px 12px;
     cursor: pointer;
-    font-size: 14px;
-    margin-top: 5px;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+    font-size: 0.9rem;
 }
 
 .delete-button:hover {
-    background-color: #d9363e;
+    background-color: #f8d7c4; /* Slightly darker peach */
+    color: #902d2d; /* Darker muted red */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .student-attendance-record {
+        padding: 10px;
+    }
+
+    .attendance-record-item {
+        padding: 10px;
+    }
+
+    .delete-button {
+        padding: 6px 10px;
+        font-size: 0.8rem;
+    }
 }

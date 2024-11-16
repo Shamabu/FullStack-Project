@@ -3,20 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\DELL\\source\\repos\\GradeMaster\\GradeMasterAPI\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{C463E32C-3BA1-40ED-ABBC-39CC1DCCE0A2}|GradeMasterAPI\\GradeMasterAPI.csproj|c:\\users\\dell\\source\\repos\\grademaster\\grademasterapi\\grademasterapi\\controllers\\examsubmissioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C463E32C-3BA1-40ED-ABBC-39CC1DCCE0A2}|GradeMasterAPI\\GradeMasterAPI.csproj|solutionrelative:grademasterapi\\controllers\\examsubmissioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C463E32C-3BA1-40ED-ABBC-39CC1DCCE0A2}|GradeMasterAPI\\GradeMasterAPI.csproj|c:\\users\\dell\\source\\repos\\grademaster\\grademasterapi\\grademasterapi\\controllers\\assignmentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C463E32C-3BA1-40ED-ABBC-39CC1DCCE0A2}|GradeMasterAPI\\GradeMasterAPI.csproj|solutionrelative:grademasterapi\\controllers\\assignmentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C463E32C-3BA1-40ED-ABBC-39CC1DCCE0A2}|GradeMasterAPI\\GradeMasterAPI.csproj|c:\\users\\dell\\source\\repos\\grademaster\\grademasterapi\\grademasterapi\\controllers\\assignmentsubmissioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C463E32C-3BA1-40ED-ABBC-39CC1DCCE0A2}|GradeMasterAPI\\GradeMasterAPI.csproj|solutionrelative:grademasterapi\\controllers\\assignmentsubmissioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C463E32C-3BA1-40ED-ABBC-39CC1DCCE0A2}|GradeMasterAPI\\GradeMasterAPI.csproj|c:\\users\\dell\\source\\repos\\grademaster\\grademasterapi\\grademasterapi\\controllers\\coursecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C463E32C-3BA1-40ED-ABBC-39CC1DCCE0A2}|GradeMasterAPI\\GradeMasterAPI.csproj|solutionrelative:grademasterapi\\controllers\\coursecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C463E32C-3BA1-40ED-ABBC-39CC1DCCE0A2}|GradeMasterAPI\\GradeMasterAPI.csproj|c:\\users\\dell\\source\\repos\\grademaster\\grademasterapi\\grademasterapi\\controllers\\examcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C463E32C-3BA1-40ED-ABBC-39CC1DCCE0A2}|GradeMasterAPI\\GradeMasterAPI.csproj|solutionrelative:grademasterapi\\controllers\\examcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C463E32C-3BA1-40ED-ABBC-39CC1DCCE0A2}|GradeMasterAPI\\GradeMasterAPI.csproj|c:\\users\\dell\\source\\repos\\grademaster\\grademasterapi\\grademasterapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C463E32C-3BA1-40ED-ABBC-39CC1DCCE0A2}|GradeMasterAPI\\GradeMasterAPI.csproj|solutionrelative:grademasterapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C463E32C-3BA1-40ED-ABBC-39CC1DCCE0A2}|GradeMasterAPI\\GradeMasterAPI.csproj|c:\\users\\dell\\source\\repos\\grademaster\\grademasterapi\\grademasterapi\\controllers\\gradecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C463E32C-3BA1-40ED-ABBC-39CC1DCCE0A2}|GradeMasterAPI\\GradeMasterAPI.csproj|solutionrelative:grademasterapi\\controllers\\gradecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -39,52 +35,41 @@
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "AssignmentSubmissionController.cs",
-              "DocumentMoniker": "C:\\Users\\DELL\\source\\repos\\GradeMaster\\GradeMasterAPI\\GradeMasterAPI\\Controllers\\AssignmentSubmissionController.cs",
-              "RelativeDocumentMoniker": "GradeMasterAPI\\Controllers\\AssignmentSubmissionController.cs",
-              "ToolTip": "C:\\Users\\DELL\\source\\repos\\GradeMaster\\GradeMasterAPI\\GradeMasterAPI\\Controllers\\AssignmentSubmissionController.cs",
-              "RelativeToolTip": "GradeMasterAPI\\Controllers\\AssignmentSubmissionController.cs",
-              "ViewState": "AQIAANYAAAAAAAAAAAAiwOoAAAAAAAAA",
+              "Title": "CourseController.cs",
+              "DocumentMoniker": "C:\\Users\\DELL\\source\\repos\\GradeMaster\\GradeMasterAPI\\GradeMasterAPI\\Controllers\\CourseController.cs",
+              "RelativeDocumentMoniker": "GradeMasterAPI\\Controllers\\CourseController.cs",
+              "ToolTip": "C:\\Users\\DELL\\source\\repos\\GradeMaster\\GradeMasterAPI\\GradeMasterAPI\\Controllers\\CourseController.cs",
+              "RelativeToolTip": "GradeMasterAPI\\Controllers\\CourseController.cs",
+              "ViewState": "AQIAAFQAAAAAAAAAAAAmwIIAAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-14T18:07:45.174Z",
+              "WhenOpened": "2024-11-16T17:44:32.977Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "ExamSubmissionController.cs",
-              "DocumentMoniker": "C:\\Users\\DELL\\source\\repos\\GradeMaster\\GradeMasterAPI\\GradeMasterAPI\\Controllers\\ExamSubmissionController.cs",
-              "RelativeDocumentMoniker": "GradeMasterAPI\\Controllers\\ExamSubmissionController.cs",
-              "ToolTip": "C:\\Users\\DELL\\source\\repos\\GradeMaster\\GradeMasterAPI\\GradeMasterAPI\\Controllers\\ExamSubmissionController.cs",
-              "RelativeToolTip": "GradeMasterAPI\\Controllers\\ExamSubmissionController.cs",
-              "ViewState": "AQIAAJcAAAAAAAAAAAAuwKgAAAAAAAAA",
+              "Title": "AssignmentController.cs",
+              "DocumentMoniker": "C:\\Users\\DELL\\source\\repos\\GradeMaster\\GradeMasterAPI\\GradeMasterAPI\\Controllers\\AssignmentController.cs",
+              "RelativeDocumentMoniker": "GradeMasterAPI\\Controllers\\AssignmentController.cs",
+              "ToolTip": "C:\\Users\\DELL\\source\\repos\\GradeMaster\\GradeMasterAPI\\GradeMasterAPI\\Controllers\\AssignmentController.cs",
+              "RelativeToolTip": "GradeMasterAPI\\Controllers\\AssignmentController.cs",
+              "ViewState": "AQIAAIIAAAAAAAAAAAAuwKEAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-13T20:13:06.261Z",
+              "WhenOpened": "2024-11-16T17:21:07.34Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "ExamController.cs",
-              "DocumentMoniker": "C:\\Users\\DELL\\source\\repos\\GradeMaster\\GradeMasterAPI\\GradeMasterAPI\\Controllers\\ExamController.cs",
-              "RelativeDocumentMoniker": "GradeMasterAPI\\Controllers\\ExamController.cs",
-              "ToolTip": "C:\\Users\\DELL\\source\\repos\\GradeMaster\\GradeMasterAPI\\GradeMasterAPI\\Controllers\\ExamController.cs",
-              "RelativeToolTip": "GradeMasterAPI\\Controllers\\ExamController.cs",
-              "ViewState": "AQIAAIUAAAAAAAAAAADwvwAAAAAAAAAA",
+              "Title": "GradeController.cs",
+              "DocumentMoniker": "C:\\Users\\DELL\\source\\repos\\GradeMaster\\GradeMasterAPI\\GradeMasterAPI\\Controllers\\GradeController.cs",
+              "RelativeDocumentMoniker": "GradeMasterAPI\\Controllers\\GradeController.cs",
+              "ToolTip": "C:\\Users\\DELL\\source\\repos\\GradeMaster\\GradeMasterAPI\\GradeMasterAPI\\Controllers\\GradeController.cs",
+              "RelativeToolTip": "GradeMasterAPI\\Controllers\\GradeController.cs",
+              "ViewState": "AQIAAFAAAAAAAAAAAADwv2MAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-13T19:46:14.055Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\DELL\\source\\repos\\GradeMaster\\GradeMasterAPI\\GradeMasterAPI\\Program.cs",
-              "RelativeDocumentMoniker": "GradeMasterAPI\\Program.cs",
-              "ToolTip": "C:\\Users\\DELL\\source\\repos\\GradeMaster\\GradeMasterAPI\\GradeMasterAPI\\Program.cs",
-              "RelativeToolTip": "GradeMasterAPI\\Program.cs",
-              "ViewState": "AQIAAD8AAAAAAAAAAAAYwFIAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-13T15:38:23.989Z"
+              "WhenOpened": "2024-11-16T16:23:43.181Z",
+              "EditorCaption": ""
             }
           ]
         }

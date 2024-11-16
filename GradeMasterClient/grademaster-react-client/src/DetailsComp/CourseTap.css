@@ -1,0 +1,42 @@
+.course-details-page {
+    margin: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.course-header {
+    background-color: #f4f4f4;
+    padding: 10px;
+    border-bottom: 2px solid #ccc;
+}
+
+.course-description {
+    margin-top: 20px;
+}
+
+.course-assignments {
+    margin-top: 20px;
+}
+
+.loading-message {
+    color: #007bff;
+}
+
+.error-message {
+    color: #ff4d4d;
+}
+
+.no-assignments-message {
+    color: #666;
+}
+
+.assignments-list {
+    list-style: none;
+    padding: 0;
+}
+
+.assignment-item {
+    background-color: #f9f9f9;
+    padding: 10px;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+}

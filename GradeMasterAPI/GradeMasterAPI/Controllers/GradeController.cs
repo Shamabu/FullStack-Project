@@ -79,9 +79,13 @@ namespace GradeMasterAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Grade>> PostGrade(GradeDTO gradeDto)
         {
+            if (!await _context.Course.AnyAsync(c => c.Id == gradeDto.CourseId))
+            {
+                return BadRequest($"Invalid CourseId: {gradeDto.CourseId}");
+            }
+
             Grade grade = new Grade()
-            { 
-                Id = gradeDto.Id,
+            {
                 StudentId = gradeDto.StudentId,
                 CourseId = gradeDto.CourseId,
                 FinalGrade = gradeDto.FinalGrade,
@@ -93,6 +97,7 @@ namespace GradeMasterAPI.Controllers
 
             return CreatedAtAction("GetGrade", new { id = grade.Id }, grade);
         }
+
 
         // DELETE: api/Grade/5
         [HttpDelete("{id}")]

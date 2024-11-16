@@ -11,11 +11,12 @@ const AdminExamSubmissionPage = () => {
     const [examId, setExamId] = useState('');
     const [submissionDate, setSubmissionDate] = useState(new Date().toISOString().split('T')[0]);
     const [filePath, setFilePath] = useState('');
-    const [feedback, setFeedback] = useState('loading'); // Set default feedback
+    const [feedback, setFeedback] = useState('loading');
     const [responseMessage, setResponseMessage] = useState('');
     const [courses, setCourses] = useState([]);
     const [exams, setExams] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [examDueDate, setExamDueDate] = useState(null);
 
     // Fetch courses for a specific student based on enrollments
     const fetchCoursesForStudent = async () => {
@@ -52,37 +53,89 @@ const AdminExamSubmissionPage = () => {
         }
     };
 
+    // Fetch the due date for the selected exam
+    const fetchExamDueDate = async () => {
+        if (!examId) return;
+
+        try {
+            const response = await ExamApi.getExamById(examId);
+            setExamDueDate(response.data.examDate); // Assuming `examDate` is the due date
+        } catch (error) {
+            console.error('Error fetching exam due date:', error);
+        }
+    };
+
     useEffect(() => {
         setCourses([]);
         setExams([]);
+        setExamDueDate(null);
         if (studentId) fetchCoursesForStudent();
     }, [studentId]);
 
     useEffect(() => {
         setExams([]);
+        setExamDueDate(null);
         if (courseId) fetchExamsForCourse();
     }, [courseId]);
+
+    useEffect(() => {
+        setExamDueDate(null);
+        if (examId) fetchExamDueDate();
+    }, [examId]);
 
     // Handle form submission for adding a new exam submission
     const handleSubmit = async (event) => {
         event.preventDefault();
     
-        // Set a valid date format and correct field name
+        // Ensure valid submission date format
         const validSubmissionDate = isValidDate(submissionDate) ? submissionDate : new Date().toISOString().split('T')[0];
+        const dueDate = new Date(examDueDate); // Parse the due date
+        const submission = new Date(validSubmissionDate); // Parse the submission date
+    
+        // Convert to UTC midnight to ensure correct day-based comparison
+        const dueDateUTC = Date.UTC(dueDate.getUTCFullYear(), dueDate.getUTCMonth(), dueDate.getUTCDate());
+        const submissionUTC = Date.UTC(submission.getUTCFullYear(), submission.getUTCMonth(), submission.getUTCDate());
+    
+        console.log("Submission Date (UTC):", submissionUTC);
+        console.log("Due Date (UTC):", dueDateUTC);
+    
+        // Calculate time difference in hours
+        const timeDifferenceHours = (submissionUTC - dueDateUTC) / (1000 * 60 * 60);
+    
+        console.log("Time Difference in Hours:", timeDifferenceHours);
+    
+        let grade = 0; // Default grade
+        let submissionFeedback = feedback || "Submission added successfully!"; // Default feedback
+    
+        if (timeDifferenceHours != 0) {
+            // Submission is late
+            if (timeDifferenceHours <= 24) {
+                grade = 0; // Zero grade for late submissions
+                submissionFeedback = "Submission is not within 24 hours from due date .";
+                setResponseMessage("Submission is not within 24 hours from due date.");
+            } else {
+                grade = 0; // Zero grade for submissions beyond 24 hours
+                submissionFeedback = "Submission not in time.";
+                setResponseMessage("Submission not in time.");
+            }
+        } else {
+            // Submission is on time
+            setResponseMessage("Submission added successfully!");
+        }
     
         const submissionData = {
             studentId: parseInt(studentId),
             examFilePath: filePath || '/default/path/to/file',
             examId: parseInt(examId),
-            SubmittionDate: validSubmissionDate,  // Adjusted to match backend spelling
-            feedback: feedback || "loading",
+            SubmittionDate: validSubmissionDate,
+            feedback: submissionFeedback, // Use the updated feedback
+            grade, // Use the updated grade
         };
     
-        console.log("Submission Data:", submissionData); // Log payload to verify structure
+        console.log("Submission Data:", submissionData);
     
         try {
             await ExamSubmissionApi.createSubmission(submissionData);
-            setResponseMessage('Exam submission added successfully!');
             // Reset form fields
             setStudentId('');
             setCourseId('');
@@ -98,6 +151,9 @@ const AdminExamSubmissionPage = () => {
         }
     };
     
+    
+    
+
     const isValidDate = (date) => {
         const parsedDate = new Date(date);
         return parsedDate instanceof Date && !isNaN(parsedDate);
@@ -158,6 +214,8 @@ const AdminExamSubmissionPage = () => {
                         </select>
                     </div>
                 )}
+
+                {examDueDate && <p><strong>Exam Due Date:</strong> {new Date(examDueDate).toLocaleDateString()}</p>}
 
                 {courseId && examId && (
                     <>

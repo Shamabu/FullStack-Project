@@ -1,61 +1,150 @@
-/* General styles for Exam Submissions Page */
+/* General Page Styling */
 .exam-submissions-page {
-    max-width: 900px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.exam-submissions-page h1 {
+    font-family: "Arial", sans-serif;
+    background-color: #f5f5dc; /* Soft beige background */
+    color: #333; /* Neutral text color */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 100%;
+    min-height: 100vh; /* Full-page height */
+  }
+  
+  /* Header Styling */
+  .exam-submissions-page h1 {
     text-align: center;
-    color: #333;
-}
-
-/* Submissions list styles */
-.exam-submissions-page ul {
+    color: #4a634c; /* Muted green for header */
+    font-size: 2.4rem;
+    margin-bottom: 20px;
+  }
+  
+  /* Submissions List */
+  ul {
     list-style-type: none;
     padding: 0;
-}
-
-.exam-submissions-page li {
-    background-color: #f9f9f9;
-    margin-bottom: 10px;
+  }
+  
+  ul li {
+    background-color: #ffffff; /* Clean white background for list items */
+    border: 1px solid #dcdcdc; /* Light border */
+    border-radius: 8px;
     padding: 15px;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.exam-submissions-page li strong {
-    font-size: 18px;
-    color: #333;
-}
-
-.exam-submissions-page p {
+    margin-bottom: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  
+  ul li:hover {
+    transform: scale(1.01);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  ul li strong {
+    font-size: 1.2rem;
+    color: #4a634c; /* Muted green for strong text */
+  }
+  
+  ul li p {
     margin: 5px 0;
-    font-size: 14px;
-    color: #666;
-}
-
-/* Button styles for delete or action */
-.exam-submissions-page .delete-button {
-    background-color: #f44336;
-    color: white;
-    padding: 8px 16px;
-    border-radius: 4px;
+    color: #6b816b; /* Muted green-gray for details */
+  }
+  
+  /* Form Group Styling */
+  .form-group {
+    margin-bottom: 10px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #4a634c; /* Muted green */
+  }
+  
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #dcdcdc; /* Light border */
+    border-radius: 5px;
+    background-color: #f9f9f2; /* Soft beige */
+  }
+  
+  .form-group input:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: #b6d7a8; /* Soft green */
+    background-color: #ffffff; /* Clean white for focus */
+  }
+  
+  /* Buttons Styling */
+  button {
+    background-color: #c6e8c3; /* Light green */
+    color: #4a634c; /* Dark green text */
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
     cursor: pointer;
-    font-size: 14px;
-    margin-top: 10px;
-    transition: background-color 0.3s ease;
-}
-
-.exam-submissions-page .delete-button:hover {
-    background-color: #e53935;
-}
-
-.exam-submissions-page .loading {
-    text-align: center;
-    font-size: 18px;
-    color: #333;
-}
+    transition: background-color 0.2s, transform 0.2s;
+  }
+  
+  button:hover {
+    background-color: #b5dbb2; /* Slightly darker green */
+    transform: translateY(-2px);
+  }
+  
+  /* Edit and Cancel Buttons */
+  .update-button {
+    background-color: #c6e8c3; /* Light green for update */
+    color: #4a634c; /* Dark green text */
+  }
+  
+  .update-button:hover {
+    background-color: #b5dbb2; /* Darker green on hover */
+  }
+  
+  .cancel-button {
+    background-color: #fbe4d6; /* Soft peach for cancel */
+    color: #a04040; /* Muted red text */
+  }
+  
+  .cancel-button:hover {
+    background-color: #f8d7c4; /* Slightly darker peach */
+  }
+  
+  /* Edit Button */
+  .edit-button {
+    background-color: #e0f2d6; /* Light green for edit */
+    color: #4a634c; /* Muted green text */
+  }
+  
+  .edit-button:hover {
+    background-color: #d3ebc9; /* Slightly darker green */
+  }
+  
+  /* Delete Button */
+  .delete-button {
+    background-color: #fbe4d6; /* Soft peach for delete */
+    color: #a04040; /* Muted red */
+  }
+  
+  .delete-button:hover {
+    background-color: #f8d7c4; /* Slightly darker peach */
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .exam-submissions-page h1 {
+      font-size: 1.8rem;
+    }
+  
+    ul li {
+      padding: 10px;
+    }
+  
+    button {
+      padding: 8px 10px;
+      font-size: 0.9rem;
+    }
+  }
+  

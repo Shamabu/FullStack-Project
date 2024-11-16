@@ -135,5 +135,30 @@ namespace GradeMasterAPI.Controllers
 
             return Ok(assignments);
         }
+        // GET: api/Assignment/course/{courseId}
+        [HttpGet("course/{courseId}")]
+        public async Task<ActionResult<IEnumerable<AssignmentDTO>>> GetAssignmentsByCourseId(int courseId)
+        {
+            var assignments = await _context.Assignment
+                .Where(a => a.CourseId == courseId)
+                .ToListAsync();
+
+            if (!assignments.Any())
+            {
+                return NotFound($"No assignments found for course ID {courseId}.");
+            }
+
+            var assignmentDTOs = assignments.Select(a => new AssignmentDTO
+            {
+                Id = a.Id,
+                Title = a.Title,
+                Description = a.Description,
+                DueDate = a.DueDate,
+                CourseId = a.CourseId
+            });
+
+            return Ok(assignmentDTOs);
+        }
+
     }
 }

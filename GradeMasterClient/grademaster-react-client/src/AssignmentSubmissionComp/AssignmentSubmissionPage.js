@@ -75,8 +75,10 @@ const AdminAssignmentSubmissionPage = () => {
         const filePathValue = filePath || '/path/to/file'; // Provide a default if empty
 
         // Sanitize the submissionDate to ensure it's valid and in the correct format
-        const validSubmissionDate = isValidDate(submissionDate) ? submissionDate : new Date().toISOString().split('T')[0];
-
+        const validSubmissionDate = isValidDate(submissionDate)
+        ? submissionDate
+        : new Date().toISOString().split('T')[0];
+    
         const submissionData = {
             studentId: parseInt(studentId),
             filePath: filePathValue,
@@ -104,6 +106,7 @@ const AdminAssignmentSubmissionPage = () => {
             console.error('Submission error:', error.response?.data.errors || error.message);
         }
     };
+    
 
     // Function to check if the date is valid
     const isValidDate = (date) => {

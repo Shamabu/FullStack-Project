@@ -1,106 +1,177 @@
+/* General Styling */
 .page-container {
+    font-family: "Arial", sans-serif;
+    background-color: #f5f5dc; /* Soft beige background */
     padding: 20px;
+    color: #333; /* Neutral text color */
 }
 
-.main-content h2 {
-    color: #2c3e50;
+/* Header Styling */
+.course-header {
     text-align: center;
-    font-size: 28px;
-    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #dfe4c8; /* Light green tint */
+    color: #4a634c; /* Dark green for text */
+    border-radius: 10px;
 }
 
-.course-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 20px;
+.course-header h1 {
+    font-size: 2rem;
 }
 
-.form-group {
-    margin-bottom: 15px;
-    width: 80%;
+.course-header p {
+    margin-top: 5px;
+    font-size: 1.1rem;
+    color: #6b816b; /* Muted green-gray for subtext */
 }
 
-.form-control {
-    padding: 8px;
-    width: 100%;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-}
-
-.btn {
-    margin-top: 10px;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: 0.3s;
-    width: fit-content;
-}
-
-.btn-add {
-    background-color: #3498db;
-    color: white;
-}
-
-.btn-update {
-    background-color: #f39c12;
-    color: white;
-}
-
-.btn-cancel {
-    background-color: #e74c3c;
-    color: white;
-    margin-left: 10px;
+/* Course List Section */
+.course-list-container {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #fff; /* Clean white */
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .course-list {
-    margin-top: 30px;
+    list-style-type: none;
+    padding: 0;
 }
 
-.course-card-grid {
+.course-list-item {
     display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-}
-
-.course-card {
-    background-color: #f7f9fa;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    justify-content: space-between;
+    align-items: center;
     padding: 15px;
-    width: 250px;
-    text-align: center;
-    transition: transform 0.3s;
+    margin-bottom: 10px;
+    background-color: #f9f9f2; /* Light beige */
+    border-radius: 8px;
+    border: 1px solid #e0e0e0; /* Soft border */
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
-.course-card:hover {
-    transform: translateY(-5px);
+.course-list-item:hover {
+    transform: scale(1.01);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.course-card h5 {
-    font-size: 20px;
-    color: #34495e;
+.course-info h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #4a634c; /* Dark green */
 }
 
-.course-card p {
-    color: #7f8c8d;
+.course-info p {
+    margin: 5px 0 0 0;
+    color: #6e7d5a; /* Subtle green-gray for description */
 }
 
-.card-buttons {
+/* Action Buttons */
+.list-actions {
     display: flex;
-    justify-content: center;
-    margin-top: 15px;
+    gap: 10px;
+}
+
+button, .btn {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out, opacity 0.2s ease-in-out;
+}
+
+.btn-details {
+    background-color: #e0f2d6 !important; /* Soft light green */
+    color: #4a634c !important; /* Dark green for text */
+}
+
+.btn-details:hover {
+    background-color: #d3ebc9 !important; /* Slightly darker green on hover */
 }
 
 .btn-delete {
-    background-color: #e74c3c;
-    color: white;
-    margin-right: 5px;
+    background-color: #fbe4d6 !important; /* Soft peach */
+    color: #a04040 !important; /* Muted red */
 }
 
-.btn-info {
-    background-color: #3498db;
-    color: white;
+.btn-delete:hover {
+    background-color: #f8d7c4 !important; /* Slightly darker peach on hover */
+}
+
+/* Add/Update Form Section */
+.form-container {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #fff; /* Clean white */
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.course-form .form-group {
+    margin-bottom: 15px;
+}
+
+.course-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #4a634c !important; /* Dark green */
+}
+
+.course-form input,
+.course-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #dcdcdc; /* Light border */
+    border-radius: 5px;
+    background-color: #f9f9f2 !important; /* Light beige background */
+}
+
+.course-form input:focus,
+.course-form textarea:focus {
+    outline: none;
+    border-color: #b6d7a8 !important; /* Soft green focus */
+    background-color: #ffffff !important; /* Cleaner white focus */
+}
+
+.btn-add,
+.btn-update {
+    background-color: #c6e8c3 !important; /* Light green */
+    color: #4a634c !important; /* Dark green text */
+}
+
+.btn-add:hover,
+.btn-update:hover {
+    background-color: #b5dbb2 !important; /* Slightly darker green */
+}
+
+.btn-cancel {
+    background-color: #fbe4d6 !important; /* Soft peach */
+    color: #a04040 !important; /* Muted red */
+}
+
+.btn-cancel:hover {
+    background-color: #f8d7c4 !important; /* Slightly darker peach */
+}
+/* Header Styling */
+.course-header {
+    text-align: center;
+    padding: 20px;
+    background-color: #dfe4c8; /* Light green tint */
+    color: #4a634c; /* Dark green for text */
+    border-radius: 10px;
+}
+
+.course-header h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: #4a634c; /* Dark green for text */
+}
+
+.course-header p {
+    margin-top: 5px;
+    font-size: 1.1rem;
+    color: #6b816b; /* Muted green-gray for subtext */
 }

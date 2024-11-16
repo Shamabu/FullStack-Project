@@ -1,23 +1,99 @@
-/* Details.css */
-
-.full-page {
-    height: 100vh; /* Full viewport height */
-    width: 100vw;  /* Full viewport width */
-    padding: 0;
+/* General Page Styling */
+.details-page {
+    font-family: "Arial", sans-serif;
+    background-color: #ffffff; /* Brighter white background */
+    color: #4a634c; /* Dark green text */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: auto;
+    max-width: 90%; /* Larger width */
+    min-height: 95vh; /* Almost full-page height */
+  }
+  
+  /* Navbar Adjustments */
+  .details-page .custom-navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+  
+  /* Header Section */
+  .details-page h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 2rem; /* Larger header font size */
+    color: #4a634c; /* Dark green */
+  }
+  
+  /* Course Info Box */
+  .course-info-box {
+    background-color: #f5f5dc; /* Soft beige */
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #dfe4c8; /* Light green border */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    color: #4a634c; /* Dark green text */
+  }
+  
+  .course-info-box p {
     margin: 0;
+    font-size: 1.1rem;
+    line-height: 1.5;
+  }
+  
+  /* Tab Navigation */
+  .tab-navigation {
     display: flex;
-    flex-direction: column;
-}
-
-.content-area {
-    flex: 1; /* Take up remaining space */
-    padding: 20px; /* Optional padding */
-}
-
-.nav-tabs {
-    margin-top: 20px;
-}
-
-.tab-content {
-    margin-top: 20px;
-}
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+  
+  .tab-navigation .nav-link {
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    background-color: #e0f2d6; /* Light green background */
+    color: #4a634c; /* Dark green */
+    font-weight: bold;
+    transition: background-color 0.3s, color 0.3s, transform 0.2s ease-in-out;
+  }
+  
+  .tab-navigation .nav-link:hover {
+    background-color: #b5dbb2; /* Slightly darker green */
+    transform: scale(1.05);
+  }
+  
+  .tab-navigation .nav-link.active {
+    background-color: #b5dbb2; /* Darker green for active tab */
+    color: #ffffff; /* White text for active tab */
+  }
+  
+  /* Tab Content */
+  .tab-content {
+    padding: 20px;
+    background-color: #f9f9f2; /* Light beige for tab content */
+    border-radius: 10px;
+    border: 1px solid #dcdcdc; /* Light border */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .details-page {
+      max-width: 100%;
+      padding: 15px;
+    }
+  
+    .tab-navigation {
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+  
+    .tab-content {
+      padding: 15px;
+    }
+  }
+  

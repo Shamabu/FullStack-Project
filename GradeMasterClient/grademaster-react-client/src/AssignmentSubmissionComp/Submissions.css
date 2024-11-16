@@ -1,39 +1,167 @@
-/* src/Submissions/Submissions.css */
-
+/* General Styling */
 .submissions-page {
-    width: 100%;
-    max-width: 600px;
-    margin: 0 auto;
+    font-family: "Arial", sans-serif;
+    background-color: #f5f5dc; /* Soft beige background */
+    color: #333; /* Neutral text color */
     padding: 20px;
-    font-family: Arial, sans-serif;
-}
-
-.submissions-page h2 {
+    border-radius: 10px;
+    max-width: 1200px;
+    margin: 0 auto;
+    min-height: 100vh; /* Full-page height */
+  }
+  
+  /* Header Styling */
+  .submissions-page h2 {
     text-align: center;
-    color: #333;
-    font-size: 24px;
+    color: #4a634c; /* Muted green for header */
+    font-size: 2rem;
     margin-bottom: 20px;
-}
-
-.submissions-list {
+  }
+  
+  /* Edit Submission Form */
+  .edit-submission-form {
+    background-color: #ffffff; /* Clean white background */
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #dcdcdc;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+  
+  .edit-submission-form h3 {
+    color: #4a634c;
+    margin-bottom: 15px;
+  }
+  
+  .edit-submission-form .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .edit-submission-form label {
+    font-weight: bold;
+    color: #4a634c;
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .edit-submission-form input,
+  .edit-submission-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #dcdcdc;
+    border-radius: 5px;
+    background-color: #f9f9f2;
+  }
+  
+  .edit-submission-form input:focus,
+  .edit-submission-form textarea:focus {
+    border-color: #b6d7a8;
+    outline: none;
+  }
+  
+  /* Buttons */
+  .submit-button,
+  .cancel-button,
+  .edit-button,
+  .delete-button {
+    padding: 10px 15px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+  }
+  
+  .submit-button {
+    background-color: #c6e8c3; /* Light green */
+    color: #4a634c;
+  }
+  
+  .submit-button:hover {
+    background-color: #b5dbb2;
+    transform: translateY(-2px);
+  }
+  
+  .cancel-button {
+    background-color: #fbe4d6; /* Soft peach */
+    color: #a04040;
+  }
+  
+  .cancel-button:hover {
+    background-color: #f8d7c4;
+    transform: translateY(-2px);
+  }
+  
+  .edit-button {
+    background-color: #e0f2d6; /* Light green */
+    color: #4a634c;
+    margin-right: 10px;
+  }
+  
+  .edit-button:hover {
+    background-color: #d3ebc9;
+  }
+  
+  .delete-button {
+    background-color: #fbe4d6; /* Soft peach */
+    color: #a04040;
+  }
+  
+  .delete-button:hover {
+    background-color: #f8d7c4;
+  }
+  
+  /* Submissions List */
+  .submissions-list {
+    margin-top: 20px;
+  }
+  
+  .submissions {
     list-style: none;
     padding: 0;
-}
-
-.submission-card {
-    background-color: #f9f9f9;
+  }
+  
+  .submission-card {
+    background-color: #ffffff;
+    border: 1px solid #dcdcdc;
+    border-radius: 10px;
     padding: 15px;
-    margin-bottom: 10px;
-    border-radius: 8px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  }
+  
+  .submission-card:hover {
+    transform: scale(1.01);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.submission-card h4 {
-    margin: 0 0 10px 0;
-    color: #007bff;
-}
-
-.submission-card p {
+  }
+  
+  .submission-card h4 {
+    color: #4a634c;
+    margin-bottom: 10px;
+  }
+  
+  .submission-card p {
     margin: 5px 0;
-    color: #555;
-}
+    color: #6b816b; /* Muted green-gray */
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .submissions-page h2 {
+      font-size: 1.8rem;
+    }
+  
+    .submission-card {
+      padding: 10px;
+    }
+  
+    .submit-button,
+    .cancel-button,
+    .edit-button,
+    .delete-button {
+      padding: 8px 12px;
+      font-size: 0.9rem;
+    }
+  }
+  

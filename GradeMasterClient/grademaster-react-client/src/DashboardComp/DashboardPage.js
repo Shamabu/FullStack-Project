@@ -1,8 +1,8 @@
-// DashboardPage.js
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './DashboardPage.css';
 import { FaChalkboardTeacher, FaClipboardList, FaGraduationCap, FaBook } from 'react-icons/fa';
+import Navbar from '../DetailsComp/Navbar';
 
 function DashboardPage() {
     const location = useLocation();
@@ -22,15 +22,21 @@ function DashboardPage() {
     };
 
     if (!teacher) {
-        return <div>Loading...</div>;
+        return <div className="loading-container">Loading...</div>;
     }
 
     return (
-        <div className="dashboard-container">
+        <div className="dashboard-page">
+            {/* Navbar */}
+            <Navbar />
+
+            {/* Header Section */}
             <div className="dashboard-header">
                 <h2>Welcome, {teacher.firstName} {teacher.lastName}!</h2>
                 <p>Here you can manage your courses, assignments, exams, and more.</p>
             </div>
+
+            {/* Tab Cards Section */}
             <div className="tabs">
                 <div className="tab-card" onClick={() => handleTabChange('courses')}>
                     <FaChalkboardTeacher className="tab-icon" />

@@ -62,9 +62,10 @@ const StudentAttendance = ({ courseId, courseName }) => {
   };
 
   return (
-    <div className="container">
-      <h1>Student Attendance for Course {courseName}</h1>
+  
       <form onSubmit={handleSubmitAttendance} className="attendance-form">
+      <h1>Student Attendance for Course {courseName}</h1>
+
         <table className="attendance-table">
           <thead>
             <tr>
@@ -145,7 +146,7 @@ const StudentAttendance = ({ courseId, courseName }) => {
           <button type="submit" className="submit-button">Submit Attendance</button>
         </div>
       </form>
-    </div>
+ 
   );
 };
 

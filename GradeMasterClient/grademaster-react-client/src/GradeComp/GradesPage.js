@@ -5,7 +5,7 @@ import CourseApi from '../ApiCalls/CourseApi';
 import StudentsApi from '../ApiCalls/StudentsApi';
 import AssignmentSubmissionApi from '../ApiCalls/AssignmentSubmissionApi';
 import ExamSubmissionApi from '../ApiCalls/ExamSubmissionApi';
-
+import GradeApi from '../ApiCalls/GradeApi';
 import './GradesPage.css';
 
 const ATTENDANCE_WEIGHT = 0.1; // 10%
@@ -66,10 +66,10 @@ function GradesPage() {
             const response = await AttendanceApi.getAttendancesByStudentAndCourse(studentId, courseId);
             const attendanceRecords = response.data;
 
-            if (attendanceRecords.length !== 4) return 0;
+            if (attendanceRecords.length === 0) return 0;
 
             const presentCount = attendanceRecords.filter(record => record.status === "Present").length;
-            return (presentCount / 4) * 100; // Average attendance grade
+            return (presentCount / attendanceRecords.length) * 100;
         } catch (error) {
             console.error('Error calculating attendance grade:', error);
             return 0;
@@ -81,10 +81,10 @@ function GradesPage() {
             const response = await AssignmentSubmissionApi.getSubmissionsByStudentAndCourse(studentId, courseId);
             const submissions = response.data;
 
-            if (submissions.length !== 3) return 0;
+            if (submissions.length === 0) return 0;
 
             const totalGrade = submissions.reduce((sum, submission) => sum + (submission.grade || 0), 0);
-            return totalGrade / 3; // Average assignment grade
+            return totalGrade / submissions.length;
         } catch (error) {
             console.error("Error calculating assignments grade:", error);
             return 0;
@@ -98,20 +98,31 @@ function GradesPage() {
 
             if (!examSubmission || !examSubmission.grade) return 0;
 
-            return examSubmission.grade; // Average exam grade
+            return examSubmission.grade;
         } catch (error) {
             console.error("Error calculating exam grade:", error);
             return 0;
         }
     }
 
-    const saveFinalGrade = (studentId, courseId, finalGrade) => {
-        console.log(`Saving final grade ${finalGrade} for student ${studentId} in course ${courseId}`);
+    const saveFinalGrade = async (studentId, courseId, finalGrade) => {
+        try {
+            const gradeData = {
+                studentId,
+                courseId,
+                finalGrade: Math.round(finalGrade), // Ensure it's an integer
+                submissionGrade: Math.round(finalGrade * ASSIGNMENT_WEIGHT), // Example, adjust as needed
+                attendence: (finalGrade * ATTENDANCE_WEIGHT).toFixed(2) // Example, adjust as needed
+            };
+    
+            await GradeApi.createGrade(gradeData);
+            console.log("Grade saved successfully:", gradeData);
+        } catch (error) {
+            console.error("Error saving final grade:", error);
+        }
     };
-
-    if (!teacher) {
-        return <div>Loading...</div>;
-    }
+    
+    
 
     return (
         <div className="grades-container">

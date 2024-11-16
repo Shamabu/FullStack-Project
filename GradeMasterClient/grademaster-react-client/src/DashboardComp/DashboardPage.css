@@ -1,57 +1,68 @@
+/* DashboardPage.css */
+
+/* General Container */
 .dashboard-container {
-    padding: 30px;
-    font-family: 'Arial', sans-serif;
+    font-family: "Arial", sans-serif;
+    background-color: #f5f5dc; /* Soft beige background */
+    color: #333; /* Neutral text color */
+    padding: 20px;
+    min-height: 100vh;
 }
 
+/* Header Section */
 .dashboard-header {
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: #dfe4c8; /* Light green tint */
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    color: #4a634c; /* Dark green for text */
 }
 
 .dashboard-header h2 {
     font-size: 2rem;
-    color: #0073e6;
 }
 
 .dashboard-header p {
     font-size: 1.1rem;
-    color: #555;
+    color: #6b816b; /* Muted green-gray */
 }
 
+/* Tabs Section */
 .tabs {
-    display: flex;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
-    flex-wrap: wrap;
+    padding: 10px;
 }
 
 .tab-card {
-    background-color: #f4f4f4;
-    border-radius: 10px;
-    padding: 20px;
     text-align: center;
-    width: 180px;
-    cursor: pointer;
+    padding: 20px;
+    background-color: #f9f9f2; /* Light beige */
+    border-radius: 10px;
+    border: 1px solid #e0e0e0; /* Soft border */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
 }
 
 .tab-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #e8efd4; /* Slightly darker green tint */
 }
 
-.tab-card h4 {
-    margin-top: 10px;
-    color: #333;
-    font-size: 1.2rem;
-}
-
+/* Tab Icon */
 .tab-icon {
     font-size: 3rem;
-    color: #0073e6;
+    color: #4a634c; /* Dark green */
+    margin-bottom: 10px;
 }
 
-.tab-card:hover .tab-icon {
-    color: #005bb5;
+/* Tab Title */
+.tab-card h4 {
+    font-size: 1.2rem;
+    color: #4a634c; /* Dark green */
+    margin: 0;
 }

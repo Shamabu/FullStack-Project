@@ -1,109 +1,116 @@
-/* General container styles */
+/* General Container Styling */
 .grades-container {
-    padding: 20px;
-    font-family: Arial, sans-serif;
-    color: #333;
-    background-color: #f9f9f9;
+  font-family: "Arial", sans-serif;
+  background-color: #f8f8f4; /* Soft beige for calmness */
+  color: #333; /* Neutral dark text */
+  padding: 40px;
+  margin: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 95%;
+  min-height: 95vh; /* Full-page height */
 }
 
-/* Header styling */
+/* Header Styling */
 .grades-container h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #444;
+  text-align: center;
+  font-size: 2.4rem;
+  margin-bottom: 30px;
+  color: #4a634c; /* Muted green for calm header */
+  font-weight: 600;
 }
 
-/* Course card styles */
+/* Course Card Styling */
 .course-card {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    margin: 20px 0;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 15px;
+  background-color: #ffffff; /* Bright white for contrast */
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 25px;
+  border: 1px solid #e6e6e6; /* Light gray border */
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08);
 }
 
 .course-card h3 {
-    margin-top: 0;
-    font-size: 1.5em;
-    color: #007bff;
-    text-align: center;
+  font-size: 1.8rem;
+  color: #6b816b; /* Muted green for course titles */
+  margin-bottom: 15px;
 }
 
-/* Table styling */
+/* Table Styling */
 .grades-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #ffffff; /* Clean white table */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
-.grades-table th, 
+.grades-table th,
 .grades-table td {
-    padding: 10px;
-    text-align: left;
-    border: 1px solid #ddd;
+  padding: 15px;
+  text-align: center;
+  border: 1px solid #e6e6e6; /* Light border */
+  font-size: 1rem;
+  color: #4a4a4a; /* Calm gray text */
 }
 
 .grades-table th {
-    background-color: #007bff;
-    color: #fff;
-    font-weight: bold;
-    text-align: center;
-}
-
-.grades-table td {
-    text-align: center;
-    vertical-align: middle;
+  background-color: #f0f4e4; /* Very light green for headers */
+  color: #4a634c; /* Muted green for header text */
+  font-weight: 600;
 }
 
 .grades-table tr:nth-child(even) {
-    background-color: #f2f2f2;
+  background-color: #f9f9f9; /* Subtle gray for alternate rows */
 }
 
-/* Button styles */
+.grades-table tr:hover {
+  background-color: #e8f5e9; /* Light pastel green hover effect */
+}
+
+/* Button Styling */
 button {
-    padding: 8px 12px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 0.9em;
-    margin: 5px;
-}
-
-button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-}
-
-button:hover:not(:disabled) {
-    background-color: #0056b3;
-    color: #fff;
-}
-
-/* Save button */
-button {
-    background-color: #007bff;
-    color: #fff;
-    transition: background-color 0.3s ease;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
 button:hover {
-    background-color: #0056b3;
+  transform: translateY(-2px);
 }
 
-/* Responsive design */
+button:disabled {
+  background-color: #e6e6e6; /* Muted gray for disabled buttons */
+  color: #a0a0a0; /* Muted gray text for disabled buttons */
+  cursor: not-allowed;
+}
+
+/* Save Final Grade Button */
+button {
+  background-color: #dce8d7; /* Soft light green */
+  color: #4a634c; /* Calm muted green text */
+}
+
+button:hover:not(:disabled) {
+  background-color: #c5d8c2; /* Slightly darker muted green for hover */
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
-    .grades-table th, 
-    .grades-table td {
-        font-size: 0.85em;
-        padding: 8px;
-    }
+  .grades-container {
+    padding: 20px;
+  }
 
-    .course-card {
-        padding: 10px;
-    }
+  .grades-table th,
+  .grades-table td {
+    font-size: 0.9rem;
+    padding: 12px;
+  }
 
-    .grades-container h2 {
-        font-size: 1.2em;
-    }
+  button {
+    padding: 8px 15px;
+    font-size: 0.9rem;
+  }
 }

@@ -16,8 +16,11 @@ class GradeApi {
 
     // Create a new grade
     createGrade(gradeData) {
-        return axios.post(API_URL, gradeData);
+        return axios.post(API_URL, gradeData, {
+            headers: { 'Content-Type': 'application/json' },
+        });
     }
+    
 
     // Update an existing grade by its ID
     updateGrade(gradeId, updatedGrade) {

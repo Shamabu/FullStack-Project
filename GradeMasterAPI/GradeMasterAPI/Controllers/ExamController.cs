@@ -134,19 +134,19 @@ namespace GradeMasterAPI.Controllers
         }
         // GET: api/Exam/course/{courseId}
         [HttpGet("course/{courseId}")]
-        public async Task<ActionResult<IEnumerable<Exam>>> GetExamsByCourse(int courseId)
+        public async Task<IActionResult> GetExamsByCourse(int courseId)
         {
             var exams = await _context.Exam
-                .Where(exam => exam.CourseId == courseId)
-                .ToListAsync();
-
-            if (!exams.Any())
-            {
-                return NotFound("No exams found for this course.");
-            }
+                .Where(e => e.CourseId == courseId)
+                .Select(e => new {
+                    e.Id,
+                    e.ExamName,
+                    e.ExamDate 
+                }).ToListAsync();
 
             return Ok(exams);
         }
+
 
 
 
