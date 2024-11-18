@@ -1,3 +1,4 @@
+// Component for managing courses by a teacher
 import React, { useState, useEffect } from "react";
 import CoursesApi from "../ApiCalls/CourseApi";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -5,29 +6,43 @@ import Navbar from "../DetailsComp/Navbar";
 import "./CoursePage.css";
 
 function CoursePage() {
+  // Access teacher data from location state
   const location = useLocation();
   const { teacher } = location.state || {};
+
+  // State to hold courses
   const [courses, setCourses] = useState([]);
+
+  // State to manage the current course being edited/created
   const [currentCourse, setCurrentCourse] = useState({
     id: 0,
     courseName: "",
     courseDescription: "",
     teacherId: teacher ? teacher.id : 0,
   });
+
+  // State for editing mode
   const [editing, setEditing] = useState(false);
+
+  // State for loading indicator
   const [loading, setLoading] = useState(true);
+
+  // React Router navigation hook
   const navigate = useNavigate();
 
+  // Fetch courses when the component mounts or when the teacher changes
   useEffect(() => {
     if (teacher) {
       fetchCourses();
     }
   }, [teacher]);
 
+  // Fetch courses for the current teacher
   const fetchCourses = () => {
     setLoading(true);
     CoursesApi.getCourses()
       .then((response) => {
+        // Filter courses to include only those belonging to the current teacher
         const teacherCourses = response.data.filter(
           (course) => course.teacherId === teacher?.id
         );
@@ -39,11 +54,13 @@ function CoursePage() {
       });
   };
 
+  // Handle form input changes
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setCurrentCourse({ ...currentCourse, [name]: value });
   };
 
+  // Add a new course
   const addCourse = () => {
     CoursesApi.createCourse(currentCourse).then(() => {
       fetchCourses();
@@ -51,6 +68,7 @@ function CoursePage() {
     });
   };
 
+  // Update an existing course
   const updateCourse = () => {
     CoursesApi.updateCourse(currentCourse.id, currentCourse).then(() => {
       fetchCourses();
@@ -59,12 +77,14 @@ function CoursePage() {
     });
   };
 
+  // Delete a course
   const deleteCourse = (id) => {
     CoursesApi.deleteCourse(id).then(() => {
       fetchCourses();
     });
   };
 
+  // Reset the form to initial state
   const resetForm = () => {
     setCurrentCourse({
       id: 0,
@@ -75,6 +95,7 @@ function CoursePage() {
     setEditing(false);
   };
 
+  // Navigate to the course details page
   const goToDetailsPage = (courseName, courseId) => {
     navigate("/detailscomp/details", {
       state: {
@@ -85,6 +106,14 @@ function CoursePage() {
     });
   };
 
+  // Navigate to the course statistics page
+  const goToStatisticsPage = (courseId) => {
+    navigate(`/statistics/${courseId}`, {
+      state: { courseId },
+    });
+  };
+
+  // Render a loading message if the teacher is not loaded yet
   if (!teacher) {
     return <div>Loading...</div>;
   }
@@ -116,17 +145,26 @@ function CoursePage() {
                   <p>{course.courseDescription}</p>
                 </div>
                 <div className="list-actions">
+                  {/* Button to delete a course */}
                   <button
                     onClick={() => deleteCourse(course.id)}
                     className="btn btn-delete"
                   >
                     Delete
                   </button>
+                  {/* Button to navigate to course details */}
                   <button
                     onClick={() => goToDetailsPage(course.courseName, course.id)}
                     className="btn btn-details"
                   >
                     Details
+                  </button>
+                  {/* Button to navigate to course statistics */}
+                  <button
+                    onClick={() => goToStatisticsPage(course.id)}
+                    className="btn btn-statistics"
+                  >
+                    View Statistics
                   </button>
                 </div>
               </li>

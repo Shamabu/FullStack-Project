@@ -15,6 +15,7 @@ import ExamPage from './ExamComp/ExamPage';
 import ExamSubmissionsPage from './ExamSubmissionsComp/ExamSubmissionsPage';
 import GradesPage from './GradeComp/GradesPage';
 import CourseTap from './DetailsComp/CourseTap';
+import StatisticsPage from './StatisticsPage';
 
 function App() {
   return (
@@ -35,6 +36,8 @@ function App() {
       <Route path="/exams" element={<ExamPage />} />
       <Route path="/exam-submissions" element={<ExamSubmissionsPage />} />
       <Route path="/grades" element={<GradesPage />} /> 
+      <Route path="/statistics/:courseId" element={<StatisticsPage />} />
+
     </Routes>
   );
 }

@@ -1,5 +1,6 @@
+//Admin - Add Student
 import React, { useState, useEffect } from "react";
-import StudentApi from "./ApiCalls/StudentsApi";
+import StudentApi from "../ApiCalls/StudentsApi";
 
 function StudentCheckPage() {
   const [students, setStudents] = useState([]);
@@ -19,6 +20,10 @@ function StudentCheckPage() {
 
   // Fetch all students on component mount
   useEffect(() => {
+    fetchAllStudents();
+  }, []);
+
+  const fetchAllStudents = () => {
     StudentApi.getStudents()
       .then((response) => {
         setStudents(response.data);
@@ -26,7 +31,7 @@ function StudentCheckPage() {
       .catch((error) => {
         console.error("Error fetching students:", error);
       });
-  }, []);
+  };
 
   // Fetch a student by ID
   const handleGetStudent = () => {
@@ -55,11 +60,32 @@ function StudentCheckPage() {
     StudentApi.createStudent(newStudent)
       .then((response) => {
         alert("Student created successfully!");
-        // Optionally, you can re-fetch students to update the list
-        setStudents([...students, response.data]);
+        fetchAllStudents();
+        setNewStudent({
+          firstName: "",
+          lastName: "",
+          dateBirth: "",
+          gender: "",
+          phoneNumber: "",
+          adress: "",
+          email: "",
+          enrollmentDate: ""
+        });
       })
       .catch((error) => {
         console.error("Error creating student:", error);
+      });
+  };
+
+  // Delete a student
+  const handleDeleteStudent = (id) => {
+    StudentApi.deleteStudent(id)
+      .then(() => {
+        alert("Student deleted successfully!");
+        fetchAllStudents();
+      })
+      .catch((error) => {
+        console.error("Error deleting student:", error);
       });
   };
 
@@ -70,7 +96,15 @@ function StudentCheckPage() {
       <h3>All Students</h3>
       <ul>
         {students.map((student) => (
-          <li key={student.id}>{`${student.firstName} ${student.lastName}`}</li>
+          <li key={student.id}>
+            {`${student.firstName} ${student.lastName}`}
+            <button
+              onClick={() => handleDeleteStudent(student.id)}
+              style={{ marginLeft: "10px", color: "red" }}
+            >
+              🗑️ Delete
+            </button>
+          </li>
         ))}
       </ul>
 

@@ -1,3 +1,4 @@
+//views all submissions
 import React, { useEffect, useState } from 'react';
 import AssignmentSubmissionApi from './ApiCalls/AssignmentSubmissionApi';
 

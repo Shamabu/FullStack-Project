@@ -21,6 +21,10 @@ class GradeApi {
         });
     }
     
+    // Fetch grades by course ID
+    getGradesByCourse(courseId) {
+        return axios.get(`${API_URL}/course/${courseId}`);
+    }
 
     // Update an existing grade by its ID
     updateGrade(gradeId, updatedGrade) {

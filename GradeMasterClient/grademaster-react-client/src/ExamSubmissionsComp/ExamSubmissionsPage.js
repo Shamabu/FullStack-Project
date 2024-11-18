@@ -1,3 +1,4 @@
+//navigates from exams , views students submissions
 import React, { useState, useEffect } from 'react';
 import ExamSubmissionApi from '../ApiCalls/ExamSubmissionApi';
 import { useLocation } from 'react-router-dom';

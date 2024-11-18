@@ -1,3 +1,4 @@
+//Navigates From Assignments Comp , shows all student submissions for this Assignment 
 import React, { useState, useEffect } from 'react';
 import AssignmentSubmissionApi from '../ApiCalls/AssignmentSubmissionApi';
 import { useLocation } from 'react-router-dom';

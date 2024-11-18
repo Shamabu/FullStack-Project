@@ -1,12 +1,12 @@
+//Admin - Add/Delete/Edit Teachers In The System 
 import React, { useState, useEffect } from "react";
 import TeachersApi from '../ApiCalls/TeachersApi';
 
-// Component for CRUD operations using server calls
 function TeachersEditing() {
     // State for all teachers
     const [teachers, setTeachers] = useState([]);
 
-    // State for current teacher
+    // State for the current teacher being added/edited
     const [currentTeacher, setCurrentTeacher] = useState({
         id: 0,
         email: '',
@@ -16,19 +16,23 @@ function TeachersEditing() {
         phoneNumber: ''
     });
 
-    // Edit / create
+    // State to toggle between add and edit modes
     const [editing, setEditing] = useState(false);
 
-    // Fetch teachers when component mounts
+    // Fetch all teachers when the component mounts
     useEffect(() => {
         refreshTeachers();
     }, []);
 
-    // Fetch all teachers from the API and update state
+    // Fetch teachers from the server
     const refreshTeachers = () => {
-        TeachersApi.getTeachers().then(response => {
-            setTeachers(response.data);
-        });
+        TeachersApi.getTeachers()
+            .then(response => {
+                setTeachers(response.data);
+            })
+            .catch(error => {
+                console.error("Error fetching teachers:", error);
+            });
     };
 
     // Handle input change for form fields
@@ -39,56 +43,69 @@ function TeachersEditing() {
 
     // Add a new teacher
     const addTeacher = () => {
-        TeachersApi.createTeacher(currentTeacher).then(() => {
-            refreshTeachers();
-            setCurrentTeacher({
-                id: 0,
-                email: '',
-                password: '',
-                firstName: '',
-                lastName: '',
-                phoneNumber: ''
+        TeachersApi.createTeacher(currentTeacher)
+            .then(() => {
+                refreshTeachers(); // Refresh the list of teachers
+                resetForm(); // Clear the form after adding
+            })
+            .catch(error => {
+                console.error("Error adding teacher:", error);
             });
-        });
     };
 
     // Update an existing teacher
     const updateTeacher = () => {
-        TeachersApi.updateTeacher(currentTeacher.id, currentTeacher).then(() => {
-            refreshTeachers();
-            setCurrentTeacher({
-                id: 0,
-                email: '',
-                password: '',
-                firstName: '',
-                lastName: '',
-                phoneNumber: ''
+        TeachersApi.updateTeacher(currentTeacher.id, currentTeacher)
+            .then(() => {
+                refreshTeachers(); // Refresh the list of teachers
+                resetForm(); // Clear the form after updating
+                setEditing(false); // Switch back to add mode
+            })
+            .catch(error => {
+                console.error("Error updating teacher:", error);
             });
-            setEditing(false);
-        });
     };
 
-    // Delete a teacher by id
+    // Delete a teacher
     const deleteTeacher = id => {
-        TeachersApi.deleteTeacher(id).then(() => {
-            refreshTeachers();
-        });
+        TeachersApi.deleteTeacher(id)
+            .then(() => {
+                refreshTeachers(); // Refresh the list of teachers after deletion
+            })
+            .catch(error => {
+                console.error("Error deleting teacher:", error);
+            });
     };
 
-    // Edit teacher by setting current teacher and switching to editing mode
+    // Populate the form with teacher details for editing
     const editTeacher = teacher => {
         setCurrentTeacher(teacher);
         setEditing(true);
     };
 
+    // Reset the form fields
+    const resetForm = () => {
+        setCurrentTeacher({
+            id: 0,
+            email: '',
+            password: '',
+            firstName: '',
+            lastName: '',
+            phoneNumber: ''
+        });
+    };
+
     return (
-        <div className="container">
-            <h2>Teachers</h2>
+        <div className="teachers-container">
+            <h2>Teachers Management</h2>
+
+            {/* Form for adding/updating teachers */}
             <form
                 onSubmit={event => {
                     event.preventDefault();
                     editing ? updateTeacher() : addTeacher();
                 }}
+                className="teacher-form"
             >
                 <div className="form-group">
                     <label>Email</label>
@@ -98,6 +115,7 @@ function TeachersEditing() {
                         value={currentTeacher.email}
                         onChange={handleInputChange}
                         className="form-control"
+                        required
                     />
                 </div>
                 <div className="form-group">
@@ -108,6 +126,7 @@ function TeachersEditing() {
                         value={currentTeacher.password}
                         onChange={handleInputChange}
                         className="form-control"
+                        required
                     />
                 </div>
                 <div className="form-group">
@@ -118,6 +137,7 @@ function TeachersEditing() {
                         value={currentTeacher.firstName}
                         onChange={handleInputChange}
                         className="form-control"
+                        required
                     />
                 </div>
                 <div className="form-group">
@@ -128,6 +148,7 @@ function TeachersEditing() {
                         value={currentTeacher.lastName}
                         onChange={handleInputChange}
                         className="form-control"
+                        required
                     />
                 </div>
                 <div className="form-group">
@@ -138,13 +159,21 @@ function TeachersEditing() {
                         value={currentTeacher.phoneNumber}
                         onChange={handleInputChange}
                         className="form-control"
+                        required
                     />
                 </div>
                 <button type="submit" className="btn btn-primary">
-                    {editing ? 'Update' : 'Add'}
+                    {editing ? 'Update Teacher' : 'Add Teacher'}
                 </button>
+                {editing && (
+                    <button type="button" onClick={resetForm} className="btn btn-secondary">
+                        Cancel Edit
+                    </button>
+                )}
             </form>
-            <table className="table table-striped">
+
+            {/* Table to display the list of teachers */}
+            <table className="table table-striped teacher-table">
                 <thead>
                     <tr>
                         <th>Email</th>
@@ -164,13 +193,13 @@ function TeachersEditing() {
                             <td>
                                 <button
                                     onClick={() => editTeacher(teacher)}
-                                    className="btn btn-warning"
+                                    className="btn btn-warning btn-sm"
                                 >
                                     Edit
                                 </button>
                                 <button
                                     onClick={() => deleteTeacher(teacher.id)}
-                                    className="btn btn-danger"
+                                    className="btn btn-danger btn-sm"
                                 >
                                     Delete
                                 </button>

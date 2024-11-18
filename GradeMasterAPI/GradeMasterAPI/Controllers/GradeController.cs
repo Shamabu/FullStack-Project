@@ -119,5 +119,27 @@ namespace GradeMasterAPI.Controllers
         {
             return _context.Grade.Any(e => e.Id == id);
         }
+        // GET: api/Grade/course/{courseId}
+        [HttpGet("course/{courseId}")]
+        public async Task<ActionResult<IEnumerable<GradeDTO>>> GetGradesByCourseId(int courseId)
+        {
+            var grades = await _context.Grade
+                .Where(g => g.CourseId == courseId)
+                .Select(g => new GradeDTO
+                {
+                    Id = g.Id,
+                    FinalGrade = g.FinalGrade,
+                    StudentId = g.StudentId,
+                    CourseId = g.CourseId
+                }).ToListAsync();
+
+            if (!grades.Any())
+            {
+                return NotFound($"No grades found for course ID {courseId}.");
+            }
+
+            return Ok(grades);
+        }
+
     }
 }

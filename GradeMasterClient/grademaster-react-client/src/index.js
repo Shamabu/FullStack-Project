@@ -5,22 +5,27 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App'; // Import the App component that will contain your routes
 import AttendancePage from './AttendancePage';
-import StudentCheckPage from './StudentCheckPage';
-import EnrollmentsCheckPage from './Admin/EnrollmentsCheckPage';
-import StudentPage from './Admin/StudentPage';
-import StudentAttendance from './AttendanceComp/StudentAttendance';
+import StudentCheckPage from './Admin/StudentCheckPage'; // Admin - Adds Students 
+import EnrollmentsCheckPage from './Admin/EnrollmentsCheckPage'; //Admin - Enrolls Student To Course 
+import StudentAttendance from './AttendanceComp/StudentAttendance';//navigates from details with course and teacher data
 import Attendance from './AttendanceComp/Attendance';
-import AssignmentCheckPage from './AssignmentCheckPage';
-import AdminAssignmentSubmissionPage from './AssignmentSubmissionComp/AssignmentSubmissionPage';
+import AdminAssignmentSubmissionPage from './AssignmentSubmissionComp/AssignmentSubmissionPage';//Admin - Student Adds Assignment Submission
 import ExamSubmissionAdmin from './ExamComp/ExamSubmissionAdmin';
-import AllSubmissionsPage from './AllSubmissionsPage';
 import AdminExamSubmissionPage from './ExamSubmissionsComp/AdminExamSubmissionPage';
+import SubmitAssignmentPage from './Admin/SubmitAssignmentPage';//secondary Assignment Submit Page 
+import TeachersEditing from './Admin/TeachersEditing';//Admin - Add/Delete/Edit Teachers In The System
+import AssignmentsPage from './AssignmentComp/AssignmentPage'; //Navigates From Dashboard Page , Views/Add Assignments By The Teacher 
+import AllSubmissionsPage from './AllSubmissionsPage';//views all submissions
+import StatisticsPage from './StatisticsPage';
+
+
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-    <App/>
+    <App />
     
     </BrowserRouter>
   </React.StrictMode>
